@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Pecherie\Modele\HTTP;
 
 use App\Pecherie\Configuration\ConfigurationBaseDeDonnees;
+use App\Pecherie\Modele\HTTP\Cookie;
 use Exception;
 
 class Session

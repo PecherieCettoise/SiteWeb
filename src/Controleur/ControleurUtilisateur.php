@@ -2,12 +2,11 @@
 
 namespace App\Pecherie\Controleur;
 
-use App\Pecherie\Lib\ConnexionUtilisateur;
 use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\MotDePasse;
 use App\Pecherie\Modele\DataObject\Utilisateur;
+use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use App\Pecherie\Modele\Repository\UtilisateurRepository;
-use App\Pecherie\Controleur;
 
 
 class ControleurUtilisateur extends ControleurGenerique
@@ -173,7 +172,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
     public static function afficherFormulaireConnexion()
     {
-        ControleurGenerique::afficherVue('Vue/formulaireLogin.php', ['titre' => "Connexion"]);
+        ControleurGenerique::afficherVue('/../Vue/formulaireLogin.php', ['titre' => "Connexion"]);
     }
 
     public static function verificationDuLogin(?string $mdp_en_clair, ?string $login) : array{

@@ -1,7 +1,11 @@
 <?php
+
 namespace App\Pecherie\Controleur;
 
-class ControleurClient extends controleurGenerique {
+use App\Pecherie\Controleur\ControleurGenerique ;
+
+
+class ControleurClient extends ControleurGenerique {
 
 
 

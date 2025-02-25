@@ -2,12 +2,14 @@
 
 namespace App\Pecherie\Modele\Repository;
 
-use App\Pecherie\Lib\ConnexionUtilisateur;
-use App\Pecherie\Lib\MotDePasse;
-use App\Pecherie\Modele\DataObject\AbstractDataObject;
-use App\Pecherie\Modele\DataObject\Clients;
+use App\Pecherie\Modele\Repository\AbstractRepository;
 use App\Pecherie\Modele\DataObject\Utilisateur;
+use App\Pecherie\Modele\DataObject\Clients;
+use App\Pecherie\Modele\DataObject\AbstractDataObject;
+use ConnexionUtilisateur;
+use MotDePasse;
 use PDO;
+
 
 class UtilisateurRepository extends AbstractRepository
 {

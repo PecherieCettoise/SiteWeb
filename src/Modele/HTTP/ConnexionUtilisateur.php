@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Pecherie\Lib;
+namespace App\Pecherie\Modele\HTTP;
 
-
-
-
-use App\Pecherie\Modele\HTTP\Cookie;
 use App\Pecherie\Modele\HTTP\Session;
 
 class ConnexionUtilisateur

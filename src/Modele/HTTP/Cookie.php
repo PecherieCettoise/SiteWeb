@@ -2,6 +2,7 @@
 
 namespace App\Pecherie\Modele\HTTP;
 
+
 class Cookie {
 
     public static function enregistrer(string $cle, mixed $valeur, ?int $dureeExpiration = null): void {

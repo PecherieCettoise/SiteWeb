@@ -1,7 +1,6 @@
 <?php
-namespace App\Pecherie\Modele\DataObject;
 
-use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees as ConnexionBaseDeDonnees;
+namespace App\Pecherie\Modele\DataObject;
 
 class Clients extends AbstractDataObject {
 

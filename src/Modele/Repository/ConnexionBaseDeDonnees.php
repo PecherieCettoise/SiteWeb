@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Pecherie\Modele\Repository;
 
 use App\Pecherie\Configuration\ConfigurationBaseDeDonnees;
 use PDO;
 use PDOException;
+
 
 class ConnexionBaseDeDonnees {
     private static ?ConnexionBaseDeDonnees $instance = null;

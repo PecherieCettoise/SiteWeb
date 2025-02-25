@@ -1,8 +1,7 @@
 <?php
+
 namespace App\Pecherie\Modele\DataObject;
 
-
-use App\Pecherie\Modele\DataObject\AbstractDataObject;
 
 class Utilisateur extends AbstractDataObject {
 

@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Pecherie\Configuration;
+
 
 class ConfigurationBaseDeDonnees {
     protected static array $configurationBaseDeDonnees = [
-        'nomHote' => '172.17.0.2',  // Adresse IP du conteneur MySQL (Docker)
+        'nomHote' => '172.17.0.3',  // Adresse IP du conteneur MySQL (Docker) //172.17.0.3
         'nomBaseDeDonnees' => 'PecherieCettoise',
         'port' => '3306',
         'login' => 'root',

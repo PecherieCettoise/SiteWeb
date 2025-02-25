@@ -2,13 +2,9 @@
 
 namespace App\Pecherie\Modele\Repository;
 
-use App\Pecherie\Controleur\ControleurGenerique;
-use App\Pecherie\Lib\MessageFlash;
-use App\Pecherie\Modele\DataObject\Clients;
-use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees as ConnexionBaseDeDonnees;
 use App\Pecherie\Modele\DataObject\AbstractDataObject;
-use http\Client;
-use http\Env\Url;
+use App\Pecherie\Modele\DataObject\Clients;
+
 
 class ClientsRepository extends AbstractRepository
 {

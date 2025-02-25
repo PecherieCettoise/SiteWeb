@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Pecherie\Modele\Repository;
+
 use App\Pecherie\Modele\DataObject\AbstractDataObject;
+
+
 abstract class AbstractRepository {
 
 
