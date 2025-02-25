@@ -1,0 +1,2534 @@
+/* Styles globals */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background: #333646;
+}
+
+a:hover{
+    color: orangered;
+}
+
+
+h1, h2, h3,h4{
+    font-family: Dancing Script;
+}
+
+p{
+    font-family: Lora;
+}
+
+/* Fin du style glabal*/
+
+
+/* Header Styles */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo img {
+    max-width: 100%;       /* Assure que le logo s'adapte à la largeur de son conteneur */
+    height: auto;          /* Maintient l'aspect du logo */
+    max-height: 60px;      /* Limite la taille du logo */
+}
+
+.header-bouton {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+.header-bouton a {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+    color: black;
+}
+
+/* Nouveau style pour le conteneur de Google Translate */
+.header-translate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;  /* Ajoute un peu d'espace entre le dernier lien et le widget de traduction */
+}
+
+/* Fin du style header */
+
+
+
+
+/* Footer Styles */
+footer {
+
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    color: black;
+    font-family: Arial, sans-serif;
+    background: white;
+}
+
+.mention a{
+    text-decoration: none;
+    color: #FF6347;
+}
+
+.mention p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-mention {
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.footer-mention p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.footerNom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.contact-container,
+.footer-bouton,
+.map-container {
+    flex: 1 1 30%;
+    min-width: 250px;
+}
+
+.footer-bouton a {
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 17px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+    color: slategrey;
+
+}
+
+.btn-image img {
+    width: 40px !important;  /* Force la taille */
+    height: 40px !important; /* Force la hauteur */
+    padding-right: 20px;
+    display: block;           /* Empêche l'image d'avoir un comportement inline */
+
+}
+
+/* Contact Styles */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-container div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-container img {
+    width: 30px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.contact-container p {
+    margin: 0;
+    color: slategrey;
+
+}
+
+/* Map Styles */
+.map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.map-container h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#map {
+    width: 100%;    /* La carte prendra toute la largeur du parent */
+    height: 300px;  /* Ajuste la hauteur selon ce qui te convient */
+    min-height: 200px; /* Hauteur minimale pour ne pas être trop petite */
+    border-radius: 15px;
+
+}
+
+/* Fin du style du footer */
+
+
+
+/*Style de la page Acceuil */
+.image-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 400px !important;
+    margin: 0;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background: white;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 5s ease-in-out;
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+}
+
+.image-container h1,
+.image-container p {
+    position: absolute;
+    top: 40%; /* Place au centre verticalement */
+    left: 50%; /* Place au centre horizontalement */
+    transform: translate(-50%, -50%); /* Corrige l'alignement */
+    color: white; /* Assurez-vous que le texte est visible */
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 2; /* Place le texte au-dessus de l'image */
+}
+
+.image-container h1{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.image-container p {
+    top: 60%; /* Décale un peu le paragraphe pour qu'il soit sous le titre */
+    font-size: 20px;
+}
+
+.texte-container {
+    width: 170px;
+    margin: 0 auto;
+    margin-top: -60px;
+    margin-bottom: -60px;
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    position: relative;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.texte-container img {
+    max-width: 100%;  /* Pour que l'image soit responsive */
+    height: auto;
+}
+/* Définir un fond pour la section devise */
+.devise {
+    text-align: center;
+
+    padding-bottom: 30px;
+
+}
+
+.devise p{
+    padding-top: 50px;
+    font-size: 40px;
+}
+
+.logo-devise {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    border: 4px solid white;
+    border-radius: 10px;
+}
+
+.logo-item {
+    transition: transform 0.5s ease;
+    opacity: 0.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.logo-item:hover {
+    transform: scale(1.1); /* Augmente la taille de l'élément */
+    opacity: 1; /* Rend l'élément plus visible */
+}
+
+.logo-item img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s ease;
+}
+
+.logo-item:hover img {
+    transform: rotate(15deg); /* Rotation de l'image au survol */
+}
+
+.logo-item p {
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.logo-item:hover p {
+    color: #FF6347; /* Change la couleur du texte au survol */
+}
+
+
+/* Promo Section */
+.promo {
+    background: white;
+    padding: 30px;
+}
+
+/* Cadre-Achat Section */
+.cadre-achat {
+    display: flex;
+    flex-direction: column; /* Organise les éléments en colonne */
+    align-items: center; /* Centre les éléments horizontalement */
+    justify-content: center; /* Centre les éléments verticalement */
+    text-align: center;
+    width: 900px; /* Assure que le cadre prend toute la largeur disponible */
+    position: relative;
+    height: 500px;
+    margin: 0 auto;
+    border: 10px solid slategrey;
+    overflow: hidden;
+    padding-bottom: 100px;
+
+}
+
+.cadre-achat h3 {
+    text-align: center; /* Centre le texte */
+    margin-bottom: 15px; /* Ajoute un espace en dessous */
+    font-size: 24px;
+    color: black;
+}
+
+
+
+.cadre-achat img {
+    width: 70%;
+    height: 60%;
+}
+
+/* Arrow Buttons */
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+button.prev:hover, button.next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Proximité Section */
+.proximite {
+    text-align: center;
+
+    padding-top: 50px;
+    color: white;
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.debutProximite {
+    color: white;
+}
+
+.debutProximite h2 {
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.debutProximite h3 {
+    color: orangered;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+}
+
+.debutProximite p {
+    text-align: center;
+
+}
+
+/* Photo Blocks */
+.photo {
+    text-align: center;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo img {
+    max-width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.photo table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.photo td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.photo p {
+    font-weight: bold;
+}
+
+/* Lieu Section */
+.lieu {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 200px;
+}
+
+.lieu h2 {
+    font-size: 30px;
+}
+
+.bloc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+}
+
+.bloc img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.texte {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Fleche */
+.fleche {
+    width: 20px !important;
+    height: auto;
+    margin-top: 5px;
+}
+
+/* Video Section */
+.video p {
+    padding-top: 50px;
+    font-weight: bold;
+    padding-bottom: 30px;
+}
+
+/* Label Section */
+.label {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 15px;
+    padding-bottom: 50px;
+}
+
+.label h2 {
+    font-size: 30px;
+}
+
+.label p{
+    font-size: 20px;
+}
+
+/* Confiance Section */
+.confiance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.confiance h2 {
+    margin: 0 20px;
+    font-size: 24px;
+}
+
+/* Style global pour la section de confiance */
+.confiance {
+    text-align: center; /* Centrer tout le contenu */
+    margin-top: 20px; /* Espace en haut de la section */
+}
+
+/* Style pour le titre au-dessus du carrousel */
+.titreConfiance {
+    margin-bottom: 20px; /* Espacement entre le titre et le carrousel */
+}
+
+/* Style spécifique au titre */
+.titreConfiance h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0; /* Retirer les marges par défaut */
+    text-align: center; /* S'assurer que le titre est centré */
+}
+
+
+/* Confiance Section */
+.confiance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    flex-direction: column;
+    text-align: center;
+}
+
+.confiance h2 {
+    margin: 0 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    padding: 40px;
+}
+
+
+
+/* Style global pour le carousel */
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 80%;
+    overflow-x: scroll;  /* Ajoute overflow caché */
+    position: relative;
+    padding: 20px;
+
+}
+
+/* Zone contenant les images */
+.carousel-images {
+    display: flex;
+    gap: 10px; /* Réduit l'espacement entre les images */
+    animation: scroll 10s linear infinite; /* Animation continue */
+}
+
+/* Images dans le carrousel */
+.carousel-images img {
+    flex-shrink: 0;
+    width: 60%; /* Ajusté pour montrer 5 images à la fois */
+    max-width: 180px;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+
+
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 82%;
+    border-top: 2px solid white; /* La ligne de séparation */
+    margin: 20px auto;
+}
+
+
+.separator-text {
+    position: absolute;
+    padding: 0 10px; /* Espacement autour du texte */
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    background: #333646;
+}
+
+.video-container {
+    position: relative;
+    width: 100%; /* Prend toute la largeur du parent */
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 ratio (tu peux ajuster ce pourcentage pour d'autres ratios) */
+    overflow: hidden; /* Masque tout dépassement */
+    border-radius: 15px; /* Garde la bordure arrondie du conteneur */
+}
+
+#video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assure que la vidéo couvre toute la zone sans déformation */
+
+}
+
+.video {
+    padding-bottom: 100px;
+}
+
+
+
+.imgChiffre {
+    display: flex;
+    justify-content: center;
+    gap: 200px; /* Espacement entre les images*/
+    padding-top: 30px;
+}
+
+.imgChiffre div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.imgChiffre img {
+    width: 100px; /* Ajuste la taille selon tes besoins */
+    height: auto;
+}
+
+.imgChiffre p {
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+/* Cache les éléments avant qu'ils ne soient visibles */
+.fade-right, .fade-left, .fade-up {
+    opacity: 0;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Animation de droite à gauche */
+.fade-right {
+    transform: translateX(100px);
+}
+
+/* Animation de gauche à droite */
+.fade-left {
+    transform: translateX(-100px);
+}
+
+/* Animation du bas vers le haut */
+.fade-up {
+    transform: translateY(100px);
+}
+
+/* Quand l'élément entre dans la vue, l'animation s'active */
+.fade-right.visible, .fade-left.visible, .fade-up.visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+/* Lorsqu'ils deviennent visibles */
+.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/*Fin du style de la page d'Acceuil */
+
+
+.imageMer {
+    position: relative;
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+.imageMer img {
+    width: 100%;
+    height: 400px;
+    display: block;
+}
+
+.imageMer h1 {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Pour qu'il soit lisible sur l'image */
+    font-size: 2.5rem; /* Ajuste la taille selon ton besoin */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Ajoute une ombre pour améliorer la lisibilité */
+}
+
+.conteneur-experience {
+    display: flex;
+    align-items: center; /* Centre verticalement */
+    justify-content: center; /* Centre horizontalement */
+    gap: 30px; /* Espacement entre les blocs */
+    width: 100%;
+
+}
+
+.imageBateau, .experience {
+    flex: 1; /* Les deux prennent le même espace */
+    max-width: 20%;
+}
+
+.imageBateau img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Effet arrondi si souhaité */
+    border: 3px solid white;
+}
+
+.imageBateau p {
+    text-align: center;
+}
+
+.imageBateau, .experience {
+    flex: 1; /* Les deux prennent le même espace */
+    max-width: 500px;
+}
+
+.conteneur-experience {
+    display: flex;
+    align-items: flex-start; /* Centre verticalement */
+    justify-content: center; /* Centre horizontalement */
+    gap: 30px; /* Espacement entre les blocs */
+    width: 100%;
+    min-height: 100vh; /* Prend toute la hauteur de l'écran */
+}
+
+.imageBateau{
+    padding-right: 50px;
+}
+
+.imageBateau img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Effet arrondi si souhaité */
+}
+
+.imageBateau p {
+    text-align: center;
+}
+
+.experience {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5%;
+
+}
+
+.motsOrdre {
+    display: flex;
+    gap: 10px;
+
+}
+
+.motsOrdre img {
+    width: 20px;
+    height: 20px;
+}
+.conteneur-histoire {
+    display: flex; /* Utilise flex pour disposer les éléments à côté */
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: flex-start; /* Aligne le texte et l'image en haut */
+    gap: 20px; /* Ajoute un écart entre le texte et l'image */
+    min-height: 40vh; /* Prend toute la hauteur de l'écran */
+    flex-wrap: wrap; /* Permet de passer à la ligne sur les petits écrans */
+    padding: 40px;
+}
+
+.histoire {
+    display: flex;
+    flex-direction: column; /* Organise le titre et le texte en colonne */
+    justify-content: flex-start; /* Aligne les éléments au sommet */
+    max-width: 40%; /* Limite la largeur du texte */
+    padding: 10px; /* Ajoute du padding autour du texte */
+}
+
+.imageHistoire {
+    display: flex;
+    justify-content: center; /* Centre l'image horizontalement */
+    align-items: center; /* Centre l'image verticalement */
+    max-width: 350px; /* Limite la taille de l'image */
+    width: 100%; /* Permet à l'image de s'ajuster à la largeur disponible */
+}
+
+.imageHistoire img {
+    width: 100%; /* L'image prend toute la largeur de son conteneur */
+    height: auto;
+    border-radius: 10px; /* Coins arrondis pour l'image */
+}
+
+.histoire p {
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.histoire h1 {
+    text-align: center;
+}
+
+
+.TitreBleu {
+    color: steelblue; /* Bleu pour le titre */
+    font-size: 2rem;
+    margin-bottom: 10px; /* Espacement sous le titre */
+}
+
+
+
+
+
+
+
+
+
+
+
+.pageMention h2 {
+    font-size: 28px;
+    color: steelblue;
+    margin-top: 20px;
+}
+
+.pageMention p{
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.pageMention {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.experience img{
+    height: 50px;
+    width: 10%;
+}
+
+.motsOrdre {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.motsOrdre p{
+    max-width: 500px;
+}
+
+.conteneur-mareyeur {
+    display: flex; /* Disposer les éléments côte à côte */
+    justify-content: space-between; /* Espacer les éléments */
+    align-items: flex-start; /* Alignement au sommet */
+    gap: 20px; /* Espacement entre les sections */
+    padding: 20px; /* Marge interne pour espacer les bords */
+}
+
+.mareyeur {
+    display: flex;
+    flex-direction: column; /* Aligner les éléments en colonne */
+    justify-content: flex-start; /* Aligner le texte au sommet */
+    gap: 15px; /* Espacement entre les éléments */
+    align-items: center;
+    text-align: center;
+    border: 5px solid white;
+    width: 50%;
+    margin-right: 20%;
+}
+
+.mareyeur h1 {
+    font-size: 1.5rem; /* Réduit la taille du titre */
+    color: #007bff; /* Bleu pour le titre */
+}
+
+.mareyeur p {
+    font-size: 1rem; /* Réduit la taille du texte */
+    line-height: 1.4; /* Espacement entre les lignes */
+    max-width: 100%; /* Limite la largeur du texte pour éviter qu'il soit trop large */
+}
+
+.mareyeur img {
+    max-width: 30%; /* Réduit la largeur des images */
+    height: 60px; /* Ajuste la taille des images */
+    margin-bottom: 15px; /* Espacement sous les images */
+}
+
+.image-mareyeur {
+    display: flex;
+    flex-direction: column; /* Le texte est en dessous de l'image */
+    justify-content: center;
+    align-items: center;
+    max-width: 30%; /* Limite la taille de l'image et du texte */
+    margin-left: 20%;
+
+}
+
+.image-mareyeur img {
+    max-width: 100%; /* L'image occupe 100% de la largeur du conteneur */
+    height: auto; /* Garde les proportions */
+    border-radius: 10px; /* Coins arrondis */
+    margin-bottom: 15px;
+
+}
+
+.image-mareyeur p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.respect {
+    border: 2px dashed #f4d41a;
+}
+
+.respect h2{
+    color: #f4d41a;
+}
+
+.produit {
+    border: 2px dashed steelblue;
+}
+
+.produit h2{
+    color: steelblue;
+}
+
+.environnement {
+    border: 2px dashed mediumseagreen;
+}
+
+.environnement h2{
+    color: mediumspringgreen;
+
+}
+
+.engagement-container {
+    text-align: center; /* Centre le titre horizontalement */
+    padding-top: 40px; /* Espacement en haut */
+}
+
+.engagement {
+    display: flex;
+    flex-direction: row; /* Garde les éléments en ligne */
+    align-items: flex-start; /* Garde les éléments alignés en haut */
+    justify-content: center; /* Centre l'ensemble du contenu horizontalement */
+    gap: 50px;
+    padding: 60px;
+    flex-wrap: wrap; /* Pour que les éléments se réorganisent si l'écran est trop petit */
+}
+
+.titreH2Engagement {
+    font-size: 30px;
+}
+
+.respect,
+.produit,
+.environnement {
+    flex: 0.25; /* Chaque boîte occupe une part égale de l'espace */
+    padding: 20px;
+    height: 390px; /* Hauteur fixe pour chaque boîte */
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: space-between; /* Assure que le contenu est bien espacé */
+}
+
+.respect h2,
+.produit h2,
+.environnement h2 {
+    text-align: center; /* Centre le titre horizontalement */
+}
+
+.respect div p,
+.produit div p,
+.environnement div p {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.respect div img,
+.produit div img,
+.environnement div img {
+    width: 24px;
+    height: 24px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.item img {
+    padding: 10px;
+}
+
+.btn-decouverte {
+    padding-left: 15px;
+    text-decoration: none;
+    color: mediumspringgreen;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: auto; /* L'espacement entre le bouton et le reste des éléments */
+    align-self: flex-start; /* Place le bouton au même niveau que les autres éléments */
+    justify-content: end;
+
+}
+
+.services {
+    text-align: center; /* Centre tout le contenu */
+    margin-top: 20px;
+}
+
+/* Section des images */
+.service-image {
+    display: flex; /* Utilise flexbox pour disposer les images en ligne */
+    gap: 150px; /* Espace de 150px entre chaque image sur les grands écrans */
+    justify-content: center; /* Centre les images horizontalement */
+    background-color: #5D8D99;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Permet aux images de passer à la ligne sur les petits écrans */
+}
+
+/* Images dans la section des services */
+.service-image img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    object-fit: cover; /* Assure que l'image couvre toute la zone sans déformation */
+}
+
+/* Titres */
+.services h2 {
+    font-size: 30px;
+}
+
+
+.menu {
+    width: 40%;
+    margin: 100px auto;
+    border: 4px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: transparent; /* Couleur de fond principale */
+    padding: 15px;
+}
+
+
+
+.accordion-header {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: transparent;
+    color: #00AEEF;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #1E3A5F;
+}
+
+.fleche2 {
+    font-size: 20px;
+    color: #00AEEF;
+    transition: transform 0.3s ease;
+}
+
+.accordion-content {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1.5;
+    display: none;
+}
+
+.accordion-content p {
+    margin: 0;
+}
+
+.accordion-item.active .accordion-content {
+    display: block;
+}
+
+.accordion-item.active .arrow {
+    transform: rotate(180deg);
+}
+
+
+.livraison {
+    display: flex;
+    flex-direction: row; /* Affichage des éléments en ligne */
+    gap: 60px;
+    margin-top: 60px;
+    padding-left: 300px; /* Décalage des éléments vers la droite sur les grands écrans */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+    padding-bottom: 50px;
+}
+
+/* Taille de l'image dans la section Livraison */
+.livraison img {
+    width: 80%; /* Réduit la taille de l'image sur les grands écrans */
+    height: auto; /* Conserve le ratio de l'image */
+    max-width: 600px; /* Limite la taille maximale de l'image */
+}
+
+/* Taille du titre */
+.livraison h2 {
+    font-size: 30px;
+    color:steelblue ;
+    text-align: center;
+}
+
+
+.equipe {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
+}
+
+.equipe-texte h2{
+    font-size: 30px;
+    text-align: center;
+}
+
+.imgG {
+    width: 40%;
+    height: auto; /* Garde les proportions de l'image */
+}
+
+.imgD {
+    height: 343px;
+}
+
+.image-equipe {
+    display: flex; /* Assure que les images sont sur une seule ligne */
+    gap: 50px; /* Ajoute un espace horizontal entre les images */
+    justify-content: center; /* Centre les images horizontalement */
+    align-items: center; /* Aligne les images verticalement */
+    padding: 30px;
+}
+
+
+.clients {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.client-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribue l'espace équitablement */
+    gap: 15px;
+    text-align: center;
+    border: 2px solid #ddd;
+    padding: 15px;
+    width: 300px; /* Largeur fixe uniforme pour toutes les boîtes */
+    height: 350px; /* Hauteur fixe pour toutes les boîtes */
+    margin: 0 auto; /* Centrer les éléments */
+}
+
+.client-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.texte-clients {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    overflow: hidden; /* En cas de débordement de texte */
+}
+
+.alignement{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.separator-text {
+    font-size: 30px;
+
+}
+
+
+.bouton-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+}
+
+.btn-produits {
+    background: #fff;
+    border: none;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    margin-bottom: 20px; /* Réduction de la marge */
+
+}
+
+.btn-produits span {
+    font-size: 18px; /* Ajustement pour les petits écrans */
+    padding: 30px;
+}
+
+.btn-produits:hover {
+    transform: scale(1.1);
+}
+
+.img-bouton {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.produits-details {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 30px auto;
+    background-color: steelblue;
+    border: 3px solid white;
+    padding: 20px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 90%; /* Empêche de prendre trop de place */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 90px;
+}
+
+.produits-details h2 {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.produit-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet le passage à la ligne */
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.produit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+
+    transition: transform 0.2s ease-in-out;
+    width: 250px; /* Taille définie pour éviter les variations */
+    max-width: 90%; /* Pour mobile */
+
+}
+
+.produit-item:hover {
+    transform: scale(1.05);
+}
+
+.produit-item p{
+    color: black;
+    text-align: center;
+}
+
+.produit-image {
+    width: 100%; /* Ajuste à la largeur du conteneur */
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.produits-details h4 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.produits-details.active {
+    display: flex;
+}
+
+
+
+
+
+
+/* Conteneur principal de la section */
+.conteneur-traiteur {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; /* Espace entre le titre et les produits */
+    width: 80%; /* Augmente la largeur pour contenir les images */
+    max-width: 1500px; /* Limite la largeur max */
+    border: 8px solid white;
+    border-radius: 30px;
+    margin: 20px auto 80px auto;
+    overflow: hidden; /* Évite que le bord déborde */
+    padding-top: 30px;
+    margin-top: 80px;
+}
+
+/* Style du titre */
+.conteneur-traiteur h2 {
+    font-size: 35px;
+    text-align: center;
+    color: white;
+}
+
+/* Conteneur des produits */
+.traiteur {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Réduction de l’espace */
+    flex-wrap: nowrap; /* Force une seule ligne */
+    overflow-x: auto; /* Active le défilement horizontal si besoin */
+    padding: 20px;
+    width: 100%; /* Prend toute la largeur du conteneur */
+}
+
+/* Style des éléments (image + texte) */
+.itemm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 280px; /* Permet un meilleur ajustement */
+}
+
+/* Style des images */
+.itemm img {
+    width: 280px; /* Légère réduction pour mieux rentrer */
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Style des textes sous les images */
+.itemm p {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+
+
+
+.provenance  {
+    padding-top: 60px;
+    text-align: center;
+    color: #f4d41a;
+}
+
+.provenance img{
+    width: 40%;
+    height: auto;
+}
+
+
+.client-conteneur {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row; /* Par défaut : image à droite */
+    gap: 50px;
+    margin: 20px 0;
+}
+
+.text-client ,
+.text-client-inverse{
+    width: 50%;
+    text-align: left;
+    color: #fff;
+}
+
+.text-client-inverse{
+    width: 50%;
+    text-align: right;
+    color: #fff;
+}
+
+.text-client h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.jaune-client {
+    color: #f5c046; /* Jaune pour le respect du client */
+}
+
+.bleu-produit {
+    color: #3fa9f5; /* Bleu pour le respect des espèces */
+}
+
+.vert-engagement {
+    color: #3cb371; /* Vert pour le respect de l'environnement */
+}
+
+.text-client p,
+.text-client-inverse{
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.img-client {
+    width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles généraux */
+.debut-actualite p {
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 60px;
+}
+
+.club {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.club img {
+    margin: 0 auto;
+    padding-top: 30px;
+    max-width: 100%;  /* Assure que l'image ne dépasse pas la largeur de son conteneur */
+    height: auto;     /* Garde les proportions de l'image */
+    display: block;   /* Permet d'éviter des espaces en bas de l'image */
+    opacity: 0;  /* Commence par être invisible */
+    transition: opacity 0.5s ease-out;
+}
+
+
+.club h2 {
+    font-size: 30px;
+}
+
+.corps-actualite {
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 70%;
+    display: flex;
+}
+
+.corps-actualite-conteneur {
+    width: 50%;
+    padding-right: 150px;
+}
+
+.corps-actualite-conteneur h2 {
+    padding-bottom: 40px;
+    font-size: 30px;
+}
+
+.image-carousel {
+    position: relative;
+    max-width: 70%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.carousel-image {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.image-carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.image-carousel button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Candidature */
+
+.candidature form h1 {
+    border-bottom: black 3px solid;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    height: 80px;
+    margin-bottom: 50px;
+    padding-top: 50px;
+    background-color: rgba(200, 230, 255, 0.7); /* Bleu clair avec 30% d'opacité */
+}
+
+
+form div {
+    padding-left: 40px;
+}
+
+
+/* Image de fond */
+.candidature {
+    background-image: url('../images/candidature/sete.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* L'image ne défile pas */
+    height: 100%; /* S'assure que l'image couvre toute la fenêtre */
+    width: 100%;
+}
+
+
+
+
+/* Style du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre le contenu */
+    border: #333333 3px solid;
+    width: 40%; /* Taille par défaut */
+    max-width: 600px; /* Empêche le formulaire d’être trop large */
+    margin: 50px auto;
+    border-radius: 30px;
+    padding-bottom: 30px;
+    background-color: rgba(255, 255, 255, 0.60);
+    color: black;
+    gap: 30px; /* Espacement entre les éléments */
+    transition: all 0.3s ease;
+
+}
+
+/* Conteneur des champs */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%; /* Empêche le dépassement */
+}
+
+/* Labels du formulaire */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Ajustement des inputs et textarea */
+textarea, input {
+    width: 90%; /* S’adapte au conteneur */
+    border-radius: 10px;
+    min-height: 30px;
+    padding: 5px;
+}
+
+/* Style des boutons */
+form button {
+    width: 50%;
+    height: 40px;
+    border-radius: 30px;
+}
+
+
+
+
+/* Responsive pour tablettes */
+@media (max-width: 1024px) {
+        form {
+        width: 60%; /* Formulaire plus large sur tablette */
+    }
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+    form {
+        width: 80%; /* Plus large sur petit écran */
+        gap: 50px;
+    }
+
+    .form-group {
+        width: 70%;
+    }
+
+    form button {
+        width: 70%;
+    }
+}
+
+/* Responsive pour mobiles */
+@media (max-width: 480px) {
+    form {
+        width: 90%; /* Formulaire prend presque toute la largeur */
+
+    }
+
+    .form-group {
+        width: 80%;
+    }
+
+    textarea, input {
+        width: 100%;
+    }
+
+    form button {
+        width: 80%;
+    }
+}
+/* Fin Candidature */
+
+/* Contact */
+.contact {
+    background-image: url('../images/candidature/mer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* L'image ne défile pas */
+    height: 100%; /* S'assure que l'image couvre toute la fenêtre */
+    width: 100%;
+}
+
+
+.contact form{
+    background-color: rgba(36, 76, 110, 0.60);
+    border-top-left-radius: 90px;
+    border-top-right-radius: 90px;
+
+}
+
+.contact form h1 {
+    border-bottom: black 3px solid;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    border-top-left-radius: 90px;
+    border-top-right-radius: 90px;
+    height: 80px;
+    margin-bottom: 50px;
+    padding-top: 50px;
+    background-color: rgba(36, 76, 110, 0.5);
+    color: white;
+}
+
+.contact label {
+    color: white;
+}
+
+textarea {
+    max-width: 90%;
+    min-width: 90%;
+}
+
+
+
+
+
+
+
+
+
+
+/* Media query pour les petits écrans */
+@media (max-width: 600px) {
+    video {
+        width: 90%; /* La vidéo prendra 90% de la largeur de l'écran */
+        height: 90%;
+    }
+}
+
+/* Media query pour les écrans plus larges */
+@media (min-width: 1200px) {
+    video {
+        width: 70%; /* La vidéo prendra 70% de la largeur pour les écrans larges */
+        height: 90%;
+    }
+
+    .imgChiffre {
+        gap: 20px;
+    }
+
+    .imgChiffre div {
+        width: 180px;
+    }
+
+    .counter {
+        font-size: 1.8rem;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .texte-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .texte-container img {
+        max-width: 30px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .logo-devise {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-devise div {
+        margin-bottom: 20px;
+    }
+
+    #imagePromo {
+        max-width: 90%;
+    }
+
+    .cadre-achat {
+        width: 100%;
+    }
+
+    .label {
+        padding: 0 20px; /* Ajoute un peu de marge sur les côtés pour éviter la surcharge */
+    }
+
+    .label img {
+        max-width: 600px;
+    }
+
+    .footerNom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-bouton {
+        margin-top: 20px;
+    }
+
+    .contact-container,
+    .footer-bouton,
+    .map-container {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    .contact-container {
+        align-items: center;
+    }
+
+    #map {
+        height: 250px;
+    }
+
+    .footer-bouton a {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .button-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-produits {
+        width: 120px; /* Taille réduite sur mobile */
+    }
+
+    .produit-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .produit-item {
+        width: 90%; /* Évite le débordement */
+    }
+
+    /* Centrer tout le contenu de la section .proximite */
+    .proximite {
+        display: flex; /* Utilise Flexbox */
+        justify-content: center; /* Centre horizontalement */
+        align-items: center; /* Centre verticalement */
+        gap: 20px; /* Ajoute de l'espace entre les éléments */
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur petits écrans */
+        text-align: center; /* Centre le texte */
+    }
+
+    /* Ajustement des photos dans .proximite */
+    .proximite .photo {
+        width: 100%; /* Les photos prennent toute la largeur disponible */
+        max-width: 300px; /* Limite la largeur des photos */
+        padding: 10px; /* Ajoute de l'espace autour de chaque photo */
+    }
+
+    /* Images : s'adaptent à la taille du conteneur */
+    .proximite .photo img {
+        width: 100%; /* L'image prend toute la largeur disponible */
+        height: auto; /* Garde les proportions */
+    }
+
+    /* Textes sous les images */
+    .proximite .photo p {
+        font-size: 2vw; /* Taille de texte flexible */
+        margin: 10px 0; /* Ajoute de l'espace autour du texte */
+    }
+
+    /* Table pour les descriptions sous les images */
+    .proximite .photo nav table {
+        margin: 0 auto; /* Centrer la table */
+        width: 100%; /* Utilise toute la largeur disponible */
+    }
+
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-bouton {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .header-bouton a {
+        font-size: 14px;
+    }
+
+    .header-logo img {
+        max-height: 40px; /* Réduit la taille du logo pour les petits écrans */
+    }
+
+    .imgChiffre {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .imgChiffre div {
+        width: 90%; /* Prend presque toute la largeur mais avec des marges */
+        max-width: 300px; /* Évite que ça prenne trop de place sur les grands mobiles */
+    }
+
+    .counter {
+        font-size: 1.6rem;
+    }
+
+    .image-container h1,
+    .imageMer h1 {
+        font-size: 30px;
+    }
+
+    .image-container p {
+        font-size: 16px;
+    }
+
+    .conteneur-experience {
+        flex-direction: column; /* Met les éléments en colonne */
+        gap: 20px;
+    }
+
+    .imageBateau {
+        text-align: center;
+        order: 1; /* Met l'image en premier */
+    }
+
+    .experience {
+        text-align: center;
+    }
+
+    .experience h1 {
+        font-size: 2rem; /* Réduit la taille du texte sur les petits écrans */
+    }
+
+    .motsOrdre {
+        justify-content: center;
+    }
+
+    .conteneur-histoire {
+        flex-direction: column; /* Passe en colonne sur les petits écrans */
+        align-items: center; /* Centre tout le contenu */
+    }
+
+    .histoire {
+        max-width: 100%; /* Prend toute la largeur disponible */
+    }
+
+    .imageHistoire {
+        max-width: 100%; /* L'image prend toute la largeur disponible */
+    }
+
+    .imageHistoire img {
+        max-width: 90%; /* Limite la largeur de l'image pour qu'elle ne prenne pas toute la largeur */
+    }
+
+    /* Réduit la taille du titre sur les petits écrans */
+    h1.TitreBleu {
+        font-size: 2rem;
+    }
+
+    /* Réduit la taille du texte sur les petits écrans et ajuste la largeur */
+    .histoire p {
+        font-size: 1rem;
+        max-width: 100%; /* Prend toute la largeur disponible */
+        padding: 0 20px; /* Augmente le padding pour que le texte ne touche pas les bords */
+    }
+
+    .conteneur-mareyeur {
+        flex-direction: column; /* Aligner les éléments en colonne */
+        align-items: center; /* Centrer les éléments */
+    }
+
+    .mareyeur,
+    .image-mareyeur {
+        width: 100%; /* Les deux sections prennent 100% de la largeur */
+        margin-right: 0; /* Retirer la marge à droite */
+        margin-left: 0; /* Retirer la marge à gauche */
+    }
+
+    .mareyeur h1 {
+        font-size: 1.2rem; /* Réduire la taille du titre */
+    }
+
+    .mareyeur p {
+        font-size: 0.9rem; /* Réduire la taille du texte */
+    }
+
+    .mareyeur img {
+        max-width: 50%; /* Ajuster les images à 50% de la largeur */
+    }
+
+    .image-mareyeur img {
+        max-width: 200px; /* Limiter l'image à 200px même en mobile */
+    }
+
+    .image-mareyeur p {
+        font-size: 1rem; /* Ajuster la taille du texte */
+    }
+
+    .engagement {
+        flex-direction: column; /* Les sections passent en colonne sur petits écrans */
+        padding: 20px; /* Réduire l'espacement */
+        align-items: center; /* Centrer les éléments horizontalement */
+        justify-content: center; /* Centrer les éléments verticalement */
+    }
+
+    .respect,
+    .produit,
+    .environnement {
+        flex: 1; /* Chaque boîte occupe maintenant 100% de la largeur */
+        height: auto; /* Hauteur automatique */
+        margin-bottom: 30px; /* Ajoute de l'espacement entre les boîtes */
+    }
+
+    .titreH2Engagement {
+        font-size: 22px; /* Réduire encore la taille du titre */
+    }
+
+    .respect div p,
+    .produit div p,
+    .environnement div p {
+        font-size: 14px; /* Réduire la taille du texte */
+    }
+
+    .item img {
+        width: 18px; /* Réduire la taille des images */
+        height: 18px;
+    }
+
+    .btn-decouverte {
+        font-size: 14px; /* Ajuster la taille du texte du bouton */
+        margin-top: 10px; /* Espacement ajusté */
+    }
+
+    .service-image {
+        gap: 20px; /* Réduit encore l'espace entre les images sur les petits écrans */
+        justify-content: center; /* Centre les images horizontalement */
+    }
+
+    .service-image img {
+        width: 200px; /* Réduit encore la taille des images */
+        height: 200px;
+    }
+
+    .services h2 {
+        font-size: 22px; /* Réduit encore la taille du titre */
+    }
+
+    .livraison {
+        padding-left: 20px; /* Réduit encore le décalage */
+        gap: 30px; /* Réduit l'espace entre les éléments */
+    }
+
+    .livraison img {
+        width: 100%; /* L'image prend toute la largeur */
+        max-width: 400px; /* Limite la taille maximale de l'image */
+    }
+
+    .livraison h2 {
+        font-size: 22px; /* Réduit encore la taille du titre */
+    }
+
+
+    .alignement {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .client-item {
+        width: 90%; /* Ajuste la largeur pour mieux remplir l'écran */
+        max-width: 400px; /* Évite que ce soit trop grand sur mobile */
+        height: auto; /* Hauteur ajustable */
+    }
+
+
+    .conteneur-traiteur {
+        gap: 30px;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .traiteur {
+        flex-direction: column;
+        align-items: center;
+        overflow-x: visible; /* Désactive le scroll horizontal */
+    }
+
+    .itemm {
+        width: 90%; /* Prend presque toute la largeur */
+        min-width: unset; /* Supprime la largeur mini */
+    }
+
+    .itemm img {
+        width: 100%;
+        height: auto;
+    }
+
+    .conteneur-traiteur h2 {
+        font-size: 26px;
+    }
+
+
+    .text-client h2,
+    .text-client-inverse h2 {
+        font-size: 2rem;
+    }
+    .text-client p,
+    .text-client-inverse p {
+        font-size: 1rem;
+    }
+    .img-client {
+        width: 90%;
+        max-width: 300px;
+    }
+
+
+    .debut-actualite p {
+        width: 80%;
+        padding: 40px;
+    }
+
+    .club {
+        width: 80%;
+        margin-bottom: 60px;
+    }
+
+    .corps-actualite {
+        width: 90%;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .corps-actualite-conteneur {
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .image-carousel {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 16px;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+    /* Réduction de la taille des polices et des marges pour les petits écrans */
+    .image-container h1,
+    .imageMer h1{
+        font-size: 30px; /* Taille du titre plus petite */
+    }
+
+    .image-container p {
+        font-size: 16px; /* Réduction de la taille du texte */
+    }
+
+    .texte-container {
+        width: 90%;
+        padding: 10px;
+
+    }
+
+    .footer-bouton a {
+        font-size: 12px; /* Réduction de la taille des boutons */
+        padding: 8px;
+    }
+
+    .carousel-images img {
+        width: 40%; /* Réduit la taille des images du carrousel */
+    }
+
+    .label h2 {
+        font-size: 20px; /* Plus petite taille pour les petits écrans */
+    }
+
+    .proximite {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #map {
+        height: 200px;
+    }
+
+    footer {
+        padding: 10px;
+    }
+
+    .mention p {
+        font-size: 14px;
+    }
+
+    .header-bouton {
+        gap: 5px;
+    }
+
+    .header-bouton a {
+        font-size: 12px;  /* Réduit encore la taille des liens */
+    }
+
+    .conteneur-experience {
+        gap: 15px;
+        align-items: center;
+    }
+
+    .experience h1 {
+        font-size: 1.5rem; /* Taille encore plus petite pour les petits écrans */
+    }
+
+    .motsOrdre img {
+        width: 25px; /* Réduit la taille des icônes */
+    }
+
+    .service-image {
+        gap: 10px; /* Réduit l'espace entre les images sur les très petits écrans */
+        flex-direction: column; /* Les images passent en colonne */
+        align-items: center; /* Centre les images horizontalement */
+    }
+
+    .service-image img {
+        width: 150px; /* Réduit encore la taille des images */
+        height: 150px;
+    }
+
+    .services h2 {
+        font-size: 20px; /* Réduit encore la taille du titre */
+    }
+
+    .livraison {
+        padding-left: 0; /* Supprime le décalage */
+        text-align: center; /* Centre le texte sur les très petits écrans */
+    }
+
+    .livraison img {
+        width: 100%; /* L'image prend toute la largeur */
+        max-width: 350px; /* Limite la taille maximale de l'image */
+    }
+
+    .livraison h2 {
+        font-size: 20px; /* Réduit encore la taille du titre */
+    }
+
+    .client-item {
+        flex: 0 1 100%; /* Chaque élément occupe toute la largeur sur les très petits écrans */
+        padding: 10px;
+    }
+
+    .client-image {
+        width: 50px; /* Réduit encore la taille de l'image */
+        height: 50px;
+    }
+
+    .texte-clients h3 {
+        font-size: 14px;
+    }
+
+    .texte-clients p {
+        font-size: 10px;
+    }
+
+    .btn-produits {
+        width: 100px;
+    }
+
+    .produits-details {
+        padding: 10px;
+    }
+
+    .produit-image {
+        max-width: 120px;
+    }
+
+    .produits-details h2 {
+        font-size: 20px;
+    }
+
+    .conteneur-traiteur h2 {
+        font-size: 22px;
+    }
+
+    .itemm p {
+        font-size: 16px;
+    }
+
+
+    .text-client h2,
+    .text-client-inverse h2 {
+        font-size: 1.8rem;
+    }
+    .text-client p,
+    .text-client-inverse p {
+        font-size: 0.9rem;
+    }
+    .img-client {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .debut-actualite p {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .club {
+        width: 90%;
+        margin-bottom: 40px;
+    }
+
+    .corps-actualite {
+        width: 90%;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .corps-actualite-conteneur {
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .image-carousel {
+        max-width: 100%;
+    }
+
+    button {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+
+
+}
+
+
+/* Media query pour les petits écrans */
+@media (max-width: 600px) {
+    video {
+        width: 90%; /* La vidéo prendra 90% de la largeur de l'écran */
+    }
+}
+
+/* Media query pour les écrans plus larges */
+@media (min-width: 1200px) {
+    video {
+        width: 70%; /* La vidéo prendra 70% de la largeur pour les écrans larges */
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .engagement {
+        padding: 40px; /* Réduire l'espacement sur les grands écrans */
+        gap: 30px; /* Réduire l'écart entre les sections */
+    }
+
+    .respect,
+    .produit,
+    .environnement {
+        flex: 0.3; /* Ajuster la largeur de chaque boîte */
+        height: 350px; /* Réduire la hauteur */
+    }
+
+    .titreH2Engagement {
+        font-size: 24px; /* Réduire la taille du titre */
+    }
+
+    .respect div p,
+    .produit div p,
+    .environnement div p {
+        font-size: 16px; /* Réduire la taille du texte */
+    }
+
+    .item img {
+        width: 20px; /* Réduire la taille des images */
+        height: 20px;
+    }
+
+    .service-image {
+        gap: 40px; /* Réduit l'espace entre les images sur les écrans moyens */
+    }
+
+    .service-image img {
+        width: 250px; /* Réduit la taille des images */
+        height: 250px;
+    }
+
+    .services h2 {
+        font-size: 24px; /* Réduit la taille du titre */
+    }
+
+    .livraison {
+        padding-left: 50px; /* Réduit le décalage sur les écrans plus petits */
+        flex-direction: column; /* Les éléments passent en colonne */
+        align-items: center; /* Centre les éléments */
+    }
+
+    .livraison img {
+        width: 90%; /* L'image prend plus de place sur les écrans plus petits */
+    }
+
+    .livraison h2 {
+        font-size: 26px; /* Réduit la taille du titre */
+    }
+
+    .alignement {
+        justify-content: center; /* Centre les éléments */
+        gap: 20px;
+    }
+
+    .client-item {
+        flex: 0 1 45%; /* Chaque élément occupe 45% de la largeur sur les tablettes */
+        padding: 15px;
+    }
+
+    .client-image {
+        width: 70px; /* Réduit la taille des images sur les tablettes */
+        height: 70px;
+    }
+
+    .texte-clients h3 {
+        font-size: 18px;
+    }
+
+    .texte-clients p {
+        font-size: 14px;
+    }
+
+    .traiteur {
+        gap: 20px; /* Réduit l’espace entre les éléments */
+        flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+        justify-content: center;
+    }
+
+    .itemm {
+        min-width: 240px;
+    }
+
+    .itemm img {
+        width: 240px;
+        height: 240px;
+    }
+
+    .conteneur-traiteur h2 {
+        font-size: 30px;
+    }
+
+    .client-conteneur {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    .client-conteneur.inverse {
+        flex-direction: column;
+    }
+    .text-client,
+    .text-client-inverse {
+        width: 80%;
+        text-align: center;
+    }
+    .text-client-inverse {
+        text-align: center;
+    }
+    .img-client {
+        width: 80%;
+        max-width: 350px;
+    }
+}
+
+
