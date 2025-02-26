@@ -1,12 +1,8 @@
 <?php
 
-class PageControleur {
-    public function afficherAccueil() {
-        /* Récupérer les promotions
-        $promotions = PageAccueil::getPromotions();*/
-        // Inclure la vue d'accueil
-        include __DIR__ . '/../Vue/pageAccueil.php';
-    }
+namespace App\Pecherie\Controleur;
+
+class ControleurPage {
 
 
     public function afficherContact() {
@@ -37,6 +33,11 @@ class PageControleur {
     public function afficherCandidatures() {
         // Inclure la vue de contact
         include __DIR__ . '/../Vue/candidature.php';
+    }
+
+    public function afficherMentionsLegales() {
+        // Inclure la vue de contact
+        include __DIR__ . '/../Vue/mentionsLegal.php';
     }
 
 

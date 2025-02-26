@@ -39,11 +39,13 @@
         <div class="footer-bouton">
             <h3>Plan du site</h3>
             <p>
-                <a href="pageAccueil.php"> > Accueil</a><br>
-                <a href="pecherieCettoise.php"> > La Pêcherie Cettoise</a><br>
-                <a href="pecherieCettoise.php"> >  Nos Produits</a><br>
-                <a href="engagements.php"> > Nos Engagements</a><br>
-                <a href="actualite.php"> > Actualités</a>
+                <a href="controleurFrontal.php?controleur=page&action=afficherAccueil">-> Accueil</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherPecherieCettoise">-> Pêcherie Cettoise</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherProduits">-> Nos Produits</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherEngagements">-> Nos Engagements</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherActualites">-> Actualités</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherCandidatures">-> Candidatures</a><br>
+                <a href="controleurFrontal.php?controleur=page&action=afficherContact">-> Contact</a>
             </p>
         </div>
 
@@ -55,7 +57,8 @@
     </div>
 
     <div class="mention">
-        <p>La Pêcherie Cettoise © 2025 - <a href="mentionsLegal.php">Mentions Légales</a></p>
+        <p>La Pêcherie Cettoise © 2025 - <a href="controleurFrontal.php?controleur=page&action=afficherMentionsLegales">Mentions Légales</a>
+        </p>
     </div>
 
 </footer>

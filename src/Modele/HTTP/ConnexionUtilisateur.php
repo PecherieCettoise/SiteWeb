@@ -24,8 +24,9 @@ class ConnexionUtilisateur
     public static function deconnecter(): void
     {
         Session::getInstance()->supprimer(self::$cleConnexion);
-        Session::getInstance()->supprimer(self::$Role);
         Session::getInstance()->detruire();
+        session_unset();
+        session_destroy();
 
     }
 

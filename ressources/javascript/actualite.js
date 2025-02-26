@@ -3,21 +3,21 @@ let currentIndex2 = 0;
 let currentIndex3 = 0;
 
 const images1 = [
-    '../ressources/images/actualite/bateau.png',
-    '../ressources/images/actualite/joute.png',
-    '../ressources/images/actualite/porter.png'
+    '../../ressources/images/actualite/bateau.png',
+    '../../ressources/images/actualite/joute.png',
+    '../../ressources/images/actualite/porter.png'
 ];
 
 const images2 = [
-    '../ressources/images/actualite/bateau2.png',
-    '../ressources/images/actualite/escale.png',
-    '../ressources/images/actualite/bateau3.png'
+    '../../ressources/images/actualite/bateau2.png',
+    '../../ressources/images/actualite/escale.png',
+    '../../ressources/images/actualite/bateau3.png'
 ];
 
 const images3 = [
-    '../ressources/images/actualite/joueur.png',
-    '../ressources/images/actualite/vueInterieurJoute.png',
-    '../ressources/images/actualite/photoJoute.png'
+    '../../ressources/images/actualite/joueur.png',
+    '../../ressources/images/actualite/vueInterieurJoute.png',
+    '../../ressources/images/actualite/photoJoute.png'
 ];
 
 function changeImage(direction, carouselId) {

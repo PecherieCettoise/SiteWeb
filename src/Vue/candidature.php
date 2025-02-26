@@ -10,7 +10,7 @@
 
 <?php require_once __DIR__ . "/../Vue/header.php" ?>
 
-<form action="mailCandisature.php" method="POST" enctype="multipart/form-data">
+<form action="controleurFrontal.php?action=envoyerCandidature" method="POST" enctype="multipart/form-data">
 
     <h1>Candidature</h1>
 
@@ -54,7 +54,6 @@
 </form>
 
 <?php require_once __DIR__ . "/../Vue/footer.php" ?>
+
 </body>
-
-
 </html>

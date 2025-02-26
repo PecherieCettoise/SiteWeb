@@ -6,6 +6,7 @@ use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\MotDePasse;
 use App\Pecherie\Modele\DataObject\Utilisateur;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
+use App\Pecherie\Modele\HTTP\Session;
 use App\Pecherie\Modele\Repository\UtilisateurRepository;
 
 
@@ -23,6 +24,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
         ControleurGenerique::afficherVue('vueGenerale.php',['titre' => "Profil","cheminCorpsVue" => 'utilisateur/profil.php', 'login' => $login, 'nom' => $nom, 'prenom' => $prenom, 'Role' => $Role, 'detailClient' => $client]);
     }
+
 
 
     /*public static function afficherFormulaireAjoutUtilisateur()
@@ -201,7 +203,9 @@ class ControleurUtilisateur extends ControleurGenerique
     public static function deconnecter()
     {
         if (ConnexionUtilisateur::estConnecte()) {
-            ConnexionUtilisateur::deconnecter();
+            //ConnexionUtilisateur::deconnecter();
+            Session::getInstance()->detruire();
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireConnexion');
         }
     }
 
@@ -255,6 +259,13 @@ class ControleurUtilisateur extends ControleurGenerique
             MessageFlash::ajouter("danger", "Mot de passe incorrect. Veuillez réessayer.");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireMDP&controleur=utilisateur');
         }
+    }
+
+    public function afficherAccueil() {
+        /* Récupérer les promotions
+        $promotions = PageAccueil::getPromotions();*/
+        // Inclure la vue d'accueil
+        include __DIR__ . '/../../src/Vue/pageAccueil.php';
     }
 
 

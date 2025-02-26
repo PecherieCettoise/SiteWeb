@@ -11,7 +11,7 @@ class ControleurClient extends ControleurGenerique {
 
     
     public static function afficherFormulaireCreation(): void {
-        ControleurClient::afficherVue('vueGenerale.php', ["titre" => "Créer étudiant", "cheminCorpsVue" => "utilisateur/formulaireCreation.php"]);
+        ControleurClient::afficherVue('vueGenerale.php', ["titre" => "Créer Client", "cheminCorpsVue" => "utilisateur/formulaireCreation.php"]);
     }
 }
 ?>

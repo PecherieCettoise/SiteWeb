@@ -20,11 +20,11 @@ try {
 
     // Destinataire
     $mail->setFrom('testMessageriee@gmail.com', $_POST['nom']);
-    $mail->addAddress('testMessageriee@gmail.com'); // Destinataire (email admin)
+    $mail->addAddress('destinationEmail@example.com'); // Remplacer par l'adresse où vous voulez recevoir le mail
 
     // Contenu de l'e-mail
     $mail->isHTML(true);
-    $mail->Subject = 'Nouveau message du formulaire';
+    $mail->Subject = 'Nouveau message de candidature';
     $mail->Body    = nl2br("Nom: {$_POST['nom']}\nPrénom: {$_POST['prenom']}\nEmail: {$_POST['email']}\nPoste: {$_POST['poste']}\nMessage:\n{$_POST['message']}\nTéléphone:{$_POST['telephone']}");
 
     // Vérifier et traiter les fichiers joints
@@ -54,7 +54,7 @@ try {
     // Envoi du message
     if ($mail->send()) {
         session_start();
-        $_SESSION['flash_message'] = '✅ Message envoyé avec succès.';
+        $_SESSION['flash_message'] = '✅ Candidature envoyée avec succès.';
         header('Location: ../Vue/candidature.php');
         exit;
     } else {
