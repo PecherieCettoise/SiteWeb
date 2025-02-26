@@ -40,5 +40,9 @@ class ControleurPage {
         include __DIR__ . '/../Vue/mentionsLegal.php';
     }
 
+    public function envoyerCandidature(){
+        include __DIR__ . '/../Vue/candidature.php';
+    }
+
 
 }

@@ -10,7 +10,7 @@
 
 <?php require_once __DIR__ . "/../Vue/header.php" ?>
 
-<form action="controleurFrontal.php?action=envoyerCandidature" method="POST" enctype="multipart/form-data">
+<form action="controleurFrontal.php?action=envoyerCandidature&controleur=page" method="POST" enctype="multipart/form-data">
 
     <h1>Candidature</h1>
 

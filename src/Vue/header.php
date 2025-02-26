@@ -1,6 +1,6 @@
 <header class="site-header">
     <div class="header-logo">
-        <a href="pageAccueil.php">
+        <a href="controleurFrontal.php?controleur=utilisateur&action=afficherAccueil"">
             <img src="../../ressources/images/acceuil/logo.png" alt="Logo">
         </a>
     </div>
