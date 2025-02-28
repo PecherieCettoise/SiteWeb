@@ -83,6 +83,10 @@ class Utilisateur extends AbstractDataObject {
         return $Role === "particulier";
     }
 
+    public static function estAdministrateur($Role) : bool{
+        return $Role === "administrateur";
+    }
+
 
 
 

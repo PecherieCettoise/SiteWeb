@@ -37,7 +37,7 @@ class ControleurGenerique
      * @return void
      */
     public static function afficherErreur(string $messageErreur, $controleur, $action): void {
-        self::afficherVue('vueGeneral.php', [
+        self::afficherVue('vueGenerale.php', [
             "titre" => "Erreur",
             "cheminCorpsVue" => "erreur.php",
             "messageErreur" => $messageErreur,

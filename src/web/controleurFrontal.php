@@ -19,6 +19,7 @@ if (!class_exists(Session::class)) {
     die("Erreur: Impossible de charger la classe Session");
 }
 
+//ControleurUtilisateur::creeUtilisateur();
 $session = Session::getInstance();  // Initialisation de la session
 
 // Vérification de la connexion
@@ -40,14 +41,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
     ConnexionUtilisateur::connecter($array["login"], $array["role"]);
     MessageFlash::ajouter("success", "Connexion réussie");
     ControleurGenerique::redirectionVersURL('controleurFrontal.php');
-} elseif (!ConnexionUtilisateur::estConnecte()) {
+} elseif (isset($_GET['controleur']) && $_GET['controleur'] === 'page' && isset($_GET['action']) && $_GET['action'] === 'afficherLogin') {
     ControleurUtilisateur::afficherFormulaireConnexion();
 } elseif (isset($_GET['user']) && $_GET['user'] == 'deconnecter') {
     ConnexionUtilisateur::deconnecter();
     ControleurUtilisateur::afficherFormulaireConnexion();
 } else {
     // Récupérer le contrôleur et l'action à partir de l'URL (par défaut 'page' et 'afficherAccueil')
-    $controleur = $_GET['controleur'] ?? 'utilisateur';
+    $controleur = $_GET['controleur'] ?? 'page';
     $action = $_GET['action'] ?? 'afficherAccueil';
 
     // Construire le nom de la classe du contrôleur

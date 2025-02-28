@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../ressources/css/style.css">
@@ -9,14 +9,14 @@
 </head>
 <body class="body-vueG">
 <?php
-// Inclure le header
 require_once __DIR__ . "/../Vue/header.php";
+
 ?>
 
 <div class="chemin-container">
     <ol class="chemin">
         <?php
-        // Vérification et affichage des éléments du chemin de navigation
+        /** @var $chemin */
         if (isset($chemin) && $chemin != null) {
             foreach ($chemin as $key => $link) {
                 if ($link === "#") {
@@ -29,25 +29,16 @@ require_once __DIR__ . "/../Vue/header.php";
         ?>
     </ol>
 </div>
-
 <main class="main-vueGenerale">
     <?php
-    // Chargement du contenu principal de la vue
-    // S'assurer que la variable $cheminCorpsVue est bien définie avant de l'utiliser
-    if (isset($cheminCorpsVue) && !empty($cheminCorpsVue)) {
-        require __DIR__ . "/{$cheminCorpsVue}";
-    } else {
-        echo "Erreur: Le fichier de la vue corps est manquant.";
-    }
+    /**
+     * @var string $cheminCorpsVue
+     */
+    require __DIR__ . "/{$cheminCorpsVue}";
     ?>
 </main>
-
 <footer>
-    <?php
-    // Inclure le footer
-    require_once __DIR__ . "/../Vue/footer.php";
-    ?>
+    <?php require_once  __DIR__ . '/../Vue/footer.php'?>
 </footer>
-
 </body>
 </html>

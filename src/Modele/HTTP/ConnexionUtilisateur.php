@@ -37,6 +37,6 @@ class ConnexionUtilisateur
     }
 
     public static function getRole(): string {
-        return Session::getInstance()->lire(self::$Role);
+        return Session::getInstance()->lire(self::$Role) ?? '';
     }
 }

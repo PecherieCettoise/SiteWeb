@@ -1,8 +1,8 @@
 let image = document.querySelector('.image-container img');
 let images = [
-    { src: '../ressources/images/photoMer.jpg', alt: 'Vue mer' },
-    { src: '../ressources/images/logo.png', alt: 'Logo de la pêcherie' },
-    { src: '../ressources/images/iceland-2111810_1920.jpg', alt: 'Vue mer' }
+    { src: '/../ressources/images/acceuil/camion.jpg' },
+    { src: '/../ressources/images/acceuil/camion.jpg' },
+    { src: '/../ressources/images/acceuil/camion.jpg'}
 ]; // Tableau d'objets contenant 'src' et 'alt'
 let currentIndex = 0;
 
@@ -28,9 +28,9 @@ changeImage();
 // Sélection des éléments
 document.addEventListener("DOMContentLoaded", function () {
     const images = [
-        "../ressources/images/photoMer.jpg",
-        "../ressources/images/coquillageBleu.png",
-        "../ressources/images/logo.png"
+        "../ressources/images/acceuil/photoMer.jpg",
+        "../ressources/images/acceuil/coquillageBleu.png",
+        "../ressources/images/acceuil/logo.png"
     ];
 
     let index = 0; // Index de l'image actuelle

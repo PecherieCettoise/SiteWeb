@@ -1,6 +1,8 @@
+<?php use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
+
 <header class="site-header">
     <div class="header-logo">
-        <a href="controleurFrontal.php?controleur=utilisateur&action=afficherAccueil"">
+        <a href="controleurFrontal.php?controleur=utilisateur&action=afficherAccueil">
             <img src="../../ressources/images/acceuil/logo.png" alt="Logo">
         </a>
     </div>
@@ -14,8 +16,25 @@
             <a href="controleurFrontal.php?controleur=page&action=afficherActualites">ACTUALITÉS</a>
             <a href="controleurFrontal.php?controleur=page&action=afficherCandidatures">CANDIDATURE</a>
             <a href="controleurFrontal.php?controleur=page&action=afficherContact">CONTACT</a>
-            <a href="controleurFrontal.php?controleur=utilisateur&action=deconnecter">DÉCONNEXION</a>
-
+            <?php if (ConnexionUtilisateur::estConnecte()) : ?>
+                <a href="controleurFrontal.php?controleur=page&action=afficherBoutique">BOUTIQUE</a>
+            <?php endif; ?>
         </strong>
+
     </div>
+
+    <?php if (ConnexionUtilisateur::estConnecte()) : ?>
+        <a href="controleurFrontal.php?controleur=page&action=afficherProfil">
+            <img src="../../ressources/images/connexion/iconeConnecter.png" class="header-recherche">
+        </a>
+        <a href="controleurFrontal.php?controleur=utilisateur&action=deconnecter">DÉCONNEXION</a>
+    <?php else : ?>
+        <a href="controleurFrontal.php?controleur=utilisateur&action=afficherFormulaireConnexion" class="header-recherche">
+            <p>Se Connecter</p>
+            <img src="../../ressources/images/connexion/iconeConnexion.png">
+        </a>
+    <?php endif; ?>
 </header>
+
+<?php
+

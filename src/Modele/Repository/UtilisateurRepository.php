@@ -2,12 +2,12 @@
 
 namespace App\Pecherie\Modele\Repository;
 
+use App\Pecherie\Lib\MotDePasse;
 use App\Pecherie\Modele\Repository\AbstractRepository;
 use App\Pecherie\Modele\DataObject\Utilisateur;
 use App\Pecherie\Modele\DataObject\Clients;
 use App\Pecherie\Modele\DataObject\AbstractDataObject;
-use ConnexionUtilisateur;
-use MotDePasse;
+use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use PDO;
 
 
@@ -157,8 +157,15 @@ class UtilisateurRepository extends AbstractRepository
             'nouveau_mdp' => $motDePasse
         ];
 
-        return $pdoStatement->execute($values);
+        if ($pdoStatement->execute($values)) {
+            error_log("Mot de passe mis à jour avec succès.");
+            return true;
+        } else {
+            error_log("Erreur lors de la mise à jour du mot de passe.");
+            return false;
+        }
     }
+
 
 
 

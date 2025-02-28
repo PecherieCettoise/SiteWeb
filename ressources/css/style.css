@@ -17,7 +17,6 @@ a:hover{
     color: orangered;
 }
 
-
 h1, h2, h3,h4{
     font-family: Dancing Script;
 }
@@ -35,7 +34,7 @@ p{
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: #f4f4f4;
+    background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -60,6 +59,10 @@ p{
     font-family: Arial, sans-serif;
     transition: background-color 0.3s ease;
     color: black;
+}
+
+.header-bouton a:hover{
+    color: orangered;
 }
 
 /* Nouveau style pour le conteneur de Google Translate */
@@ -132,7 +135,10 @@ footer {
     transition: background-color 0.3s ease;
     margin-left: auto;
     color: slategrey;
+}
 
+.footer-bouton a:hover{
+    color: orangered;
 }
 
 .btn-image img {
@@ -466,6 +472,10 @@ button.prev:hover, button.next:hover {
 
 .lieu h2 {
     font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: center; /* Centre le texte */
+
 }
 
 .bloc {
@@ -1675,7 +1685,10 @@ textarea, input {
 }
 
 /* Style des boutons */
-form button {
+form button, .btn-connexion {
+    background-color: #333333;
+    color: white;
+    border: none;
     width: 50%;
     height: 40px;
     border-radius: 30px;
@@ -1729,7 +1742,7 @@ form button {
 /* Fin Candidature */
 
 /* Contact */
-.contact {
+.contact, .connexion {
     background-image: url('../images/candidature/mer.jpg');
     background-size: cover;
     background-position: center;
@@ -1761,7 +1774,7 @@ form button {
     color: white;
 }
 
-.contact label {
+.contact label, .connexion-container label, .connexion-container h1 {
     color: white;
 }
 
@@ -1770,6 +1783,106 @@ textarea {
     min-width: 90%;
 }
 
+
+
+/* Page Connexion */
+
+.connexion-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    margin: 150px auto;
+
+}
+
+.connexion-container form{
+    background-color: rgba(36, 76, 110, 0.60);
+    height: 400px;
+}
+
+button{
+    margin: 0 auto;
+}
+
+
+.main-vueGenerale{
+    margin-top: 100px;
+}
+
+
+
+/* Bootstrap alerts */
+/* https://getbootstrap.com/docs/3.4/components/#alerts */
+
+.alert {
+    margin: 50px 50px 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les alertes horizontalement */
+    justify-content: center; /* Centre les alertes verticalement si besoin */
+}
+
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-danger-connexion {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les alertes horizontalement */
+    justify-content: center; /* Centre les alertes verticalement si besoin */
+}
+
+.header-recherche {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    height: 40px;
+    text-align: center;
+    flex-direction: row; /* Aligne les éléments en ligne */
+    gap: 10px; /* Espacement entre l'icône et le texte */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.header-recherche img {
+    height: 30px; /* Ajuste la taille de l'icône */
+    width: auto;
+}
 
 
 
