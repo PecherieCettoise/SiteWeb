@@ -127,7 +127,7 @@
         <div class="lieu">
             <div class="separator"></div>
 
-            <p class="fade-left"><h2 class="fade-right">Nos approvisionnements</h2><br>Nos fournisseurs sont sélectionnés par nos soins selon un cahier des charges strict, un savoir-faire unique et une capacité à fournir des produits de qualité tenant <br> compte d’un mode de pêche favorisant le maintien de la ressource.</p>
+            <p class="fade-left"><h2 class="fade-right">Nos approvisionnements</h2><br> fournisseurs sont sélectionnés par nos soins selon un cahier des charges strict, un savoir-faire unique et une capacité à fournir des produits de qualité tenant <br> compte d’un mode de pêche favorisant le maintien de la ressource.</p>
             <div class="bloc">
                 <img src="../../ressources/images/acceuil/mediterranee.jpg" alt="mediterranee">
                 <div class="texte">

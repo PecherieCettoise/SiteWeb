@@ -7,7 +7,6 @@ html, body {
 }
 
 body {
-    font-family: Arial, sans-serif;
     color: white;
     overflow-x: hidden;
     background: #333646;
@@ -17,11 +16,11 @@ a:hover{
     color: orangered;
 }
 
-h1, h2, h3,h4{
+h1, h2, h3,h4, title {
     font-family: Dancing Script;
 }
 
-p{
+p, a img, span{
     font-family: Lora;
 }
 
@@ -56,7 +55,6 @@ p{
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    font-family: Arial, sans-serif;
     transition: background-color 0.3s ease;
     color: black;
 }
@@ -86,7 +84,6 @@ footer {
     position: relative;
     box-sizing: border-box;
     color: black;
-    font-family: Arial, sans-serif;
     background: white;
 }
 
@@ -131,7 +128,6 @@ footer {
     padding: 10px 15px;
     border-radius: 5px;
     font-size: 17px;
-    font-family: Arial, sans-serif;
     transition: background-color 0.3s ease;
     margin-left: auto;
     color: slategrey;

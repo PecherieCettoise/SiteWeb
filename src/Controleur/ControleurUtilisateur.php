@@ -158,7 +158,7 @@ class ControleurUtilisateur extends ControleurGenerique
             return;
         }
 
-        $rolesValides = ['particulier', 'professionnel', 'administrateur']; // Attention, 'profesionnel' devrait être 'professionnel'
+        $rolesValides = ['particulier', 'professionnel', 'administrateur'];
 
         if (!in_array($role, $rolesValides)) {
             MessageFlash::ajouter("danger", "Rôle invalide sélectionné.");
@@ -193,7 +193,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
     public static function afficherFormulaireConnexion()
     {
-        ControleurGenerique::afficherVue('/../Vue/formulaireLogin.php', ['titre' => "Connexion"]);
+        ControleurGenerique::afficherVue('/../Vue/utilisateur/formulaireLogin.php', ['titre' => "Connexion"]);
     }
 
     public static function verificationDuLogin(?string $mdp_en_clair, ?string $login) : array{
@@ -224,7 +224,7 @@ class ControleurUtilisateur extends ControleurGenerique
         if (ConnexionUtilisateur::estConnecte()) {
             //ConnexionUtilisateur::deconnecter();
             Session::getInstance()->detruire();
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireConnexion');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireConnexion&controleur=utilisateur');
         }
     }
 
@@ -269,19 +269,24 @@ class ControleurUtilisateur extends ControleurGenerique
                 // Vérifier si la mise à jour a été effectuée
                 if ($isChanged) {
                     MessageFlash::ajouter("success", "Mot de passe modifié !");
-                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
+                    exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
                 } else {
                     MessageFlash::ajouter("warning", "Mot de passe inchangé !");
-                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=page');
+                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
+                    exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
                 }
             }
         } else {
             MessageFlash::ajouter("danger", "Mot de passe incorrect. Veuillez réessayer.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
+            exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
         }
     }
 
-    public function afficherModifierMDP() {
+
+
+    /*public function afficherModifierMDP() {
         $chemin = array(
             "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
             "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
@@ -293,5 +298,11 @@ class ControleurUtilisateur extends ControleurGenerique
             "cheminCorpsVue" => 'utilisateur/changementMDP.php',
             'chemin' => $chemin,
         ]);
+    }*/
+
+    public static function afficherModifierMDP() {
+        include __DIR__ . '/../Vue/utilisateur/changementMDP.php';
     }
+
+
 }

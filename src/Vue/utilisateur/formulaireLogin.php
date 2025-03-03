@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" type="text/css" href="../../../ressources/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../ressources/css/style.css">
 
     <!-- Lien vers l'icône de l'onglet -->
-    <link rel="icon" href="../../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
+    <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 </head>
 <body class="connexion">
-<?php require_once __DIR__ . '/../Vue/header.php' ?>
+<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
 <div class="alert-connexion">
     <?php
@@ -50,4 +50,6 @@
     </div>
 </main>
 </body>
+
+<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 </html>

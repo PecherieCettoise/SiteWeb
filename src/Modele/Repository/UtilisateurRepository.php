@@ -8,6 +8,7 @@ use App\Pecherie\Modele\DataObject\Utilisateur;
 use App\Pecherie\Modele\DataObject\Clients;
 use App\Pecherie\Modele\DataObject\AbstractDataObject;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
+use DateTime;
 use PDO;
 
 
@@ -148,7 +149,8 @@ class UtilisateurRepository extends AbstractRepository
         return UtilisateurRepository::construireDepuisTableauSQL($objetFormatTableau);
     }
 
-    public function setMotDePasse(string $motDePasse) : bool {
+    public function setMotDePasse(string $motDePasse) : bool
+    {
         $login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $sql = "UPDATE utilisateurs SET mdp = :nouveau_mdp WHERE login = :login;";
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
@@ -165,7 +167,6 @@ class UtilisateurRepository extends AbstractRepository
             return false;
         }
     }
-
 
 
 

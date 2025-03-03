@@ -2,7 +2,7 @@
 
 <header class="site-header">
     <div class="header-logo">
-        <a href="controleurFrontal.php?controleur=utilisateur&action=afficherAccueil">
+        <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">
             <img src="../../ressources/images/acceuil/logo.png" alt="Logo">
         </a>
     </div>
@@ -27,7 +27,7 @@
         <a href="controleurFrontal.php?controleur=page&action=afficherProfil">
             <img src="../../ressources/images/connexion/iconeConnecter.png" class="header-recherche">
         </a>
-        <a href="controleurFrontal.php?controleur=utilisateur&action=deconnecter">DÉCONNEXION</a>
+        <a href="controleurFrontal.php?action=deconnecter&controleur=utilisateur">DÉCONNEXION</a>
     <?php else : ?>
         <a href="controleurFrontal.php?controleur=utilisateur&action=afficherFormulaireConnexion" class="header-recherche">
             <p>Se Connecter</p>
