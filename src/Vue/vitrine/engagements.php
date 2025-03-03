@@ -47,7 +47,7 @@
 
         <div class="text-client-inverse">
 
-            <h2 class="bleu-produit">2) Le respect des espèces proposées</h2>
+            <h2 class="bleu-produit"> 2) Le respect des espèces proposées</h2>
             <p>
                 Nous tenons à proposer à notre clientèle une large offre de produits de la Mer. Vous retrouverez à la Pêcherie Cettoise des espèces de poissons frais ou surgelés, entiers ou en filets mais également des coquillages et crustacés crus ou cuits.
                 Sans jamais délaisser la qualité qui reste notre priorité.

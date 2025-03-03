@@ -14,7 +14,7 @@
 </head>
 
 <!-- Inclusion du header.php -->
-<?php include("../Vue/header.php"); ?>
+<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
 <body>
 <main>
@@ -106,6 +106,6 @@
 
 
 
-<?php include("../Vue/footer.php"); ?>
+<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 </html>

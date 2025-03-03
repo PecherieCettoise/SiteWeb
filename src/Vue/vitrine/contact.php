@@ -9,13 +9,13 @@
     <!-- Lien vers l'icône de l'onglet -->
     <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 </head>
-<body class="candidature">
+<body class="contact">
 
-<?php require_once __DIR__ . "/../Vue/header.php" ?>
+<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
-<form action="controleurFrontal.php?action=envoyerCandidature&controleur=page" method="POST" enctype="multipart/form-data">
+<form action="controleurFrontal.php?action=afficherMailContact&controleur=page" method="POST" enctype="multipart/form-data">
 
-    <h1>Candidature</h1>
+    <h1>Contactez-nous</h1>
 
     <div class="form-group">
         <label for="nom">Nom :</label>
@@ -32,10 +32,6 @@
         <input type="email" id="email" name="email" required>
     </div>
 
-    <div class="form-group">
-        <label for="poste">Poste :</label>
-        <input type="text" id="poste" name="poste" required>
-    </div>
 
     <div class="form-group">
         <label for="message">Message :</label>
@@ -47,16 +43,12 @@
         <input type="text" id="telephone" name="telephone" required>
     </div>
 
-    <div class="form-group">
-        <label for="fichier">CV et Lettre de motivation :</label>
-        <input type="file" id="fichier" name="fichier[]" accept=".pdf,.docx,.doc,.txt" multiple>
-    </div>
-
     <button type="submit">Envoyer</button>
 
 </form>
 
-<?php require_once __DIR__ . "/../Vue/footer.php" ?>
-
+<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 </body>
+
+
 </html>

@@ -8,64 +8,62 @@ class ControleurPage {
         /* Récupérer les promotions
         $promotions = PageAccueil::getPromotions();*/
         // Inclure la vue d'accueil
-        include __DIR__ . '/../../src/Vue/pageAccueil.php';
+        include __DIR__ . '/../Vue/vitrine/pageAccueil.php';
     }
 
     public function afficherContact() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/contact.php';
+        include __DIR__ . '/../Vue/vitrine/contact.php';
     }
 
     public function afficherPecherieCettoise() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/pecherieCettoise.php';
+        include __DIR__ . '/../Vue/vitrine/pecherieCettoise.php';
     }
 
     public function afficherProduits() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/produits.php';
+        include __DIR__ . '/../Vue/vitrine/produits.php';
     }
 
     public function afficherEngagements() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/engagements.php';
+        include __DIR__ . '/../Vue/vitrine/engagements.php';
     }
 
     public function afficherActualites() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/actualite.php';
+        include __DIR__ . '/../Vue/vitrine/actualite.php';
     }
 
     public function afficherCandidatures() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/candidature.php';
+        include __DIR__ . '/../Vue/vitrine/candidature.php';
     }
 
     public function afficherMentionsLegales() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/mentionsLegal.php';
+        include __DIR__ . '/../Vue/vitrine/mentionsLegal.php';
     }
 
     public function afficherProfil() {
         // Inclure la vue de contact
-        include __DIR__ . '/../Vue/profil.php';
+        include __DIR__ . '/../Vue/utilisateur/profil.php';
     }
 
     public function envoyerCandidature(){
-        include __DIR__ . '/../Vue/candidature.php';
+        include __DIR__ . '/../Vue/vitrine/candidature.php';
     }
 
-    public function afficherFormulaireConnexion() {
-        include __DIR__ . '/../Vue/formulaireLogin.php';
+    public function afficherMailContact(){
+        include __DIR__ . '/../Vue/vitrine/mailContact.php';
     }
 
-    public function afficherModifierMDP() {
-        include __DIR__ . '/../Vue/changementMDP.php';
+    public function afficherMailCandidature(){
+        include __DIR__ . '/../Vue/vitrine/mailCandidature.php';
     }
 
-    public function afficherFormulaireAjout() {
-        include __DIR__ . '/../Vue/formulaireAjoutUtilisateurs.php';
-    }
+
 
 
 

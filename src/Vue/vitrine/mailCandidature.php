@@ -1,11 +1,22 @@
 <?php
-ob_start();
+
+// Désactiver l'affichage des erreurs pour éviter toute sortie avant redirection
+ini_set('display_errors', 0);
+
+// Vérifier si une session est déjà active avant de la démarrer
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+use App\Pecherie\Controleur\ControleurGenerique;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-// Activation du mode debug pour tester (désactive après debug)
+// Activation du mode debug pour voir les erreurs (uniquement pendant le développement)
+error_reporting(E_ALL);
+
 $mail = new PHPMailer(true);
 
 try {
@@ -19,20 +30,20 @@ try {
     $mail->Port       = 587;
 
     // Destinataire
-    $mail->setFrom('testMessageriee@gmail.com', $_POST['nom']);
-    $mail->addAddress('destinationEmail@example.com'); // Remplacer par l'adresse où vous voulez recevoir le mail
+    $mail->setFrom('testMessageriee@gmail.com', htmlspecialchars($_POST['nom']));
+    $mail->addAddress('testMessageriee@gmail.com'); // Destinataire (email admin)
 
     // Contenu de l'e-mail
     $mail->isHTML(true);
-    $mail->Subject = 'Nouveau message de candidature';
-    $mail->Body    = nl2br("Nom: {$_POST['nom']}\nPrénom: {$_POST['prenom']}\nEmail: {$_POST['email']}\nPoste: {$_POST['poste']}\nMessage:\n{$_POST['message']}\nTéléphone:{$_POST['telephone']}");
+    $mail->Subject = 'Nouveau message du formulaire';
+    $mail->Body    = nl2br("Nom: {$_POST['nom']}<br>Prénom: {$_POST['prenom']}<br>Email: {$_POST['email']}<br>Message:<br>{$_POST['message']}<br>Téléphone: {$_POST['telephone']}");
 
-    // Vérifier et traiter les fichiers joints
+    // Vérification et ajout des fichiers joints
     if (!empty($_FILES['fichier']['name'][0])) {
         $uploadDir = __DIR__ . '/uploads/';
 
         if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0775, true);
+            mkdir($uploadDir, 0775, true);  // Création du dossier uploads
         }
 
         foreach ($_FILES['fichier']['name'] as $index => $fileName) {
@@ -41,6 +52,7 @@ try {
                 $destination = $uploadDir . basename($fileName);
 
                 if (move_uploaded_file($fileTmpPath, $destination)) {
+                    // Ajout du fichier attaché à l'email
                     $mail->addAttachment($destination, $fileName);
                 } else {
                     echo "❌ Erreur lors du téléchargement du fichier : {$fileName}.<br>";
@@ -53,9 +65,9 @@ try {
 
     // Envoi du message
     if ($mail->send()) {
-        session_start();
         $_SESSION['flash_message'] = '✅ Candidature envoyée avec succès.';
-        header('Location: ../Vue/candidature.php');
+        // Redirection après envoi de l'email
+        header("Location: controleurFrontal.php?action=afficherCandidatures&controleur=page");
         exit;
     } else {
         echo "❌ L'email n'a pas été envoyé.";

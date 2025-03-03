@@ -14,7 +14,7 @@
 </head>
 
 <!-- Inclusion du header.php -->
-<?php include("../Vue/header.php"); ?>
+<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
 <!-- Contenu de la page -->
 <body>
@@ -54,9 +54,6 @@
         </div>
     </div>
 
-
-
-    </div>
 
 
     <div class="separator"></div>
@@ -115,7 +112,7 @@
                             <p>Un service personnalisé.</p>
                         </div>
                     </div>
-                    <a href="engagements.php" class="btn-decouverte">Découvrir</a>
+                    <a href="controleurFrontal.php?action=afficherEngagements&controleur=page" class="btn-decouverte">Découvrir</a>
                 </div>
 
                 <div class="produit">
@@ -135,7 +132,7 @@
                             <p>Une sélection spécifique.</p>
                         </div>
                     </div>
-                    <a href="engagements.php" class="btn-decouverte">Découvrir</a>
+                    <a href="controleurFrontal.php?action=afficherEngagements&controleur=page" class="btn-decouverte">Découvrir</a>
                 </div>
 
                 <div class="environnement">
@@ -155,7 +152,7 @@
                             <p>Un service adapter.</p>
                         </div>
                     </div>
-                    <a href="engagements.php" class="btn-decouverte">Découvrir</a>
+                    <a href="controleurFrontal.php?action=afficherEngagements&controleur=page" class="btn-decouverte">Découvrir</a>
                 </div>
             </div>
         </div>
@@ -296,11 +293,11 @@
     </main>
 
     <script src="../../ressources/javascript/pagePecherieCettoise.js"></script>
-    <script src="../../ressources/javascript/pageAccueil.js"></script>
+    <script src="/../../ressources/javascript/pageAccueil.js"></script>
 
 </body>
 
-<?php include("../Vue/footer.php"); ?>
+<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 </html>
 

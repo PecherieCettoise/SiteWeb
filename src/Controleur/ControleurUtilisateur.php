@@ -28,22 +28,22 @@ class ControleurUtilisateur extends ControleurGenerique
 
 
 
-    /*public static function afficherFormulaireAjoutUtilisateur()
+    public static function afficherFormulaireAjoutUtilisateur()
     {
         $chemin = array(
-            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=page",
-            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=page",
+            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
+            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
             "Ajouter utilisateur" => "#"
         );
-        $Role = ['administrateur', 'profesionnel', 'particulier'];
+        $Role = ['administrateur', 'professionnel', 'particulier'];
 
         ControleurGenerique::afficherVue('vueGenerale.php', [
             'titre' => "Ajouter un utilisateur",
-            "cheminCorpsVue" => '../../Vue/formulaireAjoutUtilisateurs.php',
+            "cheminCorpsVue" => 'utilisateur/formulaireAjoutUtilisateurs.php',
             'Role' => $Role,
             'chemin' => $chemin,
         ]);
-    }*/
+    }
 
     public static function afficherFormulaireSuppressionUtilisateur()
     {
@@ -73,7 +73,7 @@ class ControleurUtilisateur extends ControleurGenerique
         // Passer les utilisateurs à la vue
         ControleurGenerique::afficherVue('vueGenerale.php', [
             'titre' => "Supprimer un utilisateur",
-            'cheminCorpsVue' => 'formulaireSupprimerUtilisateur.php',
+            'cheminCorpsVue' => 'utilisateur/formulaireSupprimerUtilisateur.php',
             'utilisateurs' => $utilisateurs,// Assurez-vous de passer les utilisateurs à la vue
             'chemin' => $chemin,
         ]);
@@ -123,7 +123,7 @@ class ControleurUtilisateur extends ControleurGenerique
         // Vérification du mot de passe de l'utilisateur connecté
         if (!MotDePasse::verifier($motdepasseAdmin, $utilisateurConnecte->getMdp())) {
             MessageFlash::ajouter("danger", "Mot de passe admin incorrect. Vous ne pouvez pas ajouter d'utilisateur.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             return;
         }
 
@@ -138,13 +138,13 @@ class ControleurUtilisateur extends ControleurGenerique
         // Validation des champs du formulaire
         if (!$login || !$nom || !$prenom || !$motdepasseNouveau || !$confirmationMotDePasse || !$role || $role === 'selection') {
             MessageFlash::ajouter("danger", "Tous les champs doivent être remplis et un rôle valide doit être sélectionné.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             return;
         }
 
         // Vérification de la correspondance des mots de passe
         if ($motdepasseNouveau !== $confirmationMotDePasse) {
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             MessageFlash::ajouter("danger", "Les mots de passe ne correspondent pas.");
 
             return;
@@ -154,7 +154,7 @@ class ControleurUtilisateur extends ControleurGenerique
         $utilisateurExist = (new UtilisateurRepository())->recupererParClePrimaire($login);
         if ($utilisateurExist) {
             MessageFlash::ajouter("danger", "Un utilisateur avec ce login existe déjà.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             return;
         }
 
@@ -162,7 +162,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
         if (!in_array($role, $rolesValides)) {
             MessageFlash::ajouter("danger", "Rôle invalide sélectionné.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             return;
         }
 
@@ -180,11 +180,11 @@ class ControleurUtilisateur extends ControleurGenerique
             // Ajout dans la base de données
             UtilisateurRepository::ajouter($utilisateur);
             MessageFlash::ajouter("success", "$role ajouté avec succès !");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
         } catch (Exception $e) {
             // En cas d'erreur d'ajout
             MessageFlash::ajouter("danger", "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage());
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
         }
     }
 
@@ -279,5 +279,19 @@ class ControleurUtilisateur extends ControleurGenerique
             MessageFlash::ajouter("danger", "Mot de passe incorrect. Veuillez réessayer.");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=page');
         }
+    }
+
+    public function afficherModifierMDP() {
+        $chemin = array(
+            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
+            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
+            "Ajouter utilisateur" => "#"
+        );
+
+        ControleurGenerique::afficherVue('vueGenerale.php', [
+            'titre' => "Ajouter un utilisateur",
+            "cheminCorpsVue" => 'utilisateur/changementMDP.php',
+            'chemin' => $chemin,
+        ]);
     }
 }

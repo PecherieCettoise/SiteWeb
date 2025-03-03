@@ -1486,6 +1486,11 @@ button.prev:hover, button.next:hover {
     width: 50%;
     text-align: right;
     color: #fff;
+
+}
+
+.text-client-inverse h2{
+    font-size: 2.5rem;
 }
 
 .text-client h2 {
