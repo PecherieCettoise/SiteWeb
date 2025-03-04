@@ -63,6 +63,18 @@ class ControleurPage {
         include __DIR__ . '/../Vue/vitrine/mailCandidature.php';
     }
 
+    public static function traitement_demande() {
+        include __DIR__ . '/../Vue/utilisateur/traitement_demande.php';
+    }
+
+    public static function reinitialisation() {
+        include __DIR__ . '/../Vue/utilisateur/reinitialisation_mot_de_passe.php';
+    }
+
+    public static function reinitialisationMotDePasse() {
+        include __DIR__ . '/../Vue/utilisateur/modification_mot_de_passe.php';
+    }
+
 
 
 

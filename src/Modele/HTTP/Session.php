@@ -1,13 +1,16 @@
 <?php
 
+
 namespace App\Pecherie\Modele\HTTP;
 
 use App\Pecherie\Configuration\ConfigurationBaseDeDonnees;
 use App\Pecherie\Modele\HTTP\Cookie;
 use Exception;
 
+
 class Session
 {
+
     private static ?Session $instance = null;
 
     /**
@@ -19,6 +22,7 @@ class Session
             throw new Exception("La session n'a pas réussi à démarrer.");
         }
     }
+
 
     public static function getInstance(): Session
     {

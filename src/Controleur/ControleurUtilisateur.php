@@ -304,5 +304,11 @@ class ControleurUtilisateur extends ControleurGenerique
         include __DIR__ . '/../Vue/utilisateur/changementMDP.php';
     }
 
+    public static function modifierMDP() {
+        include __DIR__ . '/../Vue/utilisateur/formuDemande.php';
+    }
+
+
+
 
 }
