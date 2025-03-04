@@ -76,7 +76,7 @@ class Utilisateur extends AbstractDataObject {
     }
 
     public static function estProfesionnel($Role) : bool{
-        return $Role === "profesionnel";
+        return $Role === "professionnel";
     }
 
     public static function estParticulier($Role) : bool{

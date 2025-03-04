@@ -286,7 +286,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
 
 
-    /*public function afficherModifierMDP() {
+    public function afficherModifierMDP() {
         $chemin = array(
             "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
             "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
@@ -298,15 +298,15 @@ class ControleurUtilisateur extends ControleurGenerique
             "cheminCorpsVue" => 'utilisateur/changementMDP.php',
             'chemin' => $chemin,
         ]);
-    }*/
+    }
 
-    public static function afficherModifierMDP() {
+    /*public static function afficherModifierMDP() {
         include __DIR__ . '/../Vue/utilisateur/changementMDP.php';
     }
 
     public static function modifierMDP() {
         include __DIR__ . '/../Vue/utilisateur/formuDemande.php';
-    }
+    }*/
 
 
 

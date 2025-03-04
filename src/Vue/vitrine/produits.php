@@ -72,7 +72,7 @@
                 <img src="../../ressources/images/produits/Thon-Rouge.png" alt="Thon Rouge" class="produit-image fade-left">
                 <h4>Le Thon Rouge de Méditerranée</h4>
                 <p>
-                    Notre Thon rouge est péché selon une méthode de pêche artisanale, à la ligne, à la palangre. La Pêcherie Cettoise favorise cette pêche traditionnelle et ancestrale et vous permet de vous approvisionner sur des petits poissons frais de - de 24 heures.
+                    Notre Thon rouge est péché selon une méthode de pêche artisanale, à la ligne, à la palangre. La Pêcherie Cettoise favorise cette pêche traditionnelle et ancestrale et vous permet de vous approvisionner sur des petits poissons frais de moins de 24 heures.
                 </p>
             </div>
             <div class="produit-item">
@@ -86,7 +86,7 @@
                 <img src="../../ressources/images/produits/lotte.png" alt="Lotte" class="produit-image fade-left">
                 <h4>La Lotte</h4>
                 <p>
-                    Ce poisson à chair ferme et savoureuse est trés prisé pour réaliser des plats raffinés tels que la Bourride de lotte. Plusieurs calibres vous seront proposés.
+                    Ce poisson à chair ferme et savoureuse est très prisé pour réaliser des plats raffinés tels que la Bourride de lotte. Plusieurs calibres vous seront proposés.
                 </p>
             </div>
         </div>
@@ -97,7 +97,7 @@
         <h2>Filet et Dos</h2>
         <div class="produit-container">
         <div class="produit-item">
-            <img src="../../ressources/images/produits/dos-cabillaud.png" alt="Dos de cabillot" class="produit-image fade-left">
+            <img src="../../ressources/images/produits/dos-cabillaud.png" alt="Dos de cabillaud" class="produit-image fade-left">
             <h4>Dos de Cabillaud</h4>
             <p>
                 Notre dos de cabillaud Islandais vous est proposé en pavé de 400g et +. Il est labellisé MSC et vous garantit donc de soutenir la pêche durable.
@@ -107,14 +107,14 @@
             <img src="../../ressources/images/produits/filet-daurade-bar.png" alt="Filet de daurade" class="produit-image fade-left">
             <h4>Filet de bar et de daurade</h4>
             <p>
-                Ces filets ont une chair bien ferme, sont calibrés en 140/180g et sont trés appréciés tant des restaurants que des brasseries.
+                Ces filets ont une chair bien ferme, sont calibrés en 140/180g et sont très appréciés tant des restaurants que des brasseries.
             </p>
         </div>
         <div class="produit-item">
             <img src="../../ressources/images/produits/saumon.png" alt="Filet de saumon" class="produit-image fade-left">
             <h4>Filet de saumon</h4>
             <p>
-                Avec ou sans arrêtes, dégraissé ou à dégraisser, plusieurs choix s'offrent à vous avec des possibilités de commande à la pièce ou au colis.
+                Avec ou sans arêtes, dégraissé ou à dégraisser, plusieurs choix s'offrent à vous avec des possibilités de commande à la pièce ou au colis.
             </p>
         </div>
         </div>
@@ -135,10 +135,10 @@
             <img src="../../ressources/images/produits/crevette.png" alt="Crevette" class="produit-image fade-left">
             <h4>Les crevettes</h4>
             <p>
-                Nous vous proposons tous types de crevettes:
+                Nous vous proposons tous types de crevette :
                 D'Equateur, du Nigeria ou même de Madagascar...
                 Des petites crevettes 40/60 jusqu'aux Gambas en U10 ou même U5...
-                Labellisées ASC ou non, nous pourrons répondre à tous vos besoins.
+                Labellisés ASC ou non, nous pourrons répondre à tous vos besoins.
             </p>
         </div>
         <div class="produit-item">
@@ -152,7 +152,7 @@
             <img src="../../ressources/images/produits/couteau.png" alt="Couteaux" class="produit-image fade-left">
             <h4>Les couteaux</h4>
             <p>
-                Nos couteaux à la chair tendre sont pêchés à pieds et vous sont proposés en colis de 3kg, en boote d'1kg.
+                Nos couteaux à la chair tendre sont pêchés à pied et vous sont proposés en colis de 3kg, en boote d'1kg.
                 Vous pourrez vous procurer des couteaux frais ou encore surgelés.
             </p>
         </div>
@@ -167,7 +167,7 @@
             <h4>La Sèche Congelée</h4>
             <p>
                 Retrouvez à la Pêcherie Cettoise plusieurs calibres différents selon vos besoins.
-                De la 5/7 ou 2/4 pc au kg pour vos planchas mais également de la 1/2pc au kg pour vos plats cuisinés.
+                De la 5/7 ou 2/4 pc au kg pour vos planchas, mais également de la 1/2pc au kg pour vos plats cuisinés.
                 Très peu de glazing, donc très peu de perte à la cuisson, une chair ferme et une seiche bien blanche.
                 La Qualité restant notre priorité.
             </p>
@@ -186,14 +186,14 @@
             <h4>Le Poulpe Congelé</h4>
             <p>
                 Le Poulpe de Roc est réputé pour être le meilleur grâce à ses qualités gustatives.
-                Nous vous le proposons congelé à la Pièce, nettoyé ou à nettoyé, en pièces de 500/1kg, 1/2kh ou bien +.
+                Nous vous le proposons congelé à la Pièce, nettoyé ou à nettoyer, en pièces de 500/1kg, 1/2kh ou bien +.
             </p>
         </div>
         <div class="produit-item">
             <img src="../../ressources/images/produits/chipirons.png" alt="Chipirons" class="produit-image fade-left">
             <h4>Le Chipirones</h4>
             <p>
-                Les chipirones font partie des tops produits de la saison estivale. Trés appréciés en friture.
+                Les chipirones font partie des tops produits de la saison estivale. Très appréciés en friture.
 
             </p>
         </div>

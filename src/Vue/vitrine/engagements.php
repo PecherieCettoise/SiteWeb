@@ -31,7 +31,7 @@
             <h2 class="jaune-client">1) Le Respect du Client</h2>
             <p>
                 La Pêcherie Cettoise, vous propose un service personnalisé grâce à une équipe de professionnels qualifiés et passionnés
-                qui s’active au quotidien pour vous proposer des produits d’une qualité et d’une fraîcheur incomparable.<br><br>
+                qui s’activent au quotidien pour vous proposer des produits d’une qualité et d’une fraîcheur incomparable.<br><br>
                 Nos heures d’arrivage marchandise sont différentes en fonction des zones d’approvisionnement. C’est un point essentiel
                 qu’il faut prendre en compte lorsque les clients passent commande.
             </p>
@@ -41,7 +41,7 @@
 
     <div class="separator"></div>
 
-    <!-- Bloc 2 (image à gauche grâce à .inverse) -->
+    <!-- Bloc 2 (image à gauche grâce à inverser) -->
     <div class="client-conteneur inverse">
         <img src="../../ressources/images/engagement/poisson.jpg" class="img-client" alt="Image poisson">
 
@@ -49,7 +49,7 @@
 
             <h2 class="bleu-produit"> 2) Le respect des espèces proposées</h2>
             <p>
-                Nous tenons à proposer à notre clientèle une large offre de produits de la Mer. Vous retrouverez à la Pêcherie Cettoise des espèces de poissons frais ou surgelés, entiers ou en filets mais également des coquillages et crustacés crus ou cuits.
+                Nous tenons à proposer à notre clientèle une large offre de produits de la Mer. Vous retrouverez à la Pêcherie Cettoise des espèces de poissons frais ou surgelés, entiers ou en filets, mais également des coquillages et crustacés crus ou cuits.
                 Sans jamais délaisser la qualité qui reste notre priorité.
             </p>
         </div>

@@ -43,7 +43,7 @@
         <div class="corps-actualite-conteneur fade-left">
             <h2>La Fête de la Saint Pierre</h2>
             <p>
-                Appelée aussi Saint patron des pêcheurs, la fête de la Saint Pierre c’est une fête traditionnelle organisée par l’Amicale des Pêcheurs Sète Môle.<br><br>
+                Appelée aussi Saint patron des pêcheurs, la fête de la Saint Pierre, c'est une fête traditionnelle organisée par l’Amicale des Pêcheurs Sète Môle.<br><br>
                 Elle se déroule le premier week-end de juillet dans le quartier du vieux port de Sète avec une entrée libre.<br><br>
                 Une cérémonie en mer est organisée avec les pêcheurs en hommage aux marins disparus.<br><br>
                 Un programme est réalisé avec des animations et des expositions qui se déroulent tout au long du week-end comme le tournoi de joutes, le tournoi de boules carrées et la fête foraine.<br><br>
@@ -86,7 +86,7 @@
             <p>
                 La Saint Louis est la fête patronale de Sète qui se déroule au mois d’août.<br><br>
                 Sur le canal Royal des combats de joutes homériques sont organisées devant des milliers de spectateurs.<br><br>
-                Lors de cette fête, se déroule tous types d’activités comme des corsos nautiques, des concerts, des courses cyclistes et des traversées de Sète à la nage.<br><br>
+                Lors de cette fête, se déroulent tous types d’activités comme des corsos nautiques, des concerts, des courses cyclistes et des traversées de Sète à la nage.<br><br>
             </p>
         </div>
 

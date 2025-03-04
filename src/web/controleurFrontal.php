@@ -22,6 +22,7 @@ if (!class_exists(Session::class)) {
 //ControleurUtilisateur::creeUtilisateur();
 $session = Session::getInstance();  // Initialisation de la session
 
+
 // Vérification de la connexion
 if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
     $mdp_en_clair = $_POST['motdepasse'] ?? null;

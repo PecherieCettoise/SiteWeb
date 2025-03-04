@@ -45,7 +45,7 @@
             </div>
             <div class="motsOrdre">
                 <img src="../../ressources/images/acceuil/valideBleu.png">
-                <p class="fade-right">ECOUTE</p>
+                <p class="fade-right">ÉCOUTE</p>
             </div>
             <div class="motsOrdre">
                 <img src="../../ressources/images/acceuil/valideBleu.png">
@@ -145,11 +145,11 @@
                         </div>
                         <div class="item">
                             <img src="../../ressources/images/acceuil/valideBleu.png" alt="Image">
-                            <p>Nous valorisons une pêche durable et local.</p>
+                            <p>Nous valorisons une pêche durable et locale.</p>
                         </div>
                         <div class="item">
                             <img src="../../ressources/images/acceuil/valideBleu.png" alt="Image">
-                            <p>Un service adapter.</p>
+                            <p>Un service adapté.</p>
                         </div>
                     </div>
                     <a href="controleurFrontal.php?action=afficherEngagements&controleur=page" class="btn-decouverte">Découvrir</a>
@@ -177,10 +177,9 @@
                     </button>
                     <div class="accordion-content">
                         <p class="fade-up">
-                            Le client est au coeur de nos préoccupations. Notre équipe commerciale s’active au quotidien pour répondre à vos demandes et vous conseille tous les jours de l’année au 04 67 51 88 51 du lundi au vendredi.<br><br>
+                            Le client est au cœur de nos préoccupations. Notre équipe commerciale s’active au quotidien pour répondre à vos demandes et vous conseille tous les jours de l’année au 04 67 51 88 51, du lundi au vendredi.<br><br>
 
-                            Une permanence les dimanches en période estivale est mise en place pour vous permettre  de vous s’approvisionner directement sur place.
-                        </p>
+                            Une permanence les dimanches en période estivale est mise en place pour vous permettre de vous approvisionner directement sur place.
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -190,10 +189,9 @@
                     </button>
                     <div class="accordion-content">
                         <p class="fade-up">
-                            Afin de réduire nos délais de traitement des demandes d’achats spéciales nos services vente et achat travaillent ensemble. Ce fonctionnement permet de vous proposer une offre extra-fraîche.<br><br>
+                            Afin de réduire nos délais de traitement des demandes d’achats spéciales, nos services vente et achat travaillent ensemble. Ce fonctionnement permet de vous proposer une offre extra-fraîche.<br><br>
 
-                            Vous pouvez également commander sur notre site internet dans votre espace client.
-                        </p>
+                            Vous pouvez également passer commande sur notre site internet dans votre espace client.
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -205,11 +203,11 @@
                         <p class="fade-up">
                             Grâce à nos véhicules adaptés et à notre équipe de livraison, nous approvisionnons directement nos clients sur l’arc Méditerranéen tout au long de l’année.<br><br>
 
-                            Toutes les commandes faites la veille vous sont livrées dès le lendemain moins de 12 heures après la pêche.<br><br>
+                            Toutes les commandes faites la veille vous sont livrées dès le lendemain, moins de 12 heures après la pêche.<br><br>
 
                             Pour les destinations plus lointaines, nous faisons appel à des prestataires spécialisés dans le transport des produits de la mer.<br><br>
 
-                            Chaque été, nous livrons nos plus proches partenaires comme les restaurants et les poissonniers Sétois avec notre vélo à assistance électrique, un moyen pour nous de protéger l’environnement qui nous entoure !<br><br>
+                            Chaque été, nous livrons nos plus proches partenaires, comme les restaurants et les poissonniers Sétois, avec notre vélo à assistance électrique, un moyen pour nous de protéger l’environnement qui nous entoure.<br><br>
                         </p>
                     </div>
                 </div>

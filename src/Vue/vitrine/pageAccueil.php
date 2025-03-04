@@ -19,7 +19,7 @@
 <main>
     <div class="image-container">
         <h1>Pêcherie Cettoise</h1>
-        <p>Mareyeur en produits de la Mediterranée</p>
+        <p>Mareyeur en produits de la Méditerranée</p>
         <img id="animated-image" src="../../ressources/images/acceuil/arrivage.jpg" alt="Vue ice">
     </div>
 
@@ -53,7 +53,7 @@
 
     <div class="promo">
         <div class="cadre-achat">
-            <h3 class="fade-right">Offres du moments</h3>
+            <h3 class="fade-right">Offres du moment</h3>
             <button class="prev" onclick="changeImage(-1)">&#10094;</button> <!-- Flèche gauche -->
             <img id="imagePromo" src="../../ressources/images/acceuil/photoMer.jpg" alt="Image promotion">
             <button class="next" onclick="changeImage(1)">&#10095;</button> <!-- Flèche droite -->
@@ -76,7 +76,7 @@
                 <nav>
                     <table>
                         <tr>
-                            <td class="fade-left">Chaque jour les pêcheurs nous permettent de nous approvisionner sur les espèces de saisonnalité pêcher selon des méthodes artisanales.</td>
+                            <td class="fade-left">Chaque jour, les pêcheurs nous permettent de nous approvisionner sur les espèces de saisonnalité pêchées selon des méthodes artisanales.</td>
                         </tr>
                     </table>
                 </nav>
@@ -112,53 +112,60 @@
                 <nav>
                     <table>
                         <tr>
-                            <td class="fade-left">La Pêcherie Cettoise est capable de vous livrez grâce à son service logistique composé de 5 camions réfrigérés qui sillonnent chaque jour l'Hérault.</td>
+                            <td class="fade-left">La Pêcherie Cettoise est capable de vous livrer grâce à son service logistique composé de 5 camions réfrigérés qui sillonnent chaque jour l'Hérault.</td>
                         </tr>
                     </table>
                 </nav>
             </div>
         </div>
 
-
-
-
+        <div class="separator"></div>
 
 
         <div class="lieu">
-            <div class="separator"></div>
+            <div class="intro">
+                <h2 class="fade-right">Nos Approvisionnements</h2>
+                <p class="fade-left">
+                    Nos fournisseurs sont sélectionnés par nos soins selon un cahier des charges strict, un savoir-faire unique et une capacité à fournir des produits de qualité tenant
+                    compte d’un mode de pêche favorisant le maintien de la ressource.
+                </p>
+            </div>
 
-            <p class="fade-left"><h2 class="fade-right">Nos approvisionnements</h2><br> fournisseurs sont sélectionnés par nos soins selon un cahier des charges strict, un savoir-faire unique et une capacité à fournir des produits de qualité tenant <br> compte d’un mode de pêche favorisant le maintien de la ressource.</p>
-            <div class="bloc">
-                <img src="../../ressources/images/acceuil/mediterranee.jpg" alt="mediterranee">
-                <div class="texte">
-                    <h3 class="fade-right">La Méditerranée</h3>
-                    <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
-                    <p class="fade-left">Nous sommes présents en France, Espagne, Italie et en Croatie.</p>
+            <div class="blocs">
+                <div class="bloc">
+                    <img src="../../ressources/images/acceuil/mediterranee.jpg" alt="mediterranee">
+                    <div class="texte">
+                        <h3 class="fade-right">La Méditerranée</h3>
+                        <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
+                        <p class="fade-left">Nous sommes présents en France, en Espagne, en Italie et en Croatie.</p>
+                    </div>
+                </div>
+
+                <div class="bloc">
+                    <img src="../../ressources/images/acceuil/atlantique.jpg" alt="atlantique">
+                    <div class="texte">
+                        <h3 class="fade-right">L'Atlantique</h3>
+                        <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
+                        <p class="fade-left">Nous sommes présents dans les plus grands ports Européens du Danemark à la Grèce.</p>
+                    </div>
+                </div>
+
+                <div class="bloc">
+                    <img src="../../ressources/images/acceuil/criee.jpg" alt="criee mediterraneen">
+                    <div class="texte">
+                        <h3 class="fade-right">En direct des Criées Méditerranéennes</h3>
+                        <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
+                        <p class="fade-left">Notre équipe d’acheteurs est présente chaque jour sur la Criée Méditerranéen pour vous trouver les meilleurs produits.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="bloc">
-                <img src="../../ressources/images/acceuil/atlantique.jpg" alt="atlantique">
-                <div class="texte">
-                    <h3 class="fade-right">L'Atlantique</h3>
-                    <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
-                    <p class="fade-left">Nous sommes présents dans les plus grands ports Européens du Danemark à la Grèce.</p>
-                </div>
-            </div>
 
-            <div class="bloc">
-                <img src="../../ressources/images/acceuil/criee.jpg" alt="criee mediterraneen">
-                <div class="texte">
-                    <h3 class="fade-right">En direct des Criées Méditerranéen</h3>
-                    <img class="fleche" src="../../ressources/images/acceuil/flecheBas.png" alt="Flèche vers le bas">
-                    <p class="fade-left">Notre équipe d’acheteurs est présente chaque jour sur la Criée Méditerranéen pour vous trouver les meilleurs produits.</p>
-                </div>
-            </div>
 
-            <div class="separator"></div>
+        <div class="separator"></div>
 
             <div class="video">
-                <p>Nous sommes fiers de vous présenter notre triporteur, une manière pour nous de contribuer à la démarche d’une ville durable.</p>
+                <p>Nous sommes fiers de vous présenter notre triporteur : une manière de contribuer à la démarche d’une ville durable.</p>
                 <div class="video-container">
                     <iframe id="video" src="https://www.youtube.com/embed/vePFbTBcju0?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
@@ -173,7 +180,7 @@
                     <div>
                         <img src="../../ressources/images/acceuil/chiffreAffaire.png">
                         <h2 class="fade-right counter" data-target="9000000">0</h2>
-                        <p class="fade-left">Chiffre d'affaire</p>
+                        <p class="fade-left">Chiffre d'affaires</p>
                     </div>
 
                     <div>

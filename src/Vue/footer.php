@@ -1,3 +1,9 @@
+<?php
+/** @var $Role */
+// Assurez-vous que la classe Utilisateur est correctement importée
+use App\Pecherie\Modele\DataObject\Utilisateur;
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer avec Mini Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
 </head>
 <body>
 <footer>
@@ -16,7 +21,6 @@
             <div>
                 <img src="../../ressources/images/acceuil/calendrier.png" alt="Logo calendrier">
                 <p>Du Lundi au Vendredi - 6h/12h - 14h/17h</p>
-
             </div>
 
             <div>
@@ -57,10 +61,13 @@
     </div>
 
     <div class="mention">
-        <p>La Pêcherie Cettoise © 2025 - <a href="controleurFrontal.php?controleur=page&action=afficherMentionsLegales">Mentions Légales</a>
-        </p>
-    </div>
+        <p>La Pêcherie Cettoise © 2025 - <a href="controleurFrontal.php?controleur=page&action=afficherMentionsLegales">Mentions Légales</a></p>
 
+
+        <a href="http://www.mon-compteur.fr">
+            <img src="http://www.mon-compteur.fr/html_c01genv2-244026-1" border="0" />
+        </a>
+    </div>
 </footer>
 
 <!-- Script pour Leaflet (OpenStreetMap) -->

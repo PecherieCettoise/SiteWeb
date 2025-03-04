@@ -44,6 +44,10 @@
                 <input type="password" name="motdepasse" id="motdepasse" required>
             </div>
 
+            <div class="content">
+                <a href="controleurFrontal.php?action=modifierMDP&controleur=utilisateur" id="profil-link"><button class="rouge">Changer de mot de passe</button></a>
+            </div>
+
                 <button type="submit">Se connecter</button>
 
         </form>
