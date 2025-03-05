@@ -6,6 +6,7 @@ use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\Psr4AutoloaderClass;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use App\Pecherie\Modele\HTTP\Session;
+use App\Pecherie\GestionFichier\GestionFichierExcel; // Ajouter cette ligne pour importer la classe
 
 require_once __DIR__ . '/../Lib/Psr4AutoloaderClass.php';
 
@@ -19,9 +20,8 @@ if (!class_exists(Session::class)) {
     die("Erreur: Impossible de charger la classe Session");
 }
 
-//ControleurUtilisateur::creeUtilisateur();
+// ControleurUtilisateur::creeUtilisateur();
 $session = Session::getInstance();  // Initialisation de la session
-
 
 // Vérification de la connexion
 if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
@@ -47,6 +47,23 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
 } elseif (isset($_GET['user']) && $_GET['user'] == 'deconnecter') {
     ConnexionUtilisateur::deconnecter();
     ControleurUtilisateur::afficherFormulaireConnexion();
+} elseif (isset($_POST['action']) && $_POST['action'] == 'importerFichierExcel') {
+    // Nouvelle condition pour gérer l'importation du fichier Excel
+    if (isset($_FILES['fileImporte'])) {
+        $importResult = GestionFichierExcel::importationFichierExcelClient($_FILES['fileImporte']);
+
+        if ($importResult[0] === 1) {
+            MessageFlash::ajouter("success", "Importation réussie");
+        } elseif ($importResult[0] === 0) {
+            MessageFlash::ajouter("danger", "Erreur : Le fichier n'est pas un fichier Excel valide.");
+        } elseif ($importResult[0] === -2) {
+            MessageFlash::ajouter("danger", "Erreur : Aucun fichier sélectionné ou erreur lors de l'upload.");
+        } else {
+            MessageFlash::ajouter("danger", "Erreur inconnue lors de l'importation.");
+        }
+    }
+    // Rediriger après l'importation
+    ControleurGenerique::redirectionVersURL('controleurFrontal.php?controleur=client&action=afficherClients');
 } else {
     // Récupérer le contrôleur et l'action à partir de l'URL (par défaut 'page' et 'afficherAccueil')
     $controleur = $_GET['controleur'] ?? 'page';
@@ -73,7 +90,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
         echo $nomDeClasseControleur;
         // Si le contrôleur n'existe pas, afficher une erreur
         ControleurGenerique::afficherErreur("Ce contrôleur n'existe pas", $controleur, $action);
-
     }
 }
 ?>
