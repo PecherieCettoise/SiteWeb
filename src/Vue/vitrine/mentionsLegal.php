@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Lien vers le fichier CSS -->
-    <link rel="stylesheet" href="../../../ressources/css/style.css">
+    <link rel="stylesheet" href="../../ressources/css/style.css">
 
     <!-- Lien vers l'icône de l'onglet -->
-    <link rel="icon" href="../../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
+    <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 
     <title>Mentions légales - Pêcherie Cettoise</title>
 </head>

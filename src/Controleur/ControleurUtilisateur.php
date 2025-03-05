@@ -296,7 +296,7 @@ class ControleurUtilisateur extends ControleurGenerique
         );
 
         ControleurGenerique::afficherVue('vueGenerale.php', [
-            'titre' => "Ajouter un utilisateur",
+            'titre' => "Modifier votre mot de passe",
             "cheminCorpsVue" => 'utilisateur/changementMDP.php',
             'chemin' => $chemin,
         ]);

@@ -1,36 +1,40 @@
 <?php
 
-namespace App\Pecherie\GestionFichier;
+namespace App\Pecherie\Modele\GestionFichier;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+
 use App\Pecherie\Modele\Repository\ClientsRepository;
 
-class GestionFichierExcel {
-
+class GestionFichierExcel
+{
     /**
      * @param $fileImporte
      * @return array
-     * Cette méthode permet de vérifier et importer un fichier Excel pour la table `client`.
+     * Cette méthode permet de vérifier et importer un fichier Excel pour la table client.
      */
-    public static function importationFichierExcelClient($fileImporte) : array {
-
+    public static function importationFichierExcelClient($fileImporte) : array
+    {
         // Vérification si un fichier a été uploadé
         if (isset($fileImporte) && $fileImporte['error'] === UPLOAD_ERR_OK) {
             $file = $fileImporte;
 
-            // Vérifier si le fichier est bien un Excel (XLSX ou XLS)
+            // Vérifier si le fichier est bien un Excel ou un fichier LibreOffice (XLSX, XLS, ODS, CSV)
             $fileType = pathinfo($file['name'], PATHINFO_EXTENSION);
-            if ($fileType !== 'xlsx' && $fileType !== 'xls') {
-                return [0]; // Le fichier n'est pas un Excel
-            } else {
-                // Utilisation du fichier depuis l'emplacement temporaire
-                $fileTmpPath = $file['tmp_name'];
-
-                // Vérification si le fichier est accessible
-                if (is_uploaded_file($fileTmpPath)) {
-                    return GestionFichierExcel::remplirClientBDD($fileTmpPath);
-                }
+            if (!in_array($fileType, ['xlsx', 'xls', 'ods', 'csv'])) {
+                return [0]; // Le fichier n'est pas un format valide
             }
+
+            // Utilisation du fichier depuis l'emplacement temporaire
+            $fileTmpPath = $file['tmp_name'];
+
+            // Vérification si le fichier est bien téléchargé et accessible
+            if (!is_uploaded_file($fileTmpPath)) {
+                return [-3]; // Le fichier n'a pas été téléchargé correctement
+            }
+
+            // Si tout est correct, continue avec l'importation
+            return self::remplirClientBDD($fileTmpPath);
         } else {
             return [-2]; // Aucun fichier sélectionné ou erreur lors de l'upload
         }
@@ -41,21 +45,22 @@ class GestionFichierExcel {
     /**
      * @param $fileTmpPath
      * @return array
-     * Cette méthode permet d'importer les données du fichier Excel et de remplir la table `client`.
+     * Cette méthode permet d'importer les données du fichier Excel et de remplir la table client.
      */
-    public static function remplirClientBDD($fileTmpPath) : array {
-
+    public static function remplirClientBDD($fileTmpPath) : array
+    {
         // Initialisation du tableau et requêtes d'insertion
         $valuesClient = [];
         $sqlClient = (new ClientsRepository())->creerRequete();
 
-        // Lecture du fichier Excel avec PhpSpreadsheet
+        // Lecture du fichier avec PhpSpreadsheet (prend en charge XLS, XLSX, ODS, CSV, etc.)
         $spreadsheet = IOFactory::load($fileTmpPath);
 
-        // Récupérer la première feuille du fichier Excel
+        // Récupérer la première feuille du fichier
         $sheet = $spreadsheet->getActiveSheet();
         $highestRow = $sheet->getHighestRow(); // Dernière ligne
         $highestColumn = $sheet->getHighestColumn(); // Dernière colonne
+
         $librairie = array();
 
         // Parcours de la première ligne pour récupérer les noms des colonnes
@@ -79,7 +84,7 @@ class GestionFichierExcel {
             }
         }
 
-        // Lecture des lignes suivantes (les données) du fichier Excel
+        // Lecture des lignes suivantes (les données) du fichier
         for ($row = 2; $row <= $highestRow; $row++) {
             $valuesClient[] = [
                 'idClient' => isset($librairie['idClient']) ? $sheet->getCellByColumnAndRow($librairie['idClient'] + 1, $row)->getValue() : null,
@@ -92,8 +97,12 @@ class GestionFichierExcel {
         }
 
         // Exécution de la requête d'insertion
-        (new ClientsRepository())->executerRequete($sqlClient, $valuesClient);
+        $success = (new ClientsRepository())->executerRequete($sqlClient, $valuesClient);
 
-        return [1]; // Succès de l'importation
+        if ($success) {
+            return [1]; // Succès de l'importation
+        } else {
+            return [0]; // Échec de l'insertion dans la base de données
+        }
     }
 }
