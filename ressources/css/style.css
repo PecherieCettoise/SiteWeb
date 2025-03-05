@@ -556,12 +556,10 @@ button.prev:hover, button.next:hover {
     padding-bottom: 50px;
 }
 
-.label h2 {
-    font-size: 30px;
-}
+
 
 .label p{
-    font-size: 20px;
+    font-size: 16px;
 }
 
 /* Confiance Section */

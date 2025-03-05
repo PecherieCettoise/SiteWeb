@@ -180,7 +180,7 @@ class ControleurUtilisateur extends ControleurGenerique
             // Ajout dans la base de données
             UtilisateurRepository::ajouter($utilisateur);
             MessageFlash::ajouter("success", "$role ajouté avec succès !");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
         } catch (Exception $e) {
             // En cas d'erreur d'ajout
             MessageFlash::ajouter("danger", "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage());
@@ -249,40 +249,42 @@ class ControleurUtilisateur extends ControleurGenerique
     public static function changerDeMotDePasse() {
         // Récupérer le login de l'utilisateur connecté
         $loginUtilisateurConnecte = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $motdepasseUtilisateurConnecte = $_POST['ancienMotDePasse'] ?? '';
 
-        // Récupérer l'utilisateur dans la base de données
-        $utilisateurConnecte = (new UtilisateurRepository())->recupererParClePrimaire($loginUtilisateurConnecte);
+        // Récupérer les mots de passe du formulaire
+        $newMDP = $_POST['nouveauMotDePasse'] ?? '';
+        $confirmeMDP = $_POST['confirmationMotDePasse'] ?? '';
 
-        // Vérifier si le mot de passe actuel est correct
-        if (MotDePasse::verifier($motdepasseUtilisateurConnecte, $utilisateurConnecte->getMdp())) {
-            // Nouveau mot de passe
-            $newMDP = $_POST['nouveauMotDePasse'] ?? '';
-
-            if (isset($newMDP) && $newMDP != '') {
-                // Hacher le mot de passe avant de l'enregistrer
-                $hashedMDP = MotDePasse::hacher($newMDP);
-
-                // Mettre à jour le mot de passe dans la base de données
-                $isChanged = (new UtilisateurRepository())->setMotDePasse($hashedMDP);
-
-                // Vérifier si la mise à jour a été effectuée
-                if ($isChanged) {
-                    MessageFlash::ajouter("success", "Mot de passe modifié !");
-                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
-                    exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
-                } else {
-                    MessageFlash::ajouter("warning", "Mot de passe inchangé !");
-                    ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
-                    exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
-                }
-            }
-        } else {
-            MessageFlash::ajouter("danger", "Mot de passe incorrect. Veuillez réessayer.");
+        // Vérifier si les mots de passe sont identiques
+        if ($newMDP !== $confirmeMDP) {
+            MessageFlash::ajouter("danger", "Les mots de passe ne correspondent pas. Veuillez réessayer.");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
             exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
         }
+
+        // Vérifier que le nouveau mot de passe est bien renseigné
+        if (empty($newMDP)) {
+            MessageFlash::ajouter("danger", "Veuillez entrer un nouveau mot de passe.");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
+            exit();
+        }
+
+        // Hacher le mot de passe avant de l'enregistrer
+        $hashedMDP = MotDePasse::hacher($newMDP);
+
+        // Mettre à jour le mot de passe dans la base de données
+        $isChanged = (new UtilisateurRepository())->setMotDePasse($hashedMDP);
+
+        // Vérifier si la mise à jour a été effectuée
+        if ($isChanged) {
+            MessageFlash::ajouter("success", "Mot de passe modifié !");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+        } else {
+            MessageFlash::ajouter("warning", "Mot de passe inchangé !");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
+        }
+        exit();  // Assure-toi d'utiliser exit pour stopper l'exécution du script
     }
+
 
 
 

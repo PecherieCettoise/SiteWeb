@@ -64,9 +64,8 @@ use App\Pecherie\Modele\DataObject\Utilisateur;
         <p>La Pêcherie Cettoise © 2025 - <a href="controleurFrontal.php?controleur=page&action=afficherMentionsLegales">Mentions Légales</a></p>
 
 
-        <a href="http://www.mon-compteur.fr">
-            <img src="http://www.mon-compteur.fr/html_c01genv2-244026-1" border="0" />
-        </a>
+        <a href="http://www.mon-compteur.fr"><img src="http://www.mon-compteur.fr/html_c02genv2-78668-3" border="0" /></a>
+
     </div>
 </footer>
 

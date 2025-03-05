@@ -74,13 +74,4 @@ class ControleurPage {
     public static function reinitialisationMotDePasse() {
         include __DIR__ . '/../Vue/utilisateur/modification_mot_de_passe.php';
     }
-
-
-
-
-
-
-
-
-
 }
