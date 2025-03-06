@@ -4,77 +4,81 @@ namespace App\Pecherie\Modele\DataObject;
 
 class Clients extends AbstractDataObject {
 
-    private ?int $clientId;
-    private ?string $nom;
-    private ?string $prenom;
-    private int $code_nip; //numClient
-
-    // un constructeur
-
-    /**
-     * @param int|null $clientId
-     * @param string|null $nom
-     * @param string|null $prenom
-     * @param int $code_nip
-
-     */
-    public function __construct(?int $clientId, ?string $nom, ?string $prenom, int $code_nip)
-    {
-        $this->clientId = null|$clientId;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->code_nip = $code_nip;
-    }
-
-    // GETTER ET SETTER
-    public function getNom() : ?string {
-        return $this->nom;
-    }
-    public function setNom(string $nom) {
-        $this->nom = $nom;
-    }
+    private ?int $IDClient;
+    private string $numero;
+    private string $intitule;
+    private string $categorie_tarifaire;
+    private ?\DateTime $date_creation;
+    private ?string $email;
 
     /**
-     * @return int
+     * Constructeur de la classe Clients
+     *
+     * @param int|null $IDClient
+     * @param string $numero
+     * @param string $intitule
+     * @param string $categorie_tarifaire
+     * @param \DateTime|null $date_creation
+     * @param string|null $email
      */
-    public function getClientId() : ?int {
-        return $this->clientId;
-    }
-
-
-
-    /**
-     * @param int $clientId
-     */
-    public function setClientId(?int $clientId): void
+    public function __construct(?int $IDClient, string $numero, string $intitule, string $categorie_tarifaire, ?\DateTime $date_creation = null, ?string $email = null)
     {
-        $this->clientId = $clientId;
+        $this->IDClient = $IDClient;
+        $this->numero = $numero;
+        $this->intitule = $intitule;
+        $this->categorie_tarifaire = $categorie_tarifaire;
+        $this->date_creation = $date_creation ?? new \DateTime();
+        $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrenom() : ?string {
-        return $this->prenom;
+    // GETTERS ET SETTERS
+
+    public function getIDClient(): ?int {
+        return $this->IDClient;
     }
 
-    /**
-     * @param string $prenom
-     */
-    public function setPrenom(string $prenom)
-    {
-        $this->prenom = $prenom;
+    public function setIDClient(?int $IDClient): void {
+        $this->IDClient = $IDClient;
     }
 
-    public function getCodeNip(): int
-    {
-        return $this->code_nip;
+    public function getNumero(): string {
+        return $this->numero;
     }
 
-    public function setCodeNip(int $code_nip): void
-    {
-        $this->code_nip = $code_nip;
+    public function setNumero(string $numero): void {
+        $this->numero = $numero;
     }
 
+    public function getIntitule(): string {
+        return $this->intitule;
+    }
+
+    public function setIntitule(string $intitule): void {
+        $this->intitule = $intitule;
+    }
+
+    public function getCategorieTarifaire(): string {
+        return $this->categorie_tarifaire;
+    }
+
+    public function setCategorieTarifaire(string $categorie_tarifaire): void {
+        $this->categorie_tarifaire = $categorie_tarifaire;
+    }
+
+    public function getDateCreation(): ?\DateTime {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(?\DateTime $date_creation): void {
+        $this->date_creation = $date_creation;
+    }
+
+    public function getEmail(): ?string {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void {
+        $this->email = $email;
+    }
 }
 ?>

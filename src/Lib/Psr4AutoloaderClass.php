@@ -1,10 +1,5 @@
 <?php
 
-/*
-PSR-4 autoloader example implementations given by
-https://www.php-fig.org/psr/psr-4/
-*/
-
 namespace App\Pecherie\Lib;
 
 /**

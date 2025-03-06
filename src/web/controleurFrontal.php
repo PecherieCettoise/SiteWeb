@@ -6,7 +6,6 @@ use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\Psr4AutoloaderClass;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use App\Pecherie\Modele\HTTP\Session;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 require_once __DIR__ . '/../Lib/Psr4AutoloaderClass.php';
@@ -16,18 +15,13 @@ $loader = new Psr4AutoloaderClass();
 $loader->register();
 $loader->addNamespace('App\Pecherie', __DIR__ . '/../../src');
 
+
 // Vérification de la classe Session
 if (!class_exists(Session::class)) {
     die("Erreur: Impossible de charger la classe Session");
 }
 
-if (class_exists('PhpOffice\PhpSpreadsheet\IOFactory')) {
-    echo "PhpSpreadsheet est bien chargé !";
-} else {
-    echo "PhpSpreadsheet n'est PAS chargé !";
-}
-
-// ControleurUtilisateur::creeUtilisateur();
+//ControleurUtilisateur::creeUtilisateur();
 $session = Session::getInstance();  // Initialisation de la session
 
 // Vérification de la connexion

@@ -11,7 +11,6 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use DateTime;
 use PDO;
 
-
 class UtilisateurRepository extends AbstractRepository
 {
     protected function getNomTable(): string
@@ -61,7 +60,6 @@ class UtilisateurRepository extends AbstractRepository
             $clientFormatTableau['Role']
         );
     }
-
 
     /**
      * PARTIE Utilisateur
@@ -168,8 +166,28 @@ class UtilisateurRepository extends AbstractRepository
         }
     }
 
+    public function setLoginUtilisateur(string $nouveauLogin) : bool
+    {
+        // Récupérer le login de l'utilisateur connecté
+        $login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
 
+        // Préparer la requête SQL pour mettre à jour le login
+        $sql = "UPDATE utilisateurs SET login = :nouveau_login WHERE login = :login;";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
 
+        // Valeurs à lier à la requête SQL
+        $values = [
+            'login' => $login,
+            'nouveau_login' => $nouveauLogin
+        ];
 
-
+        // Exécution de la requête
+        if ($pdoStatement->execute($values)) {
+            error_log("Login mis à jour avec succès.");
+            return true;
+        } else {
+            error_log("Erreur lors de la mise à jour du login.");
+            return false;
+        }
+    }
 }

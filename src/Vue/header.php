@@ -27,7 +27,7 @@
     </div>
 
     <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-        <a href="controleurFrontal.php?controleur=page&action=afficherProfil">
+        <a href="controleurFrontal.php?action=afficherProfil&controleur=utilisateur">
             <img src="../../ressources/images/connexion/iconeConnecter.png" class="header-recherche">
         </a>
         <a href="controleurFrontal.php?action=deconnecter&controleur=utilisateur">DÉCONNEXION</a>

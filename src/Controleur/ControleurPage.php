@@ -2,7 +2,7 @@
 
 namespace App\Pecherie\Controleur;
 
-class ControleurPage {
+class ControleurPage extends ControleurGenerique {
 
     public function afficherAccueil() {
         /* Récupérer les promotions
@@ -44,15 +44,6 @@ class ControleurPage {
     public function afficherMentionsLegales() {
         // Inclure la vue de contact
         include __DIR__ . '/../Vue/vitrine/mentionsLegal.php';
-    }
-
-    public function afficherProfil() {
-        // Inclure la vue de contact
-        include __DIR__ . '/../Vue/utilisateur/profil.php';
-    }
-
-    public function envoyerCandidature(){
-        include __DIR__ . '/../Vue/vitrine/candidature.php';
     }
 
     public function afficherMailContact(){

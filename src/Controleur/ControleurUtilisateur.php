@@ -16,15 +16,12 @@ class ControleurUtilisateur extends ControleurGenerique
 
     public static function afficherProfil()
     {
-        $utilisateur = UtilisateurRepository::getUtilisateurConnecte();
-        $login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $client = null;
-        $nom = $utilisateur->getNom();
-        $prenom = $utilisateur->getPrenom();
-        $Role = $utilisateur->getRole();
-
-        ControleurGenerique::afficherVue('vueGenerale.php',['titre' => "Profil","cheminCorpsVue" => 'utilisateur/profil.php', 'login' => $login, 'nom' => $nom, 'prenom' => $prenom, 'Role' => $Role, 'detailClient' => $client]);
+        ControleurGenerique::afficherVue('vueGenerale.php', [
+            'titre' => "Profil",
+            "cheminCorpsVue" => 'utilisateur/profil.php',
+        ]);
     }
+
 
 
 
@@ -61,12 +58,12 @@ class ControleurUtilisateur extends ControleurGenerique
         // Vérifier si des utilisateurs restants après le filtrage
         if (empty($utilisateurs)) {
             MessageFlash::ajouter("info", "Aucun utilisateur disponible pour suppression.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
             return;
         }
         $chemin = array(
             "Accueil" => "controleurFrontal.php?action=afficherAcceuil&controleur=page",
-            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=page",
+            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
             "Supprimer utilisateur" => "#"
         );
 
@@ -98,7 +95,7 @@ class ControleurUtilisateur extends ControleurGenerique
                 }
 
                 MessageFlash::ajouter("success", "Utilisateur supprimé avec succès");
-                ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+                ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
             } else {
                 MessageFlash::ajouter("info", "Aucun utilisateur sélectionné");
                 ControleurGenerique::redirectionVersURL('controleur=utilisateur&action=afficherFormulaireSupprimerUtilisateur');
@@ -180,7 +177,7 @@ class ControleurUtilisateur extends ControleurGenerique
             // Ajout dans la base de données
             UtilisateurRepository::ajouter($utilisateur);
             MessageFlash::ajouter("success", "$role ajouté avec succès !");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
         } catch (Exception $e) {
             // En cas d'erreur d'ajout
             MessageFlash::ajouter("danger", "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage());
@@ -277,7 +274,7 @@ class ControleurUtilisateur extends ControleurGenerique
         // Vérifier si la mise à jour a été effectuée
         if ($isChanged) {
             MessageFlash::ajouter("success", "Mot de passe modifié !");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=page');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
         } else {
             MessageFlash::ajouter("warning", "Mot de passe inchangé !");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
@@ -298,6 +295,63 @@ class ControleurUtilisateur extends ControleurGenerique
         ControleurGenerique::afficherVue('vueGenerale.php', [
             'titre' => "Modifier votre mot de passe",
             "cheminCorpsVue" => 'utilisateur/changementMDP.php',
+            'chemin' => $chemin,
+        ]);
+    }
+
+    public static function changerLogin() {
+        // Récupérer le login de l'utilisateur connecté
+        $loginUtilisateurConnecte = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+
+        // Récupérer les logins du formulaire
+        $newLogin = $_POST['nouveauLogin'] ?? '';
+        $confirmeLogin = $_POST['confirmationLogin'] ?? '';
+
+        // Vérifier si les logins sont identiques
+        if ($newLogin !== $confirmeLogin) {
+            MessageFlash::ajouter("danger", "Les logins ne correspondent pas. Veuillez réessayer.");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierLogin&controleur=utilisateur');
+            exit();
+        }
+
+        // Vérifier que le nouveau login est bien renseigné
+        if (empty($newLogin)) {
+            MessageFlash::ajouter("danger", "Veuillez entrer un nouveau login.");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierLogin&controleur=utilisateur');
+            exit();
+        }
+
+        // Mettre à jour le login dans la base de données
+        $isChanged = (new UtilisateurRepository())->setLoginUtilisateur($newLogin);
+
+        // Vérifier si la mise à jour a été effectuée
+        if ($isChanged) {
+            // Réinitialiser ou mettre à jour la session avec le nouveau login
+            $_SESSION['login'] = $newLogin;
+
+            MessageFlash::ajouter("success", "Login modifié !");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
+        } else {
+            MessageFlash::ajouter("warning", "Login inchangé !");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierLogin&controleur=utilisateur');
+        }
+        exit();
+    }
+
+
+
+
+
+    public function afficherModifierLogin() {
+        $chemin = array(
+            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
+            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
+            "Ajouter utilisateur" => "#"
+        );
+
+        ControleurGenerique::afficherVue('vueGenerale.php', [
+            'titre' => "Modifier votre login",
+            "cheminCorpsVue" => 'utilisateur/changementLogin.php',
             'chemin' => $chemin,
         ]);
     }

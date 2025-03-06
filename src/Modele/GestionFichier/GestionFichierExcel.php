@@ -1,108 +1,68 @@
 <?php
-
 namespace App\Pecherie\Modele\GestionFichier;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PDO;
+use PDOException;
 
-use App\Pecherie\Modele\Repository\ClientsRepository;
+class GestionFichierExcel {
 
-class GestionFichierExcel
-{
-    /**
-     * @param $fileImporte
-     * @return array
-     * Cette méthode permet de vérifier et importer un fichier Excel pour la table client.
-     */
-    public static function importationFichierExcelClient($fileImporte) : array
-    {
-        // Vérification si un fichier a été uploadé
-        if (isset($fileImporte) && $fileImporte['error'] === UPLOAD_ERR_OK) {
-            $file = $fileImporte;
+    private $pdo;
 
-            // Vérifier si le fichier est bien un Excel ou un fichier LibreOffice (XLSX, XLS, ODS, CSV)
-            $fileType = pathinfo($file['name'], PATHINFO_EXTENSION);
-            if (!in_array($fileType, ['xlsx', 'xls', 'ods', 'csv'])) {
-                return [0]; // Le fichier n'est pas un format valide
-            }
-
-            // Utilisation du fichier depuis l'emplacement temporaire
-            $fileTmpPath = $file['tmp_name'];
-
-            // Vérification si le fichier est bien téléchargé et accessible
-            if (!is_uploaded_file($fileTmpPath)) {
-                return [-3]; // Le fichier n'a pas été téléchargé correctement
-            }
-
-            // Si tout est correct, continue avec l'importation
-            return self::remplirClientBDD($fileTmpPath);
-        } else {
-            return [-2]; // Aucun fichier sélectionné ou erreur lors de l'upload
-        }
-
-        return [-1]; // Erreur inconnue
+    public function __construct() {
+        // Créez la connexion à la base de données avec l'encodage utf8mb4
+        $this->pdo = new PDO(
+            "mysql:host=172.17.0.3;port=3306;dbname=PecherieCettoise;charset=utf8mb4",
+            "root",
+            "Corentin2004",
+            [
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'"
+            ]
+        );
     }
 
-    /**
-     * @param $fileTmpPath
-     * @return array
-     * Cette méthode permet d'importer les données du fichier Excel et de remplir la table client.
-     */
-    public static function remplirClientBDD($fileTmpPath) : array
-    {
-        // Initialisation du tableau et requêtes d'insertion
-        $valuesClient = [];
-        $sqlClient = (new ClientsRepository())->creerRequete();
+    // La méthode d'importation de votre fichier CSV
+    public function importerFichierCSV($filePath) {
+        if (($handle = fopen($filePath, 'r')) !== FALSE) {
+            fgetcsv($handle); // Sauter la première ligne (en-têtes)
+            $data = [];
 
-        // Lecture du fichier avec PhpSpreadsheet (prend en charge XLS, XLSX, ODS, CSV, etc.)
-        $spreadsheet = IOFactory::load($fileTmpPath);
+            // Lire chaque ligne du fichier CSV
+            while (($row = fgetcsv($handle)) !== FALSE) {
+                $numero = $row[0];
+                $intitule = $row[1];
+                $categorie_tarifaire = $row[2];
+                $email = $row[3];
 
-        // Récupérer la première feuille du fichier
-        $sheet = $spreadsheet->getActiveSheet();
-        $highestRow = $sheet->getHighestRow(); // Dernière ligne
-        $highestColumn = $sheet->getHighestColumn(); // Dernière colonne
-
-        $librairie = array();
-
-        // Parcours de la première ligne pour récupérer les noms des colonnes
-        $columns = $sheet->rangeToArray('A1:' . $highestColumn . '1')[0];
-        $i = 0;
-
-        // Identifier les indices des colonnes
-        foreach ($columns as $colonne) {
-            if ($colonne == 'IDClient') {
-                $librairie['idClient'] = $i++;
-            } else if ($colonne == 'intitule') {
-                $librairie['intitule'] = $i++;
-            } else if ($colonne == 'categorie_tarifaire') {
-                $librairie['categorie_tarifaire'] = $i++;
-            } else if ($colonne == 'date_creation') {
-                $librairie['date_creation'] = $i++;
-            } else if ($colonne == 'email') {
-                $librairie['email'] = $i++;
-            } else if ($colonne == 'numero') {
-                $librairie['numero'] = $i++;
+                // Ajouter les données dans le tableau
+                $data[] = [$numero, $intitule, $categorie_tarifaire, $email];
             }
-        }
+            fclose($handle);
 
-        // Lecture des lignes suivantes (les données) du fichier
-        for ($row = 2; $row <= $highestRow; $row++) {
-            $valuesClient[] = [
-                'idClient' => isset($librairie['idClient']) ? $sheet->getCellByColumnAndRow($librairie['idClient'] + 1, $row)->getValue() : null,
-                'intitule' => isset($librairie['intitule']) ? $sheet->getCellByColumnAndRow($librairie['intitule'] + 1, $row)->getValue() : null,
-                'categorie_tarifaire' => isset($librairie['categorie_tarifaire']) ? $sheet->getCellByColumnAndRow($librairie['categorie_tarifaire'] + 1, $row)->getValue() : null,
-                'date_creation' => isset($librairie['date_creation']) ? $sheet->getCellByColumnAndRow($librairie['date_creation'] + 1, $row)->getValue() : null,
-                'email' => isset($librairie['email']) ? $sheet->getCellByColumnAndRow($librairie['email'] + 1, $row)->getValue() : null,
-                'numero' => isset($librairie['numero']) ? $sheet->getCellByColumnAndRow($librairie['numero'] + 1, $row)->getValue() : null,
-            ];
-        }
+            // Insérer les données dans la base de données
+            try {
+                // Utilisation de INSERT IGNORE pour ignorer les doublons
+                $sql = "INSERT IGNORE INTO client (numero, intitule, categorie_tarifaire, email) VALUES (?, ?, ?, ?)";
+                $stmt = $this->pdo->prepare($sql);
 
-        // Exécution de la requête d'insertion
-        $success = (new ClientsRepository())->executerRequete($sqlClient, $valuesClient);
+                // Démarrer la transaction pour améliorer les performances
+                $this->pdo->beginTransaction();
 
-        if ($success) {
-            return [1]; // Succès de l'importation
-        } else {
-            return [0]; // Échec de l'insertion dans la base de données
+                // Exécuter la requête pour chaque ligne
+                foreach ($data as $row) {
+                    $stmt->execute($row);
+                }
+
+                // Valider la transaction
+                $this->pdo->commit();
+
+                return ['success' => 'Importation réussie.'];
+
+            } catch (PDOException $e) {
+                $this->pdo->rollBack();
+                return ['error' => 'Erreur de base de données : ' . $e->getMessage()];
+            }
         }
     }
 }
+
+?>
