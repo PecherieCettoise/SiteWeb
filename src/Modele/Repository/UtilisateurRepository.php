@@ -25,7 +25,7 @@ class UtilisateurRepository extends AbstractRepository
 
     protected function getNomColonnes(): array
     {
-        return ["login", "nom", "prenom", "mdp", "Role"];
+        return ["login", "nom", "mdp", "mdp_clair", "Role"];
     }
 
     public function formatTableauSQL(AbstractDataObject $utilisateur, int $i): array
@@ -33,31 +33,31 @@ class UtilisateurRepository extends AbstractRepository
         return [
             'login' . $i => $utilisateur->getLogin(),
             'nom' . $i => $utilisateur->getNom(),
-            'prenom' . $i => $utilisateur->getPrenom(),
             'mdp' . $i => $utilisateur->getMdp(),
+            "mdp_clair" . $i => $utilisateur->getMdpClair(),
             'Role' . $i => $utilisateur->getRole(),
         ];
     }
 
-    public function formatTableauSQLUtilisateur(Clients $etudiant, int $i): array
+    public function formatTableauSQLUtilisateur(Utilisateur $utilisateur, int $i): array
     {
         return [
-            'login' . $i => $etudiant->getClientId(),
-            'nom' . $i => $etudiant->getNom(),
-            'prenom' . $i => $etudiant->getPrenom(),
-            'mdp' . $i => MotDePasse::hacher($etudiant->getCodeNip()),
-            'Role' . $i => "client"
+            'login' . $i => $utilisateur->getLogin(),
+            'nom' . $i => $utilisateur->getNom(),
+            'mdp' . $i => MotDePasse::hacher($utilisateur->getMdp()),
+            'mdp_clair' . $i => $utilisateur->getMdpClair(),
+            'Role' . $i => "utilisateur",
         ];
     }
 
-    public static function construireDepuisTableauSQL(array $clientFormatTableau): Utilisateur
+    public static function construireDepuisTableauSQL(array $utilisateurFormatTableau): Utilisateur
     {
         return new Utilisateur(
-            $clientFormatTableau['nom'],
-            $clientFormatTableau['prenom'],
-            $clientFormatTableau['mdp'],
-            $clientFormatTableau['login'],
-            $clientFormatTableau['Role']
+            $utilisateurFormatTableau['nom'],
+            $utilisateurFormatTableau['mdp'],
+            $utilisateurFormatTableau['mdp_clair'],
+            $utilisateurFormatTableau['login'],
+            $utilisateurFormatTableau['Role']
         );
     }
 
@@ -68,28 +68,28 @@ class UtilisateurRepository extends AbstractRepository
     // AJOUT
 
     public function creerRequete() : string {
-        return "INSERT INTO utilisateurs (login, nom, prenom, mdp, Role) VALUES";
+        return "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role) VALUES";
     }
 
     public function ajouterValuesRequete(string $requeteSql, int $i) : string {
         if ($i == 1) {
-            return $requeteSql . ' ((:login' . $i . '), (:nom' . $i . '), (:prenom' . $i . '), (:mdp' . $i . '), (:Role' . $i . '))';
+            return $requeteSql . ' ((:login' . $i . '), (:nom' . $i . '), (:mdp' . $i . '), (:mdp_clair' . $i . '),  (:Role' . $i . '))';
         }
-        return $requeteSql . ', ((:login' . $i . '), (:nom' . $i . '), (:prenom' . $i . '), (:mdp' . $i . '), (:Role' . $i . '))';
+        return $requeteSql . ', ((:login' . $i . '), (:nom' . $i . '), (:mdp' . $i . '), (:mdp_clair' . $i . '),  (:Role' . $i . '))';
     }
 
     // Méthode pour créer un utilisateur professionnel de départ
     public static function creerUtilisateurPro(PDO $pdo, string $login, string $motDePasse, string $role = 'professionnel'): void {
         $motDePasseHache = MotDePasse::hacher($motDePasse);
-        $requete = "INSERT INTO utilisateurs (login, nom, prenom, mdp, Role) VALUES (:login, :nom, :prenom, :mdp, :Role)";
+        $requete = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role) VALUES (:login, :nom, :mdp, :mdp_clair, :Role)";
         $stmt = $pdo->prepare($requete);
 
         // Valeurs par défaut pour l'utilisateur professionnel
         $values = [
             'login' => $login,
             'nom' => 'NomPro',  // Tu peux personnaliser ce champ
-            'prenom' => 'PrenomPro',  // Tu peux personnaliser ce champ
             'mdp' => $motDePasseHache,
+            'mdp_clair' => $motDePasse,
             'Role' => $role,
         ];
 
@@ -114,12 +114,12 @@ class UtilisateurRepository extends AbstractRepository
     }
 
     public static function ajouter(Utilisateur $utilisateur){
-        $sql = "INSERT INTO utilisateurs (login, mdp, nom, prenom, Role) VALUES(:login, :mdp, :nom, :prenom, :Role)";
+        $sql = "INSERT INTO utilisateurs (login, mdp, mdp_clair, nom, Role) VALUES(:login, :mdp, :mdp_clair :nom, :Role)";
         $values = [
             'login' =>$utilisateur->getLogin(),
             'nom'  => $utilisateur->getNom(),
-            'prenom'  => $utilisateur->getPrenom(),
             'mdp' => $utilisateur->getMdp(),
+            'mdp_clair' => $utilisateur->getMdpClair(),
             'Role' => $utilisateur->getRole(),
         ];
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);

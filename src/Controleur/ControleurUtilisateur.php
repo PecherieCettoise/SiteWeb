@@ -127,13 +127,12 @@ class ControleurUtilisateur extends ControleurGenerique
         // Récupération des données du formulaire
         $login = $_POST['login'] ?? null;
         $nom = $_POST['nom'] ?? null;
-        $prenom = $_POST['prenom'] ?? null;
         $motdepasseNouveau = $_POST['motdepasseNouveau'] ?? null;
         $confirmationMotDePasse = $_POST['confirmationMotDePasse'] ?? null;
         $role = $_POST['Role'] ?? null;
 
         // Validation des champs du formulaire
-        if (!$login || !$nom || !$prenom || !$motdepasseNouveau || !$confirmationMotDePasse || !$role || $role === 'selection') {
+        if (!$login || !$nom || !$motdepasseNouveau || !$confirmationMotDePasse || !$role || $role === 'selection') {
             MessageFlash::ajouter("danger", "Tous les champs doivent être remplis et un rôle valide doit être sélectionné.");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
             return;
@@ -167,7 +166,6 @@ class ControleurUtilisateur extends ControleurGenerique
         // Création d'un objet Utilisateur
         $utilisateur = new Utilisateur(
             $nom,
-            $prenom,
             MotDePasse::hacher($motdepasseNouveau),
             $login,
             $role
@@ -211,7 +209,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
     public static function creeUtilisateur()
     {
-        $utilisateur = new Utilisateur("Martinez","Corentin", MotDePasse::hacher("coco"), "corentin", "administrateur");
+        $utilisateur = new Utilisateur("Martinez", MotDePasse::hacher("coco"), "coco", "corentin", "administrateur");
 
         UtilisateurRepository::ajouter($utilisateur);
     }
@@ -230,15 +228,15 @@ class ControleurUtilisateur extends ControleurGenerique
         // Récupération des valeurs depuis le formulaire
         $login = $_POST['login'] ?? null;
         $nom = $_POST['nom'] ?? null;
-        $prenom = $_POST['prenom'] ?? null;
         $mdp = $_POST['motdepasse'] ?? null;
+        $mdpClair = $_POST['motdepasseClair'] ?? null;
 
         // Gestion de la case à cocher "admin"
         $Role = $_POST['Role']; // Vérifie si la case est cochée
 
 
         // Création de l'objet Utilisateur avec les données du formulaire
-        return new Utilisateur($nom, $prenom, MotDePasse::hacher($mdp), $login, $Role);
+        return new Utilisateur($nom, MotDePasse::hacher($mdp), $mdpClair, $login, $Role);
     }
 
 
@@ -270,6 +268,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
         // Mettre à jour le mot de passe dans la base de données
         $isChanged = (new UtilisateurRepository())->setMotDePasse($hashedMDP);
+        //(new UtilisateurRepository())->setMotDePasse($newMDP);
 
         // Vérifier si la mise à jour a été effectuée
         if ($isChanged) {

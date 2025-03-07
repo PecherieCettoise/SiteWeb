@@ -30,7 +30,9 @@
         <a href="controleurFrontal.php?action=afficherProfil&controleur=utilisateur">
             <img src="../../ressources/images/connexion/iconeConnecter.png" class="header-recherche">
         </a>
-        <a href="controleurFrontal.php?action=deconnecter&controleur=utilisateur">DÉCONNEXION</a>
+        <a href="controleurFrontal.php?action=deconnecter&controleur=utilisateur">
+            <img src="../../ressources/images/acceuil/deconnexion.png" alt="Logo" class="header-recherche">
+        </a>
     <?php else : ?>
         <a href="controleurFrontal.php?controleur=utilisateur&action=afficherFormulaireConnexion" class="header-recherche">
             <p>Se Connecter</p>
@@ -54,7 +56,6 @@
 </div>
 
 <style>
-
     .site-header {
         display: flex;
         flex-direction: row;

@@ -6,24 +6,24 @@ namespace App\Pecherie\Modele\DataObject;
 class Utilisateur extends AbstractDataObject {
 
     private ?string $nom;
-    private ?string $prenom;
     private string $mdp;
+    private string $mdp_clair;
     private string $login;
     private string $Role;
 
     /**
      * @param string|null $nom
-     * @param string|null $prenom
      * @param string $mdp
+     * @param string $mdp_clair
      * @param string $login
      * @param string $Role
      */
-    public function __construct(?string $nom, ?string $prenom, string $mdp, string $login, string $Role)
+    public function __construct(?string $nom, string $mdp, string $mdp_clair, string $login, string $Role)
     {
         $this->login = $login;
         $this->nom = $nom;
-        $this->prenom = $prenom;
         $this->mdp = $mdp;
+        $this->mdp_clair = $mdp_clair;
         $this->Role = $Role;
     }
 
@@ -37,16 +37,6 @@ class Utilisateur extends AbstractDataObject {
         $this->nom = $nom;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(?string $prenom): void
-    {
-        $this->prenom = $prenom;
-    }
-
     public function getMdp(): ?string
     {
         return $this->mdp;
@@ -56,6 +46,17 @@ class Utilisateur extends AbstractDataObject {
     {
         $this->mdp = $mdp;
     }
+
+    public function getMdpClair(): string
+    {
+        return $this->mdp_clair;
+    }
+
+    public function setMdpClair(string $mdp_clair): void
+    {
+        $this->mdp_clair = $mdp_clair;
+    }
+
 
     public function getLogin(): ?string
     {
@@ -75,7 +76,7 @@ class Utilisateur extends AbstractDataObject {
         $this->Role = $Role;
     }
 
-    public static function estProfesionnel($Role) : bool{
+    public static function estProfessionnel($Role) : bool{
         return $Role === "professionnel";
     }
 
