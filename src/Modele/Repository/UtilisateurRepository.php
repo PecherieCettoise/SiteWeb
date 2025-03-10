@@ -13,6 +13,8 @@ use PDO;
 
 class UtilisateurRepository extends AbstractRepository
 {
+    private $pdo;
+
     protected function getNomTable(): string
     {
         return "utilisateurs";
@@ -114,7 +116,7 @@ class UtilisateurRepository extends AbstractRepository
     }
 
     public static function ajouter(Utilisateur $utilisateur){
-        $sql = "INSERT INTO utilisateurs (login, mdp, mdp_clair, nom, Role) VALUES(:login, :mdp, :mdp_clair :nom, :Role)";
+        $sql = "INSERT INTO utilisateurs (login, mdp, mdp_clair, nom, Role) VALUES(:login, :mdp, :mdp_clair, :nom, :Role)";
         $values = [
             'login' =>$utilisateur->getLogin(),
             'nom'  => $utilisateur->getNom(),
@@ -190,4 +192,73 @@ class UtilisateurRepository extends AbstractRepository
             return false;
         }
     }
+
+    public function getUtilisateurParLogin(string $login): ?Utilisateur
+    {
+        $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE login = :loginTag";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+        $values = [
+            "loginTag" => $login,
+        ];
+
+        $pdoStatement->execute($values);
+
+        $objetFormatTableau = $pdoStatement->fetch();
+        if (!$objetFormatTableau) return null;
+
+        return UtilisateurRepository::construireDepuisTableauSQL($objetFormatTableau);
+    }
+
+    // Enregistrer le token de réinitialisation dans la base de données
+    public function enregistrerTokenDeReinitialisation($login, $token, $expiration)
+    {
+        $stmt = $this->pdo->prepare("UPDATE utilisateurs SET reset_token = ?, reset_token_expiration = ? WHERE login = ?");
+        $stmt->execute([$token, $expiration->format('Y-m-d H:i:s'), $login]);
+    }
+
+// Récupérer un utilisateur par email
+    public function recupererParEmail($email)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetchObject(Utilisateur::class);
+    }
+
+// Récupérer les données du token
+    public function recupererToken($token)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE reset_token = ?");
+        $stmt->execute([$token]);
+        return $stmt->fetch();
+    }
+
+// Mettre à jour le mot de passe
+    public function changerMotDePasse($login, $password)
+    {
+        $stmt = $this->pdo->prepare("UPDATE utilisateurs SET password = ? WHERE login = ?");
+        $stmt->execute([$password, $login]);
+    }
+
+// Supprimer le token après réinitialisation
+    public function supprimerToken($token)
+    {
+        $stmt = $this->pdo->prepare("UPDATE utilisateurs SET reset_token = NULL, reset_token_expiration = NULL WHERE reset_token = ?");
+        $stmt->execute([$token]);
+    }
+
+    // Récupérer un utilisateur par le token de réinitialisation
+    public function recupererParToken($token)
+    {
+        // Rechercher l'utilisateur par son token de réinitialisation
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE reset_token = ?");
+        $stmt->execute([$token]);
+        // Retourner l'utilisateur si trouvé, sinon null
+        return $stmt->fetchObject(Utilisateur::class);
+    }
+
+
+
+
+
 }

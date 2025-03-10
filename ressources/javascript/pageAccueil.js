@@ -1,13 +1,13 @@
 let image = document.querySelector('.image-container img');
-let images = [
-    { src: '/../ressources/images/acceuil/camion.jpg' },
-    { src: '/../ressources/images/acceuil/camion.jpg' },
-    { src: '/../ressources/images/acceuil/camion.jpg'}
-]; // Tableau d'objets contenant 'src' et 'alt'
 let currentIndex = 0;
+let images = [
+    { src: '../../ressources/images/acceuil/camion.jpg', alt: 'Camion' },
+    { src: '../../ressources/images/acceuil/arrivage.jpg', alt: 'Arrivage' },
+    { src: '../../ressources/images/acceuil/photoMer.jpg', alt: 'Mer' }
+]; // Tableau d'objets contenant 'src' et 'alt'
+
 
 function changeImage() {
-
     // Après 5 secondes, changer l'image et réinitialiser l'agrandissement
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % images.length; // Passer à l'image suivante

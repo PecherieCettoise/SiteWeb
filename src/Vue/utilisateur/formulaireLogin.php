@@ -37,18 +37,18 @@
             <input type="hidden" name="action" value="connecter">
             <div class="form-group">
                 <label for="login">Login :</label>
-                <input type="text" name="login" id="login" required>
+                <input type="text" name="login" id="login">
             </div>
             <div class="form-group">
                 <label for="motdepasse">Mot de passe :</label>
-                <input type="password" name="motdepasse" id="motdepasse" required>
+                <input type="password" name="motdepasse" id="motdepasse">
             </div>
 
             <div class="content">
                 <a href="controleurFrontal.php?action=modifierMDP&controleur=utilisateur" id="profil-link"><button class="rouge">Changer de mot de passe</button></a>
             </div>
 
-                <button type="submit">Se connecter</button>
+            <button type="submit">Se connecter</button>
 
         </form>
     </div>
