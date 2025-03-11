@@ -8,9 +8,9 @@ use App\Pecherie\Modele\DataObject\AbstractDataObject;
 abstract class AbstractRepository {
 
 
-    protected abstract function getNomTable(): string; // ex : etudiant
-    protected abstract function getNomClePrimaire() : array; // ex : code_nip
-    protected abstract function getNomColonnes() : array; // ex : etud_id code_nip nom pren//nom pseudo etc...
+    protected abstract function getNomTable(): string;
+    protected abstract function getNomClePrimaire() : array;
+    protected abstract function getNomColonnes() : array;
     protected static abstract function construireDepuisTableauSQL(array $objetFormatTableau) : AbstractDataObject;
     protected abstract function formatTableauSQL(AbstractDataObject $objet, int $i): array;
 
