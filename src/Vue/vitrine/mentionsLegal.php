@@ -21,8 +21,6 @@
     }
 </style>
 
-<!-- Inclusion du header.php -->
-<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
 <!-- Contenu de la page -->
 <body>
@@ -112,7 +110,5 @@
 
 </body>
 
-<!-- Inclusion du footer.php -->
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 </html>

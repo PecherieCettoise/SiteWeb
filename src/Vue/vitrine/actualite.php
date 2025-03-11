@@ -13,9 +13,6 @@
     <title>Nos engagements - Pêcherie Cettoise</title>
 </head>
 
-<!-- Inclusion du header.php -->
-<?php require_once __DIR__ . "../../../Vue/header.php" ?>
-
 <body>
 <main>
     <div class="imageMer">
@@ -102,10 +99,5 @@
 
 <script src="../../ressources/javascript/actualite.js"></script>
 <script src="../../ressources/javascript/pagePecherieCettoise.js"></script>
-
-
-
-
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 </html>

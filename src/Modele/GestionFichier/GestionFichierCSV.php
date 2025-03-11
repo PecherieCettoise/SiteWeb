@@ -77,7 +77,7 @@ class GestionFichierCSV {
 
             return ["success" => "Importation réussie."];
         } catch (PDOException $e) {
-            return ["error" => "Erreur de base de données : " . $e->getMessage()];
+            return ["error" => "Erreur de base de données: Ce n'est pas le bon fichier"];
         }
     }
 
@@ -170,7 +170,7 @@ class GestionFichierCSV {
 
             return ["success" => "Importation réussie."];
         } catch (PDOException $e) {
-            return ["error" => "Erreur de base de données : " . $e->getMessage()];
+            return ["error" => "Erreur de base de données: Ce n'est pas le bon fichier"];
         }
     }
 

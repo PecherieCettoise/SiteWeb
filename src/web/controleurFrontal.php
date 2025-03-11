@@ -41,7 +41,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
     }
 
     ConnexionUtilisateur::connecter($array["login"], $array["role"]);
-    MessageFlash::ajouter("success", "Connexion réussie");
     ControleurGenerique::redirectionVersURL('controleurFrontal.php');
 } elseif (isset($_GET['controleur']) && $_GET['controleur'] === 'page' && isset($_GET['action']) && $_GET['action'] === 'afficherLogin') {
     ControleurUtilisateur::afficherFormulaireConnexion();

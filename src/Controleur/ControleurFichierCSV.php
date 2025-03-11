@@ -4,6 +4,7 @@ namespace App\Pecherie\Controleur;
 
 use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Modele\GestionFichier\GestionFichierCSV;
+use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees;
 use PDO;
 
 
@@ -12,12 +13,12 @@ class ControleurFichierCSV extends ControleurGenerique {
     public static function afficherFormulaireImportation() {
         ControleurGenerique::afficherVue('vueGenerale.php', [
             "titre" => "Importation de fichiers",
-            "cheminCorpsVue" => "fichierExel/formulaireImportationCSV.php"
+            "cheminCorpsVue" => "fichierCSV/formulaireImportationCSV.php"
         ]);
     }
 
     public static function importerFichiers() {
-        $pdo = new PDO("mysql:host=172.17.0.3;port=3306;dbname=PecherieCettoise;charset=utf8mb4", "root", "Corentin2004");
+        $pdo = ConnexionBaseDeDonnees::getPdo(); new PDO("mysql:host=172.17.0.3;port=3306;dbname=PecherieCettoise;charset=utf8mb4", "root", "Corentin2004");
         $gestionFichier = new GestionFichierCSV($pdo);
         $messages = [];
 

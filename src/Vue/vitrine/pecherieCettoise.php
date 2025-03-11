@@ -13,9 +13,6 @@
     <title>La Pêcherie Cettoise - Pêcherie Cettoise</title>
 </head>
 
-<!-- Inclusion du header.php -->
-<?php require_once __DIR__ . "../../../Vue/header.php" ?>
-
 <!-- Contenu de la page -->
 <body>
     <main>
@@ -294,8 +291,6 @@
     <script src="/../../ressources/javascript/pageAccueil.js"></script>
 
 </body>
-
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 </html>
 

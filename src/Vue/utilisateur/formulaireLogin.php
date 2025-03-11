@@ -11,23 +11,6 @@
 <body class="connexion">
 <?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
-<div class="alert-connexion">
-    <?php
-    /** @var string[][] $messagesFlash */
-    $messagesFlash = $messagesFlash ?? []; // Assurer que la variable est bien définie
-
-    foreach ($messagesFlash as $type => $messagesFlashPourUnType) {
-        // $type peut être "success", "info", "warning", "danger"
-        foreach ($messagesFlashPourUnType as $messageFlash) {
-            echo "
-            <div class=\"alert alert-$type-connexion\">
-               $messageFlash
-            </div>";
-        }
-    }
-    ?>
-</div>
-
 
 <main class="main-vueGenerale">
     <div class="contact">

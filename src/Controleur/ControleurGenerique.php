@@ -15,17 +15,7 @@ class ControleurGenerique
     protected static function afficherVue(string $cheminVue, array $parametres = []): void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         $messagesFlash = MessageFlash::lireTousMessages();
-
-        // Utilisation d'un chemin absolu ou relatif selon l'emplacement du fichier
-        $cheminVueComplet = '/var/www/html/SiteWeb/src/Vue/' . $cheminVue;
-
-
-        // Si le fichier de vue n'existe pas, afficher un message d'erreur
-        if (!file_exists($cheminVueComplet)) {
-            die("Erreur : Le fichier de vue '$cheminVue' est introuvable.");
-        }
-
-        require $cheminVueComplet; // Charge la vue
+        require __DIR__ . "/../Vue/$cheminVue"; // Charge la vue
     }
 
     /**

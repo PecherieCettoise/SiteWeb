@@ -13,15 +13,15 @@
     <!-- Menu principal -->
     <div class="header-bouton">
         <strong>
-            <a href="controleurFrontal.php?controleur=page&action=afficherAccueil">ACCUEIL</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherPecherieCettoise">LA PÊCHERIE CETTOISE</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherProduits">NOS PRODUITS</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherEngagements">NOS ENGAGEMENTS</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherActualites">ACTUALITÉS</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherCandidatures">CANDIDATURE</a>
-            <a href="controleurFrontal.php?controleur=page&action=afficherContact">CONTACT</a>
+            <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">ACCUEIL</a>
+            <a href="controleurFrontal.php?action=afficherPecherieCettoise&controleur=page">LA PÊCHERIE CETTOISE</a>
+            <a href="controleurFrontal.php?action=afficherProduits&controleur=page">NOS PRODUITS</a>
+            <a href="controleurFrontal.php?action=afficherEngagements&controleur=page">NOS ENGAGEMENTS</a>
+            <a href="controleurFrontal.php?action=afficherActualites&controleur=page">ACTUALITÉS</a>
+            <a href="controleurFrontal.php?action=afficherCandidatures&controleur=page">CANDIDATURE</a>
+            <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
             <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-                <a href="controleurFrontal.php?controleur=page&action=afficherBoutique">BOUTIQUE</a>
+                <a href="controleurFrontal.php?action=afficherBoutique&controleur=page">BOUTIQUE</a>
             <?php endif; ?>
         </strong>
     </div>
@@ -43,17 +43,34 @@
 
 <!-- Menu déroulant pour les petits écrans -->
 <div class="menu-dropdown" id="menuDropdown">
-    <a href="controleurFrontal.php?controleur=page&action=afficherAccueil">ACCUEIL</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherPecherieCettoise">LA PÊCHERIE CETTOISE</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherProduits">NOS PRODUITS</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherEngagements">NOS ENGAGEMENTS</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherActualites">ACTUALITÉS</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherCandidatures">CANDIDATURE</a>
-    <a href="controleurFrontal.php?controleur=page&action=afficherContact">CONTACT</a>
+    <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">ACCUEIL</a>
+    <a href="controleurFrontal.php?action=afficherPecherieCettoise&controleur=page">LA PÊCHERIE CETTOISE</a>
+    <a href="controleurFrontal.php?action=afficherProduits&controleur=page">NOS PRODUITS</a>
+    <a href="controleurFrontal.php?action=afficherEngagements&controleur=page">NOS ENGAGEMENTS</a>
+    <a href="controleurFrontal.php?action=afficherActualites&controleur=page">ACTUALITÉS</a>
+    <a href="controleurFrontal.php?action=afficherCandidatures&controleur=page">CANDIDATURE</a>
+    <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
+
     <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-        <a href="controleurFrontal.php?controleur=page&action=afficherBoutique">BOUTIQUE</a>
+        <a href="controleurFrontal.php?action=afficherBoutique&controleur=page">BOUTIQUE</a>
     <?php endif; ?>
 </div>
+<div>
+    <?php
+    /** @var string[][] $messagesFlash */
+    foreach($messagesFlash as $type => $messagesFlashPourUnType) {
+        // $type est l'une des valeurs suivantes : "success", "info", "warning", "danger"
+        // $messagesFlashPourUnType est la liste des messages flash d'un type
+        foreach ($messagesFlashPourUnType as $messageFlash) {
+            echo "
+            <div class=\"alert alert-$type\">
+               $messageFlash
+            </div>";
+        }
+    }
+    ?>
+</div>
+
 
 <style>
     .site-header {
@@ -115,3 +132,6 @@
         menu.classList.toggle("active");
     }
 </script>
+
+
+

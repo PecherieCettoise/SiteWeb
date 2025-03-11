@@ -11,7 +11,6 @@
 </head>
 <body class="contact">
 
-<?php require_once __DIR__ . "../../../Vue/header.php" ?>
 
 <form action="controleurFrontal.php?action=afficherMailContact&controleur=page" method="POST" enctype="multipart/form-data">
 
@@ -47,7 +46,6 @@
 
 </form>
 
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 </body>
 
 

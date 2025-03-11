@@ -14,9 +14,6 @@
 </head>
 
 
-<!-- Inclusion du header.php -->
-<?php include("../Vue/header.php"); ?>
-
 <body>
 <main>
     <div class="imageMer">
@@ -70,8 +67,5 @@
     </div>
 </main>
 </body>
-
-
-<?php include("../Vue/footer.php"); ?>
 
 </html>

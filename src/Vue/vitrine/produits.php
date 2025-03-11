@@ -10,8 +10,6 @@
     <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 
     <title>Nos Produits - Pêcherie Cettoise</title>
-    <!-- Header du site -->
-    <?php require_once __DIR__ . "../../../Vue/header.php" ?>
 </head>
 
 <body>
@@ -251,9 +249,6 @@
 
 
 </main>
-
-<!-- Footer du site -->
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
 <script>
     function toggleProduits(id) {

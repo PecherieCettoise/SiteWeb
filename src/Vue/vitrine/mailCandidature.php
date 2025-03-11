@@ -9,6 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 use App\Pecherie\Controleur\ControleurGenerique;
+use App\Pecherie\Lib\MessageFlash;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -35,7 +36,7 @@ try {
 
     // Contenu de l'e-mail
     $mail->isHTML(true);
-    $mail->Subject = 'Nouveau message du formulaire';
+    $mail->Subject = 'Nouvelle Candidature';
     $mail->Body    = nl2br("Nom: {$_POST['nom']}<br>Prénom: {$_POST['prenom']}<br>Email: {$_POST['email']}<br>Message:<br>{$_POST['message']}<br>Téléphone: {$_POST['telephone']}");
 
     // Vérification et ajout des fichiers joints
@@ -65,13 +66,16 @@ try {
 
     // Envoi du message
     if ($mail->send()) {
-        $_SESSION['flash_message'] = '✅ Candidature envoyée avec succès.';
-        // Redirection après envoi de l'email
-        header("Location: controleurFrontal.php?action=afficherCandidatures&controleur=page");
+        // Message flash en cas de succès
+        MessageFlash::ajouter("success", "Candidature envoyée avec succès");
+        // Redirection après envoi de l'email vers la page des candidatures
+        ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherCandidatures&controleur=page");
         exit;
     } else {
-        echo "❌ L'email n'a pas été envoyé.";
+        // Message flash en cas d'erreur
+        MessageFlash::ajouter("danger", "Erreur lors de l'envoi de l'email.");
     }
+
 } catch (Exception $e) {
     echo "❌ Erreur d'envoi : {$mail->ErrorInfo}";
 }

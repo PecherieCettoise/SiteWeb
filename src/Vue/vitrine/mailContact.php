@@ -1,22 +1,19 @@
 <?php
 
 use App\Pecherie\Controleur\ControleurGenerique;
+use App\Pecherie\Lib\MessageFlash;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-session_start();
-
 // Activation du mode debug pour voir les erreurs (désactive après test)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$mail = new PHPMailer(true);
+$mail = new PHPMailer(false);
 
 try {
-    // Activer le debug SMTP (mettre 0 en production)
-    $mail->SMTPDebug = 2;
 
     // Configuration du serveur SMTP
     $mail->isSMTP();
@@ -33,18 +30,20 @@ try {
 
     // Contenu de l'e-mail
     $mail->isHTML(true);
-    $mail->Subject = 'Nouveau message du formulaire';
+    $mail->Subject = 'Nouvelle Demande';
     $mail->Body    = nl2br("Nom: {$_POST['nom']}<br>Prénom: {$_POST['prenom']}<br>Email: {$_POST['email']}<br>Message:<br>{$_POST['message']}<br>Téléphone: {$_POST['telephone']}");
 
     // Envoi du message
     if ($mail->send()) {
-        $_SESSION['flash_message'] = '✅ Message envoyé avec succès.';
+        MessageFlash::ajouter("success", "Votre demande a bien été envoyer");
         ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherContact&controleur=page");
-        exit;
     } else {
-        echo "❌ L'email n'a pas été envoyé.";
+        MessageFlash::ajouter("danger", "Votre demande n'a pas été envoyer");
+        ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherContact&controleur=page");
     }
 } catch (Exception $e) {
-    echo "❌ Erreur d'envoi : {$mail->ErrorInfo}";
+
+    MessageFlash::ajouter("danger", "Erreur lors de l'envoi du message.");
+    ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherContact&controleur=page");
 }
 ?>

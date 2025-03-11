@@ -100,11 +100,11 @@ class ControleurUtilisateur extends ControleurGenerique
                 ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
             } else {
                 MessageFlash::ajouter("info", "Aucun utilisateur sélectionné");
-                ControleurGenerique::redirectionVersURL('controleur=utilisateur&action=afficherFormulaireSupprimerUtilisateur');
+                ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireSuppressionUtilisateur&controleur=utilisateur');
             }
         } else {
             MessageFlash::ajouter("danger", "Mot de passe incorrect. Veuillez réessayer.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireSupprimerUtilisateur&controleur=utilisateur');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireSuppressionUtilisateur&controleur=utilisateur');
         }
 
 
