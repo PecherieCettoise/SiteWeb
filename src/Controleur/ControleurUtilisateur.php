@@ -379,7 +379,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
             // Vérifier si l'email existe
             $pdo = ConnexionBaseDeDonnees::getPdo();
-            $stmt = $pdo->prepare("SELECT id FROM client WHERE email = ?");
+            $stmt = $pdo->prepare("SELECT IDClient FROM client WHERE email = ?");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
@@ -390,7 +390,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
                 // Insérer dans la base
                 $stmt = $pdo->prepare("INSERT INTO redefinirMDP (user_id, token, expires_at) VALUES (?, ?, ?)");
-                $stmt->execute([$user['id'], $token, $expires_at]);
+                $stmt->execute([$user['IDClient'], $token, $expires_at]);
 
                 // Lien de réinitialisation
                 $reset_link = "http://localhost:8002/SiteWeb/src/web/controleurFrontal.php?action=afficherFormulaireNouveauMdp&token=" . $token;
