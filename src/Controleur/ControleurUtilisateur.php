@@ -7,6 +7,7 @@ use App\Pecherie\Lib\MotDePasse;
 use App\Pecherie\Modele\DataObject\Utilisateur;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
 use App\Pecherie\Modele\HTTP\Session;
+use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees;
 use App\Pecherie\Modele\Repository\UtilisateurRepository;
 use DateInterval;
 use DateTime;
@@ -24,25 +25,6 @@ class ControleurUtilisateur extends ControleurGenerique
         ]);
     }
 
-
-
-
-    public static function afficherFormulaireAjoutUtilisateur()
-    {
-        $chemin = array(
-            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
-            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
-            "Ajouter utilisateur" => "#"
-        );
-        $Role = ['administrateur', 'professionnel', 'particulier'];
-
-        ControleurGenerique::afficherVue('vueGenerale.php', [
-            'titre' => "Ajouter un utilisateur",
-            "cheminCorpsVue" => 'utilisateur/formulaireAjoutUtilisateurs.php',
-            'Role' => $Role,
-            'chemin' => $chemin,
-        ]);
-    }
 
     public static function afficherFormulaireSuppressionUtilisateur()
     {
@@ -183,6 +165,24 @@ class ControleurUtilisateur extends ControleurGenerique
             MessageFlash::ajouter("danger", "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage());
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjout&controleur=utilisateur');
         }
+    }
+
+
+    public static function afficherFormulaireAjoutUtilisateur()
+    {
+        $chemin = array(
+            "Accueil" => "controleurFrontal.php?action=afficherAccueil&controleur=utilisateur",
+            "Profil" => "controleurFrontal.php?action=afficherProfil&controleur=utilisateur",
+            "Ajouter utilisateur" => "#"
+        );
+        $Role = ['administrateur', 'professionnel', 'particulier'];
+
+        ControleurGenerique::afficherVue('vueGenerale.php', [
+            'titre' => "Ajouter un utilisateur",
+            "cheminCorpsVue" => 'utilisateur/formulaireAjoutUtilisateurs.php',
+            'Role' => $Role,
+            'chemin' => $chemin,
+        ]);
     }
 
 
@@ -360,10 +360,6 @@ class ControleurUtilisateur extends ControleurGenerique
         ]);
     }
 
-    public static function modifierMDP() {
-        include __DIR__ . '/../Vue/utilisateur/formulaireDemande.php';
-    }
-
 
     public static function afficherFormulaireDemande() {
         ControleurGenerique::afficherVue("vueGenerale.php", [
@@ -372,121 +368,98 @@ class ControleurUtilisateur extends ControleurGenerique
         ]);
     }
 
-    public static function traiterDemandeReinitialisation()
-    {
-        // Récupérer l'email du formulaire
-        $email = $_POST['email'] ?? '';
+    public function demanderReinitialisation() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = trim($_POST["email"]);
 
-        // Vérifier si l'email est valide
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            MessageFlash::ajouter("danger", "L'adresse email n'est pas valide.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireDemande&controleur=utilisateur');
-            return;
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "Adresse email invalide.";
+                return;
+            }
+
+            // Vérifier si l'email existe
+            $pdo = ConnexionBaseDeDonnees::getPdo();
+            $stmt = $pdo->prepare("SELECT id FROM client WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch();
+
+            if ($user) {
+                // Générer un token
+                $token = bin2hex(random_bytes(32));
+                $expires_at = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+                // Insérer dans la base
+                $stmt = $pdo->prepare("INSERT INTO redefinirMDP (user_id, token, expires_at) VALUES (?, ?, ?)");
+                $stmt->execute([$user['id'], $token, $expires_at]);
+
+                // Lien de réinitialisation
+                $reset_link = "http://localhost:8002/SiteWeb/src/web/controleurFrontal.php?action=afficherFormulaireNouveauMdp&token=" . $token;
+
+                // Envoyer l'email
+                $subject = "Réinitialisation de votre mot de passe";
+                $message = "Cliquez sur ce lien pour réinitialiser votre mot de passe : $reset_link";
+                mail($email, $subject, $message);
+
+                echo "Un email vous a été envoyé.";
+            } else {
+                echo "Aucun compte trouvé.";
+            }
         }
-
-        // Récupérer l'utilisateur en fonction de l'email
-        $utilisateur = (new UtilisateurRepository())->recupererParEmail($email);
-        if (!$utilisateur) {
-            MessageFlash::ajouter("danger", "Aucun utilisateur trouvé avec cet email.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireDemande&controleur=utilisateur');
-            return;
-        }
-
-        // Générer un token unique pour la réinitialisation
-        $token = bin2hex(random_bytes(32)); // Génère un token aléatoire
-        $expiration = new DateTime();
-        $expiration->add(new DateInterval('PT20M')); // Lien valide pendant 20 minutes
-
-        // Enregistrer le token et son expiration dans la base de données
-        (new UtilisateurRepository())->enregistrerTokenDeReinitialisation($utilisateur->getLogin(), $token, $expiration);
-
-        // Créer le lien de réinitialisation
-        $lien = "http://votresite.com/reinitialiser-mot-de-passe?token=$token";
-
-        // Envoyer l'email
-        $subject = "Réinitialisation de votre mot de passe";
-        $message = "Cliquez sur ce lien pour réinitialiser votre mot de passe : $lien";
-        mail($email, $subject, $message);
-
-        // Confirmation à l'utilisateur
-        MessageFlash::ajouter("success", "Un email de réinitialisation a été envoyé.");
-        ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireConnexion&controleur=utilisateur');
     }
 
-    public static function afficherFormulaireReinitialisation()
-    {
-        $token = $_GET['token'] ?? '';
+    public function modifierMdp() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $token = $_POST["token"];
+            $new_password = $_POST["new_password"];
+            $confirm_password = $_POST["confirm_password"];
 
-        // Vérifier si le token est valide
-        if (empty($token) || !self::verifierToken($token)) {
-            MessageFlash::ajouter("danger", "Le lien est invalide ou a expiré.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireDemande&controleur=utilisateur');
-            return;
+            if ($new_password !== $confirm_password) {
+                echo "Les mots de passe ne correspondent pas.";
+                return;
+            }
+
+            // Vérifier le token
+            $pdo = ConnexionBaseDeDonnees::getPdo();
+            $stmt = $pdo->prepare("SELECT user_id FROM redefinirMDP WHERE token = ? AND expires_at > NOW()");
+            $stmt->execute([$token]);
+            $resetRequest = $stmt->fetch();
+
+            if (!$resetRequest) {
+                echo "Lien invalide ou expiré.";
+                return;
+            }
+
+            // Mettre à jour le mot de passe
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("UPDATE utilisateur SET mot_de_passe = ? WHERE id = ?");
+            $stmt->execute([$hashed_password, $resetRequest['user_id']]);
+
+            // Supprimer le token
+            $stmt = $pdo->prepare("DELETE FROM redefinirMDP WHERE token = ?");
+            $stmt->execute([$token]);
+
+            echo "Mot de passe réinitialisé avec succès !";
         }
+    }
 
-        // Afficher le formulaire de réinitialisation
+
+    public static function afficherFormulaireModifierMDP(){
         ControleurGenerique::afficherVue("vueGenerale.php", [
-            'titre' => "Réinitialiser votre mot de passe",
-            "chemin" => "utilisateur/formulaireReinitialisation.php",
-            'token' => $token
+            'titre' => "Formulaire de modification de mot de passe",
+            "cheminCorpsVue" => "utilisateur/formulaireNouveauMDP.php",
         ]);
     }
 
-    public static function traiterReinitialisation()
-    {
-        $token = $_POST['token'] ?? '';
-        $nouveauMotDePasse = $_POST['nouveauMotDePasse'] ?? '';
-        $confirmationMotDePasse = $_POST['confirmationMotDePasse'] ?? '';
-
-        // Vérifier que les mots de passe correspondent
-        if ($nouveauMotDePasse !== $confirmationMotDePasse) {
-            MessageFlash::ajouter("danger", "Les mots de passe ne correspondent pas.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireReinitialisation&controleur=utilisateur&token=' . $token);
-            return;
-        }
-
-        // Vérifier si le token est valide
-        if (!self::verifierToken($token)) {
-            MessageFlash::ajouter("danger", "Le lien est invalide ou a expiré.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireDemande&controleur=utilisateur');
-            return;
-        }
-
-        // Récupérer l'utilisateur correspondant au token
-        $utilisateur = (new UtilisateurRepository())->recupererParToken($token);
-        if (!$utilisateur) {
-            MessageFlash::ajouter("danger", "Aucun utilisateur trouvé pour ce token.");
-            return;
-        }
-
-        // Hacher le nouveau mot de passe
-        $hashedPassword = MotDePasse::hacher($nouveauMotDePasse);
-
-        // Mettre à jour le mot de passe dans la base de données
-        (new UtilisateurRepository())->changerMotDePasse($utilisateur->getLogin(), $hashedPassword);
-
-        // Supprimer le token après utilisation
-        (new UtilisateurRepository())->supprimerToken($token);
-
-        MessageFlash::ajouter("success", "Votre mot de passe a été réinitialisé avec succès.");
-        ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireConnexion&controleur=utilisateur');
+    public static function afficherFormulaireReinitialisationMDP(){
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => 'Saisir votre email',
+            "cheminCorpsVue" => "utilisateur/formulaireReinitialisationMDP.php",
+        ]);
     }
 
-    public static function verifierToken($token)
-    {
-        $tokenData = (new UtilisateurRepository())->recupererToken($token);
 
-        if (!$tokenData) {
-            return false; // Le token n'existe pas
-        }
 
-        $expiration = new DateTime($tokenData['expiration']);
-        if ($expiration < new DateTime()) {
-            return false; // Le token a expiré
-        }
 
-        return true;
-    }
 
 
 

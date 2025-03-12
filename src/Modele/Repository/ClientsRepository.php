@@ -13,7 +13,7 @@ class ClientsRepository extends AbstractRepository
      * Action : retourne le nom de la table
      */
     protected function getNomTable(): string {
-        return "clients";
+        return "client";
     }
 
     /**
@@ -57,15 +57,19 @@ class ClientsRepository extends AbstractRepository
      */
     public static function construireDepuisTableauSQL(array $clientFormatTableau): Clients
     {
+        // Conversion de la chaîne de caractères en objet DateTime si nécessaire
+        $dateCreation = isset($clientFormatTableau['date_creation']) ? new \DateTime($clientFormatTableau['date_creation']) : null;
+
         return new Clients(
             intval($clientFormatTableau['IDClient']),
             (string) $clientFormatTableau['numero'],
             (string) $clientFormatTableau['intitule'],
             (string) $clientFormatTableau['categorie_tarifaire'],
-            isset($clientFormatTableau['date_creation']) ? new \DateTime($clientFormatTableau['date_creation']) : null,
+            $dateCreation,
             $clientFormatTableau['email'] ?? null
         );
     }
+
 
     /**
      * PARTIE 2 : RECUPERATION D'un CLIENT A PARTIR DE LA BASE DE DONNEES
@@ -87,5 +91,56 @@ class ClientsRepository extends AbstractRepository
 
         return $clientFormatTableau ? ClientsRepository::construireDepuisTableauSQL($clientFormatTableau) : null;
     }
+
+
+
+    /**
+     * @param string $email
+     * @param string $numero
+     * @return Clients|null
+     * Action : Récupère un client par son email ou son numéro
+     */
+    public static function recupererClientParEmailOuNumero(string $email, string $numero): ?Clients
+    {
+        $sql = "SELECT * FROM client WHERE email = :email OR numero = :numero";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+        $pdoStatement->execute([
+            "email" => $email,
+            "numero" => $numero
+        ]);
+
+        $clientFormatTableau = $pdoStatement->fetch();
+
+        return $clientFormatTableau ? ClientsRepository::construireDepuisTableauSQL($clientFormatTableau) : null;
+    }
+
+
+
+    /**
+     * @param Clients $client
+     * @return void
+     * Action : Ajoute un client dans la base de données
+     */
+    public function ajouter(Clients $client): void
+    {
+        // Préparation de la requête SQL d'insertion
+        $sql = "INSERT INTO client (numero, intitule, categorie_tarifaire, date_creation, email) 
+            VALUES (:numero, :intitule, :categorie_tarifaire, :date_creation, :email)";
+
+        // Préparation de la requête avec PDO
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+        // Exécution de la requête avec les données du client
+        $pdoStatement->execute([
+            "numero" => $client->getNumero(),
+            "intitule" => $client->getIntitule(),
+            "categorie_tarifaire" => $client->getCategorieTarifaire(),
+            "date_creation" => $client->getDateCreation()->format('Y-m-d H:i:s'),
+            "email" => $client->getEmail()
+        ]);
+    }
+
+
 }
 ?>

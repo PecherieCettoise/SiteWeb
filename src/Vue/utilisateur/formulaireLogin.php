@@ -27,11 +27,13 @@
                 <input type="password" name="motdepasse" id="motdepasse">
             </div>
 
-            <div class="content">
-                <a href="controleurFrontal.php?action=modifierMDP&controleur=utilisateur" id="profil-link"><button class="rouge">Changer de mot de passe</button></a>
-            </div>
+
 
             <button type="submit">Se connecter</button>
+
+            <div class="content">
+                <a href="controleurFrontal.php?action=afficherFormulaireReinitialisationMDP&controleur=utilisateur">Changer de mot de passe</a>
+            </div>
 
         </form>
     </div>

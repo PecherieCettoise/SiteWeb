@@ -32,7 +32,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
     $array = ControleurUtilisateur::verificationDuLogin($mdp_en_clair, $login);
 
     if ($array["login"] == null) {
-        MessageFlash::ajouter("danger", "Cet utilisateur n'existe pas. Veuillez réessayer.");
+        MessageFlash::ajouter("danger", "Cet utilisateur n'existe pas. Veuillez vous rapprocher du service commercial au 04 67 51 88 51.");
         ControleurGenerique::redirectionVersURL('controleurFrontal.php?controleur=utilisateur&action=afficherFormulaireConnexion');
     }
     if ($array["role"] == null) {

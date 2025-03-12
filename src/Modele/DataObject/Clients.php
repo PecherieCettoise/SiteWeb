@@ -21,15 +21,16 @@ class Clients extends AbstractDataObject {
      * @param \DateTime|null $date_creation
      * @param string|null $email
      */
-    public function __construct(?int $IDClient, string $numero, string $intitule, string $categorie_tarifaire, ?\DateTime $date_creation = null, ?string $email = null)
+    public function __construct(?int $IDClient, string $intitule, string $categorie_tarifaire, \DateTime $dateCreation, string $email, string $numero)
     {
         $this->IDClient = $IDClient;
         $this->numero = $numero;
         $this->intitule = $intitule;
         $this->categorie_tarifaire = $categorie_tarifaire;
-        $this->date_creation = $date_creation ?? new \DateTime();
+        $this->date_creation = $dateCreation;
         $this->email = $email;
     }
+
 
     // GETTERS ET SETTERS
 

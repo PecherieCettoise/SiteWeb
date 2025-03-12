@@ -18,7 +18,7 @@ class ControleurFichierCSV extends ControleurGenerique {
     }
 
     public static function importerFichiers() {
-        $pdo = ConnexionBaseDeDonnees::getPdo(); new PDO("mysql:host=172.17.0.3;port=3306;dbname=PecherieCettoise;charset=utf8mb4", "root", "Corentin2004");
+        $pdo = ConnexionBaseDeDonnees::getPdo();
         $gestionFichier = new GestionFichierCSV($pdo);
         $messages = [];
 

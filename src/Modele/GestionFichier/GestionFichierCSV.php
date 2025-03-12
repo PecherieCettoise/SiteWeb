@@ -77,7 +77,7 @@ class GestionFichierCSV {
 
             return ["success" => "Importation réussie."];
         } catch (PDOException $e) {
-            return ["error" => "Erreur de base de données: Ce n'est pas le bon fichier"];
+            return ["error" => "Erreur de base de données : " . $e->getMessage()];
         }
     }
 
@@ -94,7 +94,7 @@ class GestionFichierCSV {
         try {
             $stmtProduit = $this->pdo->prepare(
                 "INSERT INTO produit (reference_article, designation, PrixVente, stock_reel, stock_disponible, stockATerme, Poids_Net) 
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
+              VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
 
             // Tableau pour les lignes uniques
@@ -170,7 +170,7 @@ class GestionFichierCSV {
 
             return ["success" => "Importation réussie."];
         } catch (PDOException $e) {
-            return ["error" => "Erreur de base de données: Ce n'est pas le bon fichier"];
+            return ["error" => "Erreur de base de données : " . $e->getMessage()];
         }
     }
 
