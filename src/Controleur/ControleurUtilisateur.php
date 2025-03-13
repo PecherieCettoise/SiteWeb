@@ -12,7 +12,10 @@ use App\Pecherie\Modele\Repository\UtilisateurRepository;
 use DateInterval;
 use DateTime;
 use Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
+
+require __DIR__ . '/../../../vendor/autoload.php';
 
 class ControleurUtilisateur extends ControleurGenerique
 {
@@ -244,8 +247,6 @@ class ControleurUtilisateur extends ControleurGenerique
 
 
     public static function changerDeMotDePasse() {
-        // Récupérer le login de l'utilisateur connecté
-        $loginUtilisateurConnecte = ConnexionUtilisateur::getLoginUtilisateurConnecte();
 
         // Récupérer les mots de passe du formulaire
         $newMDP = $_POST['nouveauMotDePasse'] ?? '';
@@ -275,7 +276,7 @@ class ControleurUtilisateur extends ControleurGenerique
         // Vérifier si la mise à jour a été effectuée
         if ($isChanged) {
             MessageFlash::ajouter("success", "Mot de passe modifié !");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?');
         } else {
             MessageFlash::ajouter("warning", "Mot de passe inchangé !");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherModifierMDP&controleur=utilisateur');
@@ -361,13 +362,23 @@ class ControleurUtilisateur extends ControleurGenerique
     }
 
 
-    public static function afficherFormulaireDemande() {
+    // 📌 Afficher le formulaire pour entrer l'email
+    public static function afficherFormulaireReinitialisationMDP(){
         ControleurGenerique::afficherVue("vueGenerale.php", [
-            'titre' => "Formulaire de demande",
-            "chemin" => "utilisateur/formulaireDemande.php",
+            'titre' => 'Saisir votre email',
+            "cheminCorpsVue" => "utilisateur/formulaireReinitialisationMDP.php",
         ]);
     }
 
+    // 📌 Afficher le formulaire pour saisir un nouveau mot de passe
+    public static function afficherFormulaireModifierMDP(){
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => "Modifier votre mot de passe",
+            "cheminCorpsVue" => "utilisateur/formulaireNouveauMDP.php",
+        ]);
+    }
+
+    // 📌 Demander la réinitialisation (Générer un token et envoyer un email)
     public function demanderReinitialisation() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = trim($_POST["email"]);
@@ -377,32 +388,38 @@ class ControleurUtilisateur extends ControleurGenerique
                 return;
             }
 
-            // Vérifier si l'email existe
+            // Vérifier si l'utilisateur existe
             $pdo = ConnexionBaseDeDonnees::getPdo();
             $stmt = $pdo->prepare("SELECT IDClient FROM client WHERE email = ?");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
             if ($user) {
-                // Générer un token
+                // Générer un token unique
                 $token = bin2hex(random_bytes(32));
                 $expires_at = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-                // Insérer dans la base
+                // Insérer dans la base de données
                 $stmt = $pdo->prepare("INSERT INTO redefinirMDP (user_id, token, expires_at) VALUES (?, ?, ?)");
                 $stmt->execute([$user['IDClient'], $token, $expires_at]);
 
                 // Lien de réinitialisation
-                $reset_link = "http://localhost:8002/SiteWeb/src/web/controleurFrontal.php?action=afficherFormulaireNouveauMdp&token=" . $token;
+                $reset_link = "http://localhost:8002/SiteWeb/src/web/controleurFrontal.php?action=afficherFormulaireModifierMDP&controleur=utilisateur&token=" . $token;
 
                 // Envoyer l'email
-                $subject = "Réinitialisation de votre mot de passe";
-                $message = "Cliquez sur ce lien pour réinitialiser votre mot de passe : $reset_link";
-                mail($email, $subject, $message);
-
-                echo "Un email vous a été envoyé.";
+                $sujet = "Réinitialisation de votre mot de passe";
+                $message = "Cliquez sur ce lien pour réinitialiser votre mot de passe : <a href='$reset_link'>$reset_link</a>";
+                if ($this->envoyerEmail($email, $sujet, $message)) {
+                    echo "Un email vous a été envoyé.";
+                    MessageFlash::ajouter("success", "Un email vous a été envoyé");
+                    ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherAccueil&controleur=page");
+                } else {
+                    MessageFlash::ajouter("warning", "Erreur lors de l'envoi de l'email");
+                    ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherAccueil&controleur=page");
+                }
             } else {
-                echo "Aucun compte trouvé.";
+                MessageFlash::ajouter("warning", "Aucun compte trouvé");
+                ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherAccueil&controleur=page");
             }
         }
     }
@@ -413,61 +430,71 @@ class ControleurUtilisateur extends ControleurGenerique
             $new_password = $_POST["new_password"];
             $confirm_password = $_POST["confirm_password"];
 
+            // Vérifier si les mots de passe correspondent
             if ($new_password !== $confirm_password) {
-                echo "Les mots de passe ne correspondent pas.";
-                return;
+                MessageFlash::ajouter("danger", "Les mots de passe ne correspondent pas.");
+                ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherFormulaireModifierMDP&controleur=utilisateur");
+                exit();
             }
 
-            // Vérifier le token
+            // Vérifier le token et récupérer le login associé
             $pdo = ConnexionBaseDeDonnees::getPdo();
             $stmt = $pdo->prepare("SELECT user_id FROM redefinirMDP WHERE token = ? AND expires_at > NOW()");
             $stmt->execute([$token]);
             $resetRequest = $stmt->fetch();
 
             if (!$resetRequest) {
-                echo "Lien invalide ou expiré.";
-                return;
+                MessageFlash::ajouter("danger", "Lien invalide ou expiré.");
+                ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherFormulaireReinitialisationMDP&controleur=utilisateur");
+                exit();
             }
 
-            // Mettre à jour le mot de passe
+            // Hacher le nouveau mot de passe
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("UPDATE utilisateur SET mot_de_passe = ? WHERE id = ?");
+
+            // Mettre à jour le mot de passe dans la table utilisateurs en utilisant le login récupéré
+            $stmt = $pdo->prepare("UPDATE utilisateurs SET mdp = ? WHERE login = ?");
             $stmt->execute([$hashed_password, $resetRequest['user_id']]);
 
-            // Supprimer le token
+            // Supprimer le token utilisé
             $stmt = $pdo->prepare("DELETE FROM redefinirMDP WHERE token = ?");
             $stmt->execute([$token]);
 
-            echo "Mot de passe réinitialisé avec succès !";
+            MessageFlash::ajouter("success", "Mot de passe réinitialisé avec succès !");
+            ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherAccueil&controleur=page");
+            exit();
         }
     }
 
 
-    public static function afficherFormulaireModifierMDP(){
-        ControleurGenerique::afficherVue("vueGenerale.php", [
-            'titre' => "Formulaire de modification de mot de passe",
-            "cheminCorpsVue" => "utilisateur/formulaireNouveauMDP.php",
-        ]);
+
+
+    // 📌 Fonction d'envoi d'email avec PHPMailer
+    private function envoyerEmail(string $email, string $sujet, string $message) {
+        $mail = new PHPMailer(true);
+        try {
+            // Configuration SMTP
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'testMessageriee@gmail.com';
+            $mail->Password   = 'rums cold jmpq mxqw';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+
+            // Destinataire
+            $mail->setFrom('testMessageriee@gmail.com', 'Support');
+            $mail->addAddress($email);
+
+            $mail->isHTML(true);
+            $mail->Subject = $sujet;
+            $mail->Body = $message;
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
-
-    public static function afficherFormulaireReinitialisationMDP(){
-        ControleurGenerique::afficherVue("vueGenerale.php", [
-            'titre' => 'Saisir votre email',
-            "cheminCorpsVue" => "utilisateur/formulaireReinitialisationMDP.php",
-        ]);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
