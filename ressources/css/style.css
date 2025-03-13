@@ -1693,13 +1693,14 @@ form {
     border: #333333 3px solid;
     width: 40%; /* Taille par défaut */
     max-width: 600px; /* Empêche le formulaire d’être trop large */
-    margin: 0 auto;
+    margin: 50px auto;
     border-radius: 30px;
     padding-bottom: 30px;
     background-color: rgba(255, 255, 255, 0.60);
     color: black;
     gap: 30px; /* Espacement entre les éléments */
     transition: all 0.3s ease;
+
 
 
 }
