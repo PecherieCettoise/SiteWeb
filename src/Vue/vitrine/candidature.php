@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../ressources/css/style.css">
+    <link rel="stylesheet" href="../../ressources/css/style.css">
     <title>Formulaire de contact</title>
 
     <!-- Lien vers l'icône de l'onglet -->
     <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 </head>
-<body class="candidature">
-
-<?php require_once __DIR__ . "../../../Vue/header.php" ?>
+<div class="candidature">
 
 <form action="controleurFrontal.php?action=afficherMailCandidature&controleur=page" method="POST" enctype="multipart/form-data">
 
@@ -56,7 +54,7 @@
 
 </form>
 
-<?php require_once __DIR__ . "../../../Vue/footer.php" ?>
 
-</body>
+
+</div>
 </html>

@@ -9,7 +9,7 @@
     <!-- Lien vers l'icône de l'onglet -->
     <link rel="icon" href="../../ressources/images/acceuil/coquillageBleu.png" type="image/x-icon">
 </head>
-<body class="contact">
+<div class="contact">
 
 
 <form action="controleurFrontal.php?action=afficherMailContact&controleur=page" method="POST" enctype="multipart/form-data">
@@ -46,7 +46,7 @@
 
 </form>
 
-</body>
+</div>
 
 
 </html>
