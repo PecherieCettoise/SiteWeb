@@ -98,7 +98,7 @@ class ControleurClient extends ControleurGenerique {
                 $numero,       // Login
                 $motdepasseHache, // Mot de passe haché
                 $motdepasseUtilisateur, // Mot de passe clair
-                $intitule, // Nom
+                $intitule,
                 $role          // Rôle
             );
 

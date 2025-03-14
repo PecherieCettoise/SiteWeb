@@ -450,11 +450,11 @@ class ControleurUtilisateur extends ControleurGenerique
             }
 
             // Hacher le nouveau mot de passe
-            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $hashed_password = MotDePasse::hacher($new_password);
 
             // Mettre à jour le mot de passe dans la table utilisateurs en utilisant le login récupéré
             $stmt = $pdo->prepare("UPDATE utilisateurs SET mdp = ? WHERE login = ?");
-            $stmt->execute([$hashed_password, $resetRequest['user_id']]);
+            $stmt->execute([$hashed_password, $resetRequest['login']]);
 
             // Supprimer le token utilisé
             $stmt = $pdo->prepare("DELETE FROM redefinirMDP WHERE token = ?");

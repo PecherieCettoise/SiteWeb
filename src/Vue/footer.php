@@ -2,6 +2,8 @@
 /** @var $Role */
 // Assurez-vous que la classe Utilisateur est correctement importée
 use App\Pecherie\Modele\DataObject\Utilisateur;
+use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
+
 ?>
 
 <!DOCTYPE html>
@@ -63,8 +65,9 @@ use App\Pecherie\Modele\DataObject\Utilisateur;
     <div class="mention">
         <p>La Pêcherie Cettoise © 2025 - <a href="controleurFrontal.php?controleur=page&action=afficherMentionsLegales">Mentions Légales</a></p>
 
-
+    <?php if (ConnexionUtilisateur::estConnecte() && Utilisateur::estAdministrateur("administrateur")) : ?>
         <a href="http://www.mon-compteur.fr"><img src="http://www.mon-compteur.fr/html_c02genv2-78668-3" border="0" /></a>
+       <?php endif; ?>
 
     </div>
 </footer>
