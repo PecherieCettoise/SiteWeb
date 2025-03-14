@@ -96,9 +96,9 @@ class ControleurClient extends ControleurGenerique {
             // Création de l'objet Utilisateur
             $utilisateur = new Utilisateur(
                 $numero,       // Login
-                $intitule,     // Nom
-                $motdepasseUtilisateur, // Mot de passe clair
                 $motdepasseHache, // Mot de passe haché
+                $motdepasseUtilisateur, // Mot de passe clair
+                $intitule, // Nom
                 $role          // Rôle
             );
 

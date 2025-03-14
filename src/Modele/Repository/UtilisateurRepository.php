@@ -116,7 +116,7 @@ class UtilisateurRepository extends AbstractRepository
     }
 
     public static function ajouter(Utilisateur $utilisateur){
-        $sql = "INSERT INTO utilisateurs (login, mdp, mdp_clair, nom, Role) VALUES(:login, :mdp, :mdp_clair, :nom, :Role)";
+        $sql = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair,  Role) VALUES(:login, :nom, :mdp, :mdp_clair,  :Role)";
         $values = [
             'login' =>$utilisateur->getLogin(),
             'nom'  => $utilisateur->getNom(),
