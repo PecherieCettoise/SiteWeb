@@ -41,16 +41,7 @@ class UtilisateurRepository extends AbstractRepository
         ];
     }
 
-    public function formatTableauSQLUtilisateur(Utilisateur $utilisateur, int $i): array
-    {
-        return [
-            'login' . $i => $utilisateur->getLogin(),
-            'nom' . $i => $utilisateur->getNom(),
-            'mdp' . $i => MotDePasse::hacher($utilisateur->getMdp()),
-            'mdp_clair' . $i => $utilisateur->getMdpClair(),
-            'Role' . $i => "utilisateur",
-        ];
-    }
+
 
     public static function construireDepuisTableauSQL(array $utilisateurFormatTableau): Utilisateur
     {
@@ -59,7 +50,7 @@ class UtilisateurRepository extends AbstractRepository
             $utilisateurFormatTableau['mdp'],
             $utilisateurFormatTableau['mdp_clair'],
             $utilisateurFormatTableau['login'],
-            $utilisateurFormatTableau['Role']
+            $utilisateurFormatTableau['Role'],
         );
     }
 
@@ -209,6 +200,8 @@ class UtilisateurRepository extends AbstractRepository
 
         return UtilisateurRepository::construireDepuisTableauSQL($objetFormatTableau);
     }
+
+
 
 
 

@@ -197,6 +197,10 @@ $utilisateur = UtilisateurRepository::getUtilisateurConnecte();
             <a href="controleurFrontal.php?action=afficherTousLesProduits&controleur=produit" id="profil-link"><button class="rouge">Modifier un produit</button></a>
         </div>
 
+        <div class="content">
+            <a href="controleurFrontal.php?action=afficherTousLesClients&controleur=client" id="profil-link"><button class="rouge">Modifier un client</button></a>
+        </div>
+
 
 
 

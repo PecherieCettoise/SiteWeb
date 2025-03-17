@@ -62,13 +62,14 @@ class ClientsRepository extends AbstractRepository
 
         return new Clients(
             intval($clientFormatTableau['IDClient']),
-            (string) $clientFormatTableau['numero'],
             (string) $clientFormatTableau['intitule'],
             (string) $clientFormatTableau['categorie_tarifaire'],
             $dateCreation,
-            $clientFormatTableau['email'] ?? null
+            $clientFormatTableau['email'] ?? '', // Utilisation d'une chaîne vide si l'email est null
+            (string) $clientFormatTableau['numero'],
         );
     }
+
 
 
     /**
@@ -86,6 +87,24 @@ class ClientsRepository extends AbstractRepository
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
 
         $pdoStatement->execute(["intitule" => $intitule]);
+
+        $clientFormatTableau = $pdoStatement->fetch();
+
+        return $clientFormatTableau ? ClientsRepository::construireDepuisTableauSQL($clientFormatTableau) : null;
+    }
+
+
+    /**
+     * @param string $intitule
+     * @return Clients|null
+     * Action : Récupère un client par son intitule
+     */
+    public function recupererClientParIDClient(string $IDClient): ?Clients
+    {
+        $sql = "SELECT * FROM client WHERE IDClient = :IDClient";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+        $pdoStatement->execute(["IDClient" => $IDClient]);
 
         $clientFormatTableau = $pdoStatement->fetch();
 
@@ -140,6 +159,44 @@ class ClientsRepository extends AbstractRepository
             "email" => $client->getEmail()
         ]);
     }
+
+    public function modifierClient(Clients $client): void {
+        // Préparation de la requête SQL pour la mise à jour du client
+        $sql = "UPDATE client SET 
+            intitule = :intitule, 
+            categorie_tarifaire = :categorie_tarifaire, 
+            date_creation = :date_creation, 
+            email = :email, 
+            numero = :numero
+        WHERE IDClient = :IDClient";
+
+        // Préparation de la requête avec la connexion PDO
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+        // Exécution de la requête avec les données du client
+        $pdoStatement->execute([
+            "IDClient" => $client->getIDClient(),
+            "intitule" => $client->getIntitule(),
+            "categorie_tarifaire" => $client->getCategorieTarifaire(),
+            "date_creation" => $client->getDateCreation()->format('Y-m-d'), // Assurez-vous de convertir la date au format approprié
+            "email" => $client->getEmail(),
+            "numero" => $client->getNumero()
+        ]);
+    }
+
+    public function recupererDernierClientID() {
+        $stmt = ConnexionBaseDeDonnees::getPdo()->query("SELECT LAST_INSERT_ID()");
+        return $stmt->fetchColumn();
+    }
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -437,7 +437,7 @@ class ControleurUtilisateur extends ControleurGenerique
                 exit();
             }
 
-            // Vérifier le token et récupérer le login associé
+            // Vérifier le token et récupérer le user_id associé
             $pdo = ConnexionBaseDeDonnees::getPdo();
             $stmt = $pdo->prepare("SELECT user_id FROM redefinirMDP WHERE token = ? AND expires_at > NOW()");
             $stmt->execute([$token]);
@@ -449,12 +449,26 @@ class ControleurUtilisateur extends ControleurGenerique
                 exit();
             }
 
+            // Récupérer l'IDClient via user_id
+            $user_id = $resetRequest['user_id'];
+
+            // Récupérer le login correspondant dans la table utilisateurs
+            $stmt = $pdo->prepare("SELECT login FROM utilisateurs WHERE client_id = ?");
+            $stmt->execute([$user_id]);
+            $user = $stmt->fetch();
+
+            if (!$user) {
+                MessageFlash::ajouter("danger", "Utilisateur non trouvé.");
+                ControleurGenerique::redirectionVersURL("controleurFrontal.php?action=afficherFormulaireReinitialisationMDP&controleur=utilisateur");
+                exit();
+            }
+
             // Hacher le nouveau mot de passe
             $hashed_password = MotDePasse::hacher($new_password);
 
-            // Mettre à jour le mot de passe dans la table utilisateurs en utilisant le login récupéré
+            // Mettre à jour le mot de passe dans la table utilisateurs
             $stmt = $pdo->prepare("UPDATE utilisateurs SET mdp = ? WHERE login = ?");
-            $stmt->execute([$hashed_password, $resetRequest['login']]);
+            $stmt->execute([$hashed_password, $user['login']]);
 
             // Supprimer le token utilisé
             $stmt = $pdo->prepare("DELETE FROM redefinirMDP WHERE token = ?");
@@ -465,6 +479,8 @@ class ControleurUtilisateur extends ControleurGenerique
             exit();
         }
     }
+
+
 
 
 

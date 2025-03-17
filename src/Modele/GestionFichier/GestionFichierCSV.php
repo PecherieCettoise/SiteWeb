@@ -18,57 +18,50 @@ class GestionFichierCSV {
             return ["error" => "Erreur lors de l'ouverture du fichier CSV."];
         }
 
-        // Passer la première ligne (les en-têtes)
-        fgetcsv($handle);
+        fgetcsv($handle); // Ignorer les en-têtes
 
         try {
             $stmtClient = $this->pdo->prepare(
-                "INSERT INTO client (numero, intitule, categorie_tarifaire, date_creation, email) VALUES (?, ?, ?, ?, ?)"
+                "INSERT INTO client (numero, intitule, categorie_tarifaire, date_creation, email) 
+                VALUES (?, ?, ?, ?, ?)"
             );
 
             $stmtUtilisateur = $this->pdo->prepare(
-                "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role) VALUES (?, ?, ?, ?, ?)"
+                "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, client_id) 
+                VALUES (?, ?, ?, ?, ?, ?)"
             );
 
-            // Tableau pour les lignes uniques
             $uniqueRows = [];
 
             while (($row = fgetcsv($handle)) !== FALSE) {
-                // Nettoyer les valeurs pour éviter les erreurs SQL
                 $numero = trim($row[0] ?? '');
                 $intitule = trim($row[1] ?? '');
                 $categorie_tarifaire = trim($row[2] ?? '');
                 $date_creation = trim($row[3] ?? '');
-                $email = trim($row[4] ?? '');
-                $email = !empty($email) ? $email : null; // Convertir '' en NULL
+                $email = trim($row[4] ?? '') ?: null;
 
-                // Créer une clé unique pour chaque ligne sans l'email
                 $rowKey = $numero . '|' . $intitule . '|' . $categorie_tarifaire . '|' . $date_creation;
 
-                // Vérifier si la ligne existe déjà dans les lignes uniques
                 if (!in_array($rowKey, $uniqueRows)) {
-                    // Ajouter la ligne unique et insérer les données dans les tables
                     $uniqueRows[] = $rowKey;
 
                     // Insérer dans `client`
                     $stmtClient->execute([$numero, $intitule, $categorie_tarifaire, $date_creation, $email]);
 
-                    // Définir le rôle avec les conditions spécifiques
-                    $role = $this->determinerRole($categorie_tarifaire);
-
-                    // Générer un login unique
-                    $login = $numero;
+                    // Récupérer l'ID du client inséré
+                    $clientID = $this->pdo->lastInsertId();
 
                     // Vérifier si l'utilisateur existe déjà
                     $stmtCheck = $this->pdo->prepare("SELECT COUNT(*) FROM utilisateurs WHERE login = ?");
-                    $stmtCheck->execute([$login]);
+                    $stmtCheck->execute([$numero]);
+
                     if ($stmtCheck->fetchColumn() == 0) {
-                        // Générer et hacher un mot de passe
+                        $role = $this->determinerRole($categorie_tarifaire);
                         $mdp = MotDePasse::genererChaineAleatoire(12);
                         $mdpHache = MotDePasse::hacher($mdp);
 
-                        // Insérer dans `utilisateurs`
-                        $stmtUtilisateur->execute([$login, $intitule, $mdpHache, $mdp, $role]);
+                        // Insérer l'utilisateur avec le bon `client_id`
+                        $stmtUtilisateur->execute([$numero, $intitule, $mdpHache, $mdp, $role, $clientID]);
                     }
                 }
             }
