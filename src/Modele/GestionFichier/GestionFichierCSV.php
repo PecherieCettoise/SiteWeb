@@ -93,7 +93,7 @@ class GestionFichierCSV {
 
         try {
             $stmtProduit = $this->pdo->prepare(
-                "INSERT INTO produit (reference_article, designation, PrixVente, stock_reel, stock_disponible, stockATerme, Poids_Net) 
+                "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net) 
               VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
 
