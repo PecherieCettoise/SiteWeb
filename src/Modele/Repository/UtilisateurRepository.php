@@ -106,7 +106,7 @@ class UtilisateurRepository extends AbstractRepository
         return UtilisateurRepository::construireDepuisTableauSQL($objetFormatTableau);
     }
 
-    public static function ajouter(Utilisateur $utilisateur){
+    /*public static function ajouter(Utilisateur $utilisateur){
         $sql = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair,  Role) VALUES(:login, :nom, :mdp, :mdp_clair,  :Role)";
         $values = [
             'login' =>$utilisateur->getLogin(),
@@ -117,7 +117,25 @@ class UtilisateurRepository extends AbstractRepository
         ];
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
         $pdoStatement->execute($values);
+    }*/
+
+    public static function ajouter(Utilisateur $utilisateur){
+        $sql = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, client_id) 
+            VALUES (:login, :nom, :mdp, :mdp_clair, :Role, :client_id)";
+
+        $values = [
+            'login'     => $utilisateur->getLogin(),
+            'nom'       => $utilisateur->getNom(),
+            'mdp'       => $utilisateur->getMdp(),
+            'mdp_clair' => $utilisateur->getMdpClair(),
+            'Role'      => $utilisateur->getRole(),
+            'client_id' => $utilisateur->getClientId(),  // Ajout de client_id
+        ];
+
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+        $pdoStatement->execute($values);
     }
+
 
     public static function supprimerLogin(string $login){
         $sql = "DELETE FROM utilisateurs WHERE login = :login";

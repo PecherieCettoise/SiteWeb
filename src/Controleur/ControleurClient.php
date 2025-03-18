@@ -65,55 +65,45 @@ class ControleurClient extends ControleurGenerique {
         $client = new Clients(null, $intitule, $categorieTarifaire, $dateCreation, $email, $numero);
 
         try {
-            // Ajout du client dans la base de données
             (new ClientsRepository())->ajouter($client);
-
-            // Tentative de récupération avec lastInsertId()
             $clientID = ConnexionBaseDeDonnees::getPdo()->lastInsertId();
-            $clientID = (int)$clientID; // Conversion en entier
+            $clientID = (int)$clientID;
 
-            // Si lastInsertId() échoue, essayer de récupérer l'ID avec l'email et le numéro
             if (!$clientID) {
                 $clientID = (new ClientsRepository())->recupererClientParEmailOuNumero($email, $numero)?->getIDClient();
-                $clientID = (int)$clientID; // Conversion en entier
+                $clientID = (int)$clientID;
             }
 
-            // Si l'ID est nul, afficher un message d'erreur et arrêter la fonction
             if (!$clientID) {
                 MessageFlash::ajouter("danger", "Erreur lors de la récupération de l'ID du client.");
                 ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjoutClient&controleur=client');
                 return;
             }
 
-            // Attribuer l'ID du client au modèle client
             $client->setIDClient($clientID);
 
-            // Générer un mot de passe utilisateur aléatoire et le hacher
             $motdepasseUtilisateur = MotDePasse::genererChaineAleatoire();
             $motdepasseHache = MotDePasse::hacher($motdepasseUtilisateur);
 
-            // Créer un utilisateur lié au client
             $utilisateur = new Utilisateur(
-                $numero,
+                $intitule,
                 $motdepasseHache,
                 $motdepasseUtilisateur,
-                $intitule,
+                $numero,
                 $role,
                 $clientID
             );
 
-            // Ajouter l'utilisateur dans la base de données
             (new UtilisateurRepository())->ajouter($utilisateur);
 
-            // Message de succès et redirection
             MessageFlash::ajouter("success", "Client et utilisateur ajoutés avec succès !");
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjoutClient&controleur=client');
         } catch (Exception $e) {
-            // En cas d'erreur, afficher un message et rediriger
             MessageFlash::ajouter("danger", "Erreur lors de l'ajout : " . $e->getMessage());
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireAjoutClient&controleur=client');
         }
     }
+
 
 
 
