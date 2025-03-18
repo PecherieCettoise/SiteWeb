@@ -30,7 +30,7 @@ class ProduitRepository extends AbstractRepository
      * Action : retourne le nom des colonnes de la table produits
      */
     protected function getNomColonnes(): array {
-        return ["reference_article", "designation", "prixVente", "stock_reel", "stock_disponible", "stockATerme", "poids_Net"];
+        return ["reference_article", "designation", "prixVente", "stock_reel", "stock_disponible", "stockATerme", "poids_Net", "PERMANENT"];
     }
 
     /**
@@ -48,7 +48,8 @@ class ProduitRepository extends AbstractRepository
             'stock_reel' . $i => $produit->getStockReel(),
             'stock_disponible' . $i => $produit->getStockDisponible(),
             'stockATerme' . $i => $produit->getStockATerme(),
-            'poids_Net' . $i => $produit->getPoidsNet()
+            'poids_Net' . $i => $produit->getPoidsNet(),
+            'PERMANENT' . $i => $produit->getPermanent(),
         ];
 
     }
@@ -67,6 +68,7 @@ class ProduitRepository extends AbstractRepository
             $objetFormatTableau['stock_disponible'] ?? 0.0,      // ✅ Remplace NULL par 0.0
             $objetFormatTableau['stockATerme'] ?? 0.0,
             $objetFormatTableau['poids_Net'] ?? 0.0,  // ✅ Remplace NULL par 0.0
+        $objetFormatTableau['PERMANENT'] ?? 0.0,
         );
     }
 
@@ -110,8 +112,8 @@ class ProduitRepository extends AbstractRepository
 
     public static function ajouterProd(Produit $produit): void {
         try {
-            $sql = "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net) 
-                VALUES (:reference_article, :designation, :prixVente, :stock_reel, :stock_disponible, :stockATerme, :poids_Net)";
+            $sql = "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net, PERMANENT) 
+                VALUES (:reference_article, :designation, :prixVente, :stock_reel, :stock_disponible, :stockATerme, :poids_Net, :PERMANENT)";
 
             $values = [
                 "reference_article" => $produit->getReferenceArticle(),
@@ -120,7 +122,8 @@ class ProduitRepository extends AbstractRepository
                 "stock_reel" => $produit->getStockReel(),
                 "stock_disponible" => $produit->getStockDisponible(),
                 "stockATerme" => $produit->getStockATerme(),
-                "poids_Net" => $produit->getPoidsNet()
+                "poids_Net" => $produit->getPoidsNet(),
+                "PERMANENT" => $produit->getPermanent(),
             ];
 
             $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
@@ -141,7 +144,8 @@ class ProduitRepository extends AbstractRepository
                 stock_reel = :stock_reel, 
                 stock_disponible = :stock_disponible, 
                 stockATerme = :stockATerme, 
-                poids_Net = :poids_Net
+                poids_Net = :poids_Net,
+                PERMANENT = :PERMANENT
             WHERE reference_article = :reference_article";
 
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
@@ -153,6 +157,7 @@ class ProduitRepository extends AbstractRepository
             "stock_disponible" => $produit->getStockDisponible(),
             "stockATerme" => $produit->getStockATerme(),
             "poids_Net" => $produit->getPoidsNet(),
+            "PERMANENT" => $produit->getPermanent(),
         ]);
     }
 
@@ -178,6 +183,8 @@ class ProduitRepository extends AbstractRepository
 
         return $produit;
     }
+
+
 
 
 

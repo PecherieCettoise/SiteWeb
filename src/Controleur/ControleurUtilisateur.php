@@ -363,7 +363,7 @@ class ControleurUtilisateur extends ControleurGenerique
 
 
 
-    // 📌 Afficher le formulaire pour entrer l'email
+    // Afficher le formulaire pour entrer l'email
     public static function afficherFormulaireReinitialisationMDP(){
         ControleurGenerique::afficherVue("vueGenerale.php", [
             'titre' => 'Saisir votre email',
@@ -371,7 +371,7 @@ class ControleurUtilisateur extends ControleurGenerique
         ]);
     }
 
-    // 📌 Afficher le formulaire pour saisir un nouveau mot de passe
+    // Afficher le formulaire pour saisir un nouveau mot de passe
     public static function afficherFormulaireModifierMDP(){
         ControleurGenerique::afficherVue("vueGenerale.php", [
             'titre' => "Modifier votre mot de passe",
@@ -379,7 +379,7 @@ class ControleurUtilisateur extends ControleurGenerique
         ]);
     }
 
-    // 📌 Demander la réinitialisation (Générer un token et envoyer un email)
+    // Demander la réinitialisation (Générer un token et envoyer un email)
     public function demanderReinitialisation() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = trim($_POST["email"]);
@@ -496,6 +496,18 @@ class ControleurUtilisateur extends ControleurGenerique
             return false;
         }
     }
+
+
+    public function afficherPageAdmin() {
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => "Privilège administrateur",
+            "cheminCorpsVue" => "utilisateur/pageAdministrateur.php",
+        ]);
+    }
+
+
+
+
 
 
 

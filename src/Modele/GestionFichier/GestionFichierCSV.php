@@ -86,8 +86,8 @@ class GestionFichierCSV {
 
         try {
             $stmtProduit = $this->pdo->prepare(
-                "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net) 
-              VALUES (?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net, PERMANENT) 
+              VALUES (?, ?, ?, ?, ?, ?, ?,?)"
             );
 
             // Tableau pour les lignes uniques
@@ -102,6 +102,7 @@ class GestionFichierCSV {
                 $stockDisponible = trim($row[4] ?? 0);
                 $stockATerme = trim($row[5] ?? NULL);
                 $poidsNet = trim($row[6] ?? 0);
+                $PERMANENT = trim($row[7] ?? NULL);
 
                 // Convertir la designation en UTF-8
                 $designation = mb_convert_encoding($designation, 'UTF-8', 'auto');
@@ -151,7 +152,7 @@ class GestionFichierCSV {
                     $uniqueRows[] = $rowKey;
 
                     // Exécution de la requête d'insertion
-                    if (!$stmtProduit->execute([$reference_article, $designation, $prixVente, $stockReel, $stockDisponible, $stockATerme, $poidsNet])) {
+                    if (!$stmtProduit->execute([$reference_article, $designation, $prixVente, $stockReel, $stockDisponible, $stockATerme, $poidsNet, $PERMANENT])) {
                         // Si la requête échoue, afficher l'erreur
                         $errorInfo = $stmtProduit->errorInfo();
                         return ["error" => "Erreur lors de l'insertion dans la table produit : " . $errorInfo[2]];

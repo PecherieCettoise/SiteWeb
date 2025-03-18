@@ -11,6 +11,7 @@ class Produit extends AbstractDataObject {
     private float $stock_disponible;
     private ?float $stockATerme;
     private float $poids_Net;
+    private ?string $PERMANENT;
 
 
 
@@ -24,8 +25,9 @@ class Produit extends AbstractDataObject {
      * @param float $stock_disponible
      * @param float|null $stockATerme
      * @param float $poids_Net
+     * @param string $PERMANENT
  */
-    public function __construct(int $reference_article, string $designation, float $prixVente, float $stock_reel, float $stock_disponible, float $stockATerme , float $poids_Net, ) {
+    public function __construct(int $reference_article, string $designation, float $prixVente, float $stock_reel, float $stock_disponible, float $stockATerme , float $poids_Net, string $PERMANENT) {
         $this->reference_article =  $reference_article;
         $this->designation = $designation;
         $this->prixVente =  $prixVente;
@@ -33,7 +35,18 @@ class Produit extends AbstractDataObject {
         $this->stock_disponible =  $stock_disponible;
         $this->stockATerme = $stockATerme;
         $this->poids_Net =  $poids_Net;
+        $this->PERMANENT =  $PERMANENT;
 
+    }
+
+    public function getPERMANENT(): ?string
+    {
+        return $this->PERMANENT;
+    }
+
+    public function setPERMANENT(?string $PERMANENT): void
+    {
+        $this->PERMANENT = $PERMANENT;
     }
 
     // GETTERS ET SETTERS

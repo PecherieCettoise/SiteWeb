@@ -172,39 +172,6 @@ $utilisateur = UtilisateurRepository::getUtilisateurConnecte();
         <a href="controleurFrontal.php?action=afficherModifierLogin&controleur=utilisateur" id="profil-link"><button class="rouge">Changer le login</button></a>
     </div>
 
-    <?php if ($utilisateur->getRole() == "administrateur") : ?>
-
-    <div class="content">
-        <a href="controleurFrontal.php?action=afficherFormulaireAjoutClient&controleur=client" id="profil-link"><button class="rouge">Ajouter un utilisateur</button></a>
-    </div>
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherFormulaireSuppressionUtilisateur&controleur=utilisateur" id="profil-link"><button class="rouge">Supprimer un utilisateur</button></a>
-        </div>
-
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherFormulaireImportation&controleur=fichierCSV" id="profil-link"><button class="rouge">Importation des fichiers</button></a>
-        </div>
-
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherFormulaireAjoutProduit&controleur=produit" id="profil-link"><button class="rouge">Ajouter un produit</button></a>
-        </div>
-
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherFormulaireSuppressionProduit&controleur=produit" id="profil-link"><button class="rouge">Supprimer un produit</button></a>
-        </div>
-
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherTousLesProduits&controleur=produit" id="profil-link"><button class="rouge">Modifier un produit</button></a>
-        </div>
-
-        <div class="content">
-            <a href="controleurFrontal.php?action=afficherTousLesClients&controleur=client" id="profil-link"><button class="rouge">Modifier un client</button></a>
-        </div>
-
-
-
-
-    <?php endif; ?>
 
     <a href="controleurFrontal.php?controleur=utilisateur&action=deconnecter"><button>Déconnexion</button></a>
 </div>

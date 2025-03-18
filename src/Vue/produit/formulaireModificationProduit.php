@@ -53,6 +53,9 @@
                     <!-- Poids net -->
                     <td><input type="number" step="0.01" name="poids_Net" value="<?= htmlspecialchars($produit->getPoidsNet()) ?>" required></td>
 
+                    <td><input type="text" name="PERMANENT" value="<?= htmlspecialchars($produit->getPermanent()) ?>" required></td>
+
+
 
                     <!-- Champ caché pour la référence article (pour l'identifier lors de la modification) -->
                     <td>

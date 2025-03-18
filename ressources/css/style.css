@@ -13,7 +13,7 @@ body {
 }
 
 a:hover{
-    color: orangered;
+    color: #5e9dcf;
 }
 
 h1, h2, h3,h4, title {
@@ -60,7 +60,7 @@ p, a img, span{
 }
 
 .header-bouton a:hover{
-    color: orangered;
+    color: #5e9dcf;
 }
 
 /* Nouveau style pour le conteneur de Google Translate */
@@ -92,7 +92,8 @@ p, a img, span{
 }
 
 .menu-dropdown a:hover {
-    color: orangered;
+    color: #5e9dcf;
+
 }
 
 /* Icône du menu pour les petits écrans */
@@ -167,7 +168,8 @@ footer {
 }
 
 .footer-bouton a:hover{
-    color: orangered;
+    color: #5e9dcf;
+    font-weight: bold;
 }
 
 .btn-image img {
@@ -448,7 +450,7 @@ button.prev:hover, button.next:hover {
 }
 
 .debutProximite h3 {
-    color: orangered;
+    color: #5e9dcf;
     font-size: 20px;
     padding: 30px;
     text-align: center;

@@ -6,6 +6,7 @@ use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\MotDePasse;
 use App\Pecherie\Modele\DataObject\Produit;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
+use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees;
 use App\Pecherie\Modele\Repository\ProduitRepository;
 use App\Pecherie\Modele\Repository\UtilisateurRepository;
 use Exception;
@@ -28,10 +29,11 @@ class ControleurProduit extends ControleurGenerique{
             $stock_disponible = floatval($_POST['stock_disponible']);
             $stockATerme = isset($_POST['stockATerme']) ? floatval($_POST['stockATerme']) : null;
             $poids_Net = floatval($_POST['poids_Net']);
+            $PERMANENT = htmlspecialchars($_POST['PERMANENT']);
 
             // Créer un objet Produit
             $produit = new Produit($reference_article, $designation, $prixVente,
-                $stock_reel, $stock_disponible, $stockATerme, $poids_Net);
+                $stock_reel, $stock_disponible, $stockATerme, $poids_Net, $PERMANENT);
 
             try {
                 // Ajouter le produit en base
@@ -82,6 +84,22 @@ class ControleurProduit extends ControleurGenerique{
         ]);
     }
 
+    public function afficherBoutique(){
+        $produits= (new ProduitRepository())->recuperer(); // Récupérer tous les produits
+
+        if (empty($produits)) {
+            MessageFlash::ajouter("info", "Aucun produit disponible pour suppression.");
+            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
+            return;
+        }
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => "Boutique",
+            "cheminCorpsVue" => "boutique/pageBoutique.php",
+            'produits' => $produits,
+
+        ]);
+    }
+
 
     public static function supprimerProduit()
     {
@@ -123,6 +141,8 @@ class ControleurProduit extends ControleurGenerique{
 
 
 
+
+
     public static function afficherTousLesProduits()
     {
         // Récupérer tous les produits via le repository
@@ -144,6 +164,16 @@ class ControleurProduit extends ControleurGenerique{
         ]);
     }
 
+    public function recupererTousLesProduits(): array {
+        $pdo = ConnexionBaseDeDonnees::getPDO(); // Assure-toi que ConnexionBD est bien configuré
+        $stmt = $pdo->prepare("SELECT * FROM produit");
+        $stmt->execute();
+
+        // Retourner un tableau d'objets Produit
+        return $stmt->fetchAll($pdo::FETCH_CLASS, Produit::class);
+    }
+
+
 
     public static function modifierProduit()
     {
@@ -161,6 +191,7 @@ class ControleurProduit extends ControleurGenerique{
         $stock_disponible = intval($_POST['stock_disponible']);
         $stockATerme = intval($_POST['stockATerme']);
         $poidsNet = floatval($_POST['poids_Net']);
+        $PERMANENT = htmlspecialchars($_POST['PERMANENT']);
 
 
         $produitRepository = new ProduitRepository();
@@ -178,6 +209,7 @@ class ControleurProduit extends ControleurGenerique{
         $produit->setStockDisponible($stock_disponible);
         $produit->setStockATerme($stockATerme);
         $produit->setPoidsNet($poidsNet);
+        $produit->setPermanent($PERMANENT);
 
         try {
             // Mise à jour du produit
@@ -189,5 +221,6 @@ class ControleurProduit extends ControleurGenerique{
             ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherTousLesProduits&controleur=produit');
         }
     }
+
 
 }

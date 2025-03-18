@@ -1,4 +1,5 @@
-<?php use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
+<?php use App\Pecherie\Modele\DataObject\Utilisateur;
+use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
 
 <header class="site-header">
     <div class="header-logo">
@@ -21,7 +22,10 @@
             <a href="controleurFrontal.php?action=afficherCandidatures&controleur=page">CANDIDATURE</a>
             <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
             <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-                <a href="controleurFrontal.php?action=afficherBoutique&controleur=page">BOUTIQUE</a>
+                <a href="controleurFrontal.php?action=afficherBoutique&controleur=produit">BOUTIQUE</a>
+            <?php endif; ?>
+            <?php if (ConnexionUtilisateur::estConnecte() && Utilisateur::estAdministrateur("administrateur")) : ?>
+                <a href="controleurFrontal.php?action=afficherPageAdmin&controleur=utilisateur">ADMINISTRATEUR</a>
             <?php endif; ?>
         </strong>
     </div>
@@ -39,6 +43,8 @@
             <img src="../../ressources/images/connexion/iconeConnexion.png">
         </a>
     <?php endif; ?>
+
+
 </header>
 
 <!-- Menu déroulant pour les petits écrans -->
@@ -52,7 +58,7 @@
     <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
 
     <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-        <a href="controleurFrontal.php?action=afficherBoutique&controleur=page">BOUTIQUE</a>
+        <a href="controleurFrontal.php?action=afficherBoutique&controleur=produit">BOUTIQUE</a>
     <?php endif; ?>
 </div>
 <div>
@@ -97,7 +103,7 @@
     }
 
     .menu-dropdown a:hover {
-        color: orangered;
+        color: #5e9dcf;
     }
 
     /* Icône du menu pour les petits écrans */
