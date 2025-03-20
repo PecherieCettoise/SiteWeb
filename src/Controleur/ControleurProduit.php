@@ -84,21 +84,42 @@ class ControleurProduit extends ControleurGenerique{
         ]);
     }
 
-    public function afficherBoutique(){
-        $produits= (new ProduitRepository())->recuperer(); // Récupérer tous les produits
+    public function afficherBoutique() {
+        // Nombre de produits par page
+        $produitsParPage = 30;
 
-        if (empty($produits)) {
-            MessageFlash::ajouter("info", "Aucun produit disponible pour suppression.");
-            ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherProfil&controleur=utilisateur');
-            return;
-        }
+        // Récupérer tous les produits (y compris les permanents et non permanents)
+        $produitRepository = new ProduitRepository();
+        $produits = $produitRepository->recupererTousLesProduits();  // Méthode qui récupère tous les produits (permanents et non permanents)
+
+        // Filtrer les produits permanents
+        $produitsPermanents = array_filter($produits, function($produit) {
+            return in_array($produit->getPERMANENT(), [0, 1, 'OUI']);
+        });
+
+        // Calcul du nombre total de produits permanents
+        $totalProduits = count($produitsPermanents);
+        $totalPages = ceil($totalProduits / $produitsParPage);
+
+        // Récupérer la page actuelle à partir de la query string, par défaut la page 1
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $page = max(1, min($totalPages, $page)); // S'assurer que la page est valide
+
+        // Produits à afficher sur la page
+        $produitsAffiches = array_slice($produitsPermanents, ($page - 1) * $produitsParPage, $produitsParPage);
+
+        // Passer les produits et la pagination à la vue
         ControleurGenerique::afficherVue("vueGenerale.php", [
             'titre' => "Boutique",
             "cheminCorpsVue" => "boutique/pageBoutique.php",
-            'produits' => $produits,
-
+            'produits' => $produitsAffiches,
+            'page' => $page,
+            'totalPages' => $totalPages,
         ]);
     }
+
+
+
 
 
     public static function supprimerProduit()

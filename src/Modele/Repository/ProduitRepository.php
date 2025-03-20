@@ -6,6 +6,7 @@ use App\Pecherie\Modele\DataObject\AbstractDataObject;
 use App\Pecherie\Modele\DataObject\Produit;
 use App\Pecherie\Modele\Repository\ConnexionBaseDeDonnees;
 use Exception;
+use PDO;
 
 class ProduitRepository extends AbstractRepository
 {
@@ -183,6 +184,50 @@ class ProduitRepository extends AbstractRepository
 
         return $produit;
     }
+
+
+
+    public function recupererAvecPagination($produitsParPage) {
+        $pdo = ConnexionBaseDeDonnees::getPDO();
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $offset = ($page - 1) * $produitsParPage;
+
+        $stmt = $pdo->prepare("SELECT * FROM produit LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', $produitsParPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $produits = [];
+
+        foreach ($rows as $row) {
+            $produits[] = new Produit(
+                $row['reference_article'],
+                $row['designation'],
+                $row['prixVente'],
+                $row['stock_reel'],
+                $row['stock_disponible'],
+                $row['stockATerme'] ?? 0.0,
+                $row['poids_Net'],
+                $row['PERMANENT']
+            );
+        }
+        return $produits;
+    }
+
+    public function compterTousLesProduits() {
+        $pdo = ConnexionBaseDeDonnees::getPDO();
+        $stmt = $pdo->query("SELECT COUNT(*) FROM produit");
+        return $stmt->fetchColumn();
+    }
+
+    public function compterProduitsPermanents() {
+        $pdo = ConnexionBaseDeDonnees::getPDO();
+        $stmt = $pdo->query("SELECT COUNT(*) FROM produit WHERE PERMANENT = 1 OR PERMANENT= 0 OR PERMANENT = 'OUI'");
+        return $stmt->fetchColumn();
+    }
+
+
 
 
 

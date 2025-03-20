@@ -85,7 +85,7 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
         }).addTo(map);
 
         // Ajout d'un marqueur sur la carte
-        L.marker([43.4024, 3.7008]).addTo(map)
+        L.marker([43.4175910949707, 3.7124016284942627]).addTo(map)
             .bindPopup('<b>La Pêcherie Cettoise</b><br>239 rue phare de roquerols<br>34200 Sète, France')
             .openPopup();
 
