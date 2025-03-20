@@ -1,7 +1,7 @@
 <?php
 
 use App\Pecherie\Controleur\ControleurGenerique;
-use App\Pecherie\Controleur\ControleurUtilisateur;
+use App\Pecherie\Controleur\ControleurProduit;use App\Pecherie\Controleur\ControleurUtilisateur;
 use App\Pecherie\Lib\MessageFlash;
 use App\Pecherie\Lib\Psr4AutoloaderClass;
 use App\Pecherie\Modele\HTTP\ConnexionUtilisateur;
@@ -47,6 +47,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'connecter') {
 } elseif (isset($_GET['user']) && $_GET['user'] == 'deconnecter') {
     ConnexionUtilisateur::deconnecter();
     ControleurUtilisateur::afficherFormulaireConnexion();
+}elseif (isset($_GET['action']) && $_GET['action'] === 'afficherBoutique' && isset($_GET['controleur']) && $_GET['controleur'] === 'produit') {
+    // Appeler la méthode afficherBoutique()
+    $controleurProduit = new ControleurProduit();
+    $controleurProduit->afficherBoutique();
 } else {
     // Récupérer le contrôleur et l'action à partir de l'URL (par défaut 'page' et 'afficherAccueil')
     $controleur = $_GET['controleur'] ?? 'page';

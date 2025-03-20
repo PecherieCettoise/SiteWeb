@@ -49,6 +49,7 @@ class Produit extends AbstractDataObject {
         $this->PERMANENT = $PERMANENT;
     }
 
+
     // GETTERS ET SETTERS
 
     public function getReferenceArticle(): int {

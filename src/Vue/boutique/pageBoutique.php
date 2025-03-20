@@ -94,40 +94,7 @@
             font-size: 16px;
         }
     </style>
-    <script>
-        // Fonction de filtrage en temps réel uniquement pour les produits permanents
-        function filtrerProduits() {
-            const input = document.getElementById("searchInput");
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById("produitsTable");
-            const tr = table.querySelectorAll("tbody tr");
 
-            // Parcourir toutes les lignes du tableau
-            tr.forEach(row => {
-                const td = row.querySelectorAll("td");
-                let match = false;
-
-                // Vérifier si le produit est permanent (0, 1 ou OUI)
-                const permanent = row.querySelectorAll("td")[3].innerText.trim().toUpperCase(); // On suppose ici que la colonne PERMANENT est la 4e (index 3)
-
-                // Vérifier si le produit est permanent (0, 1 ou OUI)
-                if (["0", "1", "OUI"].includes(permanent)) {
-                    // Rechercher le terme de recherche dans les cellules
-                    td.forEach(cell => {
-                        const txtValue = cell.textContent || cell.innerText;
-                        if (txtValue.toLowerCase().includes(filter)) {
-                            match = true;
-                        }
-                    });
-                } else {
-                    match = false; // Si ce n'est pas un produit permanent, on le masque
-                }
-
-                // Affichage ou masquage de la ligne en fonction du match
-                row.style.display = match ? "" : "none";
-            });
-        }
-    </script>
 
 </head>
 <body>
@@ -139,9 +106,17 @@
 
 <!-- Barre de recherche -->
 <div class="search-container">
-    <label for="searchInput">Rechercher un produit permanent :</label>
-    <input type="text" id="searchInput" onkeyup="filtrerProduits()" placeholder="Rechercher un produit..." class="search-input">
+    <form action="controleurFrontal.php" method="get">
+        <input type="hidden" name="action" value="afficherBoutique">
+        <input type="hidden" name="controleur" value="produit">
+        <input type="text" name="search" class="search-input" placeholder="Rechercher un produit..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+        <button type="submit">Rechercher</button>
+    </form>
 </div>
+
+
+
+
 
 <!-- Tableau des produits -->
 <table id="produitsTable">

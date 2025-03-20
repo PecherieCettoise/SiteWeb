@@ -88,16 +88,24 @@ class ControleurProduit extends ControleurGenerique{
         // Nombre de produits par page
         $produitsParPage = 30;
 
-        // Récupérer tous les produits (y compris les permanents et non permanents)
+        // Récupérer tous les produits
         $produitRepository = new ProduitRepository();
-        $produits = $produitRepository->recupererTousLesProduits();  // Méthode qui récupère tous les produits (permanents et non permanents)
+        $produits = $produitRepository->recupererTousLesProduits();
 
         // Filtrer les produits permanents
         $produitsPermanents = array_filter($produits, function($produit) {
             return in_array($produit->getPERMANENT(), [0, 1, 'OUI']);
         });
 
-        // Calcul du nombre total de produits permanents
+        // Vérifier si un paramètre de recherche est passé dans l'URL
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $searchTerm = $_GET['search'];
+            $produitsPermanents = array_filter($produitsPermanents, function($produit) use ($searchTerm) {
+                return stripos($produit->getDesignation(), $searchTerm) !== false;
+            });
+        }
+
+        // Calcul du nombre total de produits
         $totalProduits = count($produitsPermanents);
         $totalPages = ceil($totalProduits / $produitsParPage);
 
@@ -117,6 +125,7 @@ class ControleurProduit extends ControleurGenerique{
             'totalPages' => $totalPages,
         ]);
     }
+
 
 
 
