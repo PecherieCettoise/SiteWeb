@@ -80,19 +80,6 @@
             margin: 0 10px;
         }
 
-        /* Barre de recherche */
-        .search-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .search-input {
-            padding: 10px;
-            width: 80%;
-            max-width: 500px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
     </style>
 
 
@@ -103,20 +90,6 @@
     <h1>Bienvenue dans notre boutique</h1>
     <p>Découvrez nos produits et faites vos achats en ligne.</p>
 </header>
-
-<!-- Barre de recherche -->
-<div class="search-container">
-    <form action="controleurFrontal.php" method="get">
-        <input type="hidden" name="action" value="afficherBoutique">
-        <input type="hidden" name="controleur" value="produit">
-        <input type="text" name="search" class="search-input" placeholder="Rechercher un produit..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-        <button type="submit">Rechercher</button>
-    </form>
-</div>
-
-
-
-
 
 <!-- Tableau des produits -->
 <table id="produitsTable">
@@ -138,7 +111,9 @@
             <tr>
                 <?php if ($produit->getPERMANENT() == 0 || $produit->getPERMANENT() == 1 || $produit->getPERMANENT() == 'OUI'): ?>
                 <td><?= htmlspecialchars($produit->getReferenceArticle()) ?></td>
-                <td><?= htmlspecialchars($produit->getDesignation()) ?></td>
+                <td><a href="controleurFrontal.php?controleur=produit&action=afficherProduit&id=<?= urlencode($produit->getReferenceArticle()) ?>">
+                        <?= htmlspecialchars($produit->getDesignation()) ?>
+                    </a></td>
                 <td><?= htmlspecialchars($produit->getPoidsNet()) ?> kg</td>
                 <td><?= number_format($produit->getPrixVente(), 2, ',', ' ') ?> €</td>
                 <?php endif; ?>

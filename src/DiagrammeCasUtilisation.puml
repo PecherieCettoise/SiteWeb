@@ -1,0 +1,73 @@
+@startuml
+
+actor Utilisateur
+actor Administrateur
+
+usecase "Se connecter" as UC1
+usecase "Se déconnecter" as UC2
+usecase "Ajouter un utilisateur" as UC3
+usecase "Modifier un utilisateur" as UC4
+usecase "Supprimer un utilisateur" as UC5
+usecase "Afficher les clients" as UC6
+usecase "Ajouter un client" as UC7
+usecase "Modifier un client" as UC8
+usecase "Supprimer un client" as UC9
+usecase "Afficher les produits" as UC10
+usecase "Ajouter un produit" as UC11
+usecase "Modifier un produit" as UC12
+usecase "Supprimer un produit" as UC13
+usecase "Importer des fichiers CSV" as UC14
+usecase "Afficher la page d'accueil" as UC15
+usecase "Afficher le contact" as UC16
+usecase "Afficher les engagements" as UC17
+usecase "Afficher les actualités" as UC18
+usecase "Afficher les candidatures" as UC19
+usecase "Afficher les mentions légales" as UC20
+usecase "Réinitialiser mot de passe" as UC21
+usecase "Envoyer une candidature" as UC22
+usecase "Envoyer une demande" as UC23
+usecase "Commander des produits" as UC24
+
+Utilisateur --> UC1
+Utilisateur --> UC2
+Utilisateur --> UC21
+Utilisateur --> UC22
+Utilisateur --> UC23
+Utilisateur --> UC24
+Utilisateur --> UC15
+Utilisateur --> UC16
+Utilisateur --> UC17
+Utilisateur --> UC18
+Utilisateur --> UC19
+Utilisateur --> UC20
+
+Administrateur --> UC3
+Administrateur --> UC4
+Administrateur --> UC5
+Administrateur --> UC14
+Administrateur --> UC10
+Administrateur --> UC11
+Administrateur --> UC12
+Administrateur --> UC13
+Administrateur --> UC22
+Administrateur --> UC23
+Administrateur --> UC24
+Administrateur --> UC9
+Administrateur --> UC8
+Administrateur --> UC7
+Administrateur --> UC6
+
+Administrateur --> UC1
+Administrateur --> UC2
+Administrateur --> UC21
+Administrateur --> UC22
+Administrateur --> UC23
+Administrateur --> UC24
+Administrateur --> UC15
+Administrateur --> UC16
+Administrateur --> UC17
+Administrateur --> UC18
+Administrateur --> UC19
+Administrateur --> UC20
+
+@enduml

@@ -1,0 +1,271 @@
+@startuml
+
+class UtilisateurRepository {
+    -pdo: PDO
+    +getNomTable(): String
+    +getNomClePrimaire(): Array
+    +getNomColonnes(): Array
+    +formatTableauSQL(utilisateur: AbstractDataObject, i: int): Array
+    +construireDepuisTableauSQL(utilisateurFormatTableau: Array): Utilisateur
+    +creerRequete(): String
+    +ajouterValuesRequete(requeteSql: String, i: int): String
+    +creerUtilisateurPro(pdo: PDO, login: String, motDePasse: String, role: String): void
+    +recupererParClePrimaire(clePrimaire: String): Utilisateur
+    +ajouter(utilisateur: Utilisateur): void
+    +supprimerLogin(login: String): void
+    +getUtilisateurConnecte(): Utilisateur
+    +setMotDePasse(motDePasse: String): bool
+    +setLoginUtilisateur(nouveauLogin: String): bool
+    +getUtilisateurParLogin(login: String): Utilisateur
+}
+
+class Utilisateur {
+    -login: String
+    -nom: String
+    -mdp: String
+    -mdp_clair: String
+    -role: String
+    +getLogin(): String
+    +getNom(): String
+    +getMdp(): String
+    +getMdpClair(): String
+    +getRole(): String
+    +getClientId(): int
+}
+
+class MotDePasse {
+    +hacher(motDePasse: String): String
+}
+
+class ConnexionBaseDeDonnees {
+    +getPdo(): PDO
+}
+
+class ConnexionUtilisateur {
+    +getLoginUtilisateurConnecte(): String
+}
+
+class AbstractRepository {
+    +getNomTable(): String
+    +getNomClePrimaire(): Array
+    +getNomColonnes(): Array
+    +formatTableauSQL(utilisateur: AbstractDataObject, i: int): Array
+    +construireDepuisTableauSQL(utilisateurFormatTableau: Array): Utilisateur
+}
+
+class AbstractDataObject {
+    -id: int
+    +getId(): int
+}
+
+class Clients {
+    -id: int
+    -nom: String
+    -prenom: String
+    -email: String
+    +getId(): int
+    +getNom(): String
+    +getPrenom(): String
+    +getEmail(): String
+}
+
+class ClientRepository {
+    -pdo: PDO
+    +getNomTable(): String
+    +getNomClePrimaire(): Array
+    +getNomColonnes(): Array
+    +formatTableauSQL(client: AbstractDataObject, i: int): Array
+    +construireDepuisTableauSQL(clientFormatTableau: Array): Clients
+    +ajouter(client: Clients): void
+    +supprimer(id: int): void
+    +recupererParClePrimaire(clePrimaire: int): Clients
+}
+
+class Client {
+    -id: int
+    -nom: String
+    -prenom: String
+    -email: String
+    +getId(): int
+    +getNom(): String
+    +getPrenom(): String
+    +getEmail(): String
+}
+
+class Produit {
+    -reference_article: int
+    -designation: string
+    -prixVente: float
+    -stock_reel: float
+    -stock_disponible: float
+    -stockATerme: ?float
+    -poids_Net: float
+    -PERMANENT: ?string
+    +getReferenceArticle(): int
+    +setReferenceArticle(reference_article: int): void
+    +getDesignation(): string
+    +setDesignation(designation: string): void
+    +getPrixVente(): float
+    +setPrixVente(prixVente: float): void
+    +getStockReel(): float
+    +setStockReel(stock_reel: float): void
+    +getStockDisponible(): float
+    +setStockDisponible(stock_disponible: float): void
+    +getPoidsNet(): float
+    +setPoidsNet(poids_Net: float): void
+    +getStockATerme(): ?float
+    +setStockATerme(stockATerme: ?float): void
+    +getPERMANENT(): ?string
+    +setPERMANENT(PERMANENT: ?string): void
+}
+
+class UtilisateurControleur {
+    -utilisateurRepository: UtilisateurRepository
+    +ajouterUtilisateur(request): void
+    +modifierUtilisateur(request): void
+    +supprimerUtilisateur(request): void
+    +connexionUtilisateur(request): void
+    +deconnexionUtilisateur(): void
+}
+
+class ClientControleur {
+    -clientRepository: ClientRepository
+    +ajouterClient(request): void
+    +modifierClient(request): void
+    +supprimerClient(request): void
+    +afficherClients(): void
+}
+
+class ConfigurationBaseDeDonnees {
+    -configurationBaseDeDonnees: array
+    +getLogin(): string
+    +getNomHote(): string
+    +getNomBaseDeDonnees(): string
+    +getPort(): string
+    +getPassword(): string
+}
+
+class ControleurFichierCSV {
+    +afficherFormulaireImportation(): void
+    +importerFichiers(): void
+}
+
+class ControleurGenerique {
+    +afficherVue(cheminVue: string, parametres: array): void
+    +afficherErreur(messageErreur: string, controleur: string, action: string): void
+    +afficherFormulairePreference(): void
+    +redirectionVersURL(url: string): void
+}
+
+class ControleurPage {
+    +afficherAccueil(): void
+    +afficherContact(): void
+    +afficherPecherieCettoise(): void
+    +afficherProduits(): void
+    +afficherEngagements(): void
+    +afficherActualites(): void
+    +afficherCandidatures(): void
+    +afficherMentionsLegales(): void
+    +afficherMailContact(): void
+    +afficherMailCandidature(): void
+    +traitement_demande(): void
+    +reinitialisation(): void
+    +reinitialisationMotDePasse(): void
+}
+
+class Psr4AutoloaderClass {
+    -debug: bool
+    +__construct(debug: bool = false)
+    +register(): void
+    +addNamespace(prefix: String, base_dir: String, prepend: bool = false): void
+    +loadClass(class: String): mixed
+    +loadMappedFile(prefix: String, relative_class: String): mixed
+    +requireFile(file: String): bool
+    -affichageDebogage(message: String): void
+}
+
+class ProduitRepository {
+    -pdo: PDO
+    +getNomTable(): String
+    +getNomClePrimaire(): Array
+    +getNomColonnes(): Array
+    +formatTableauSQL(produit: AbstractDataObject, i: int): Array
+    +construireDepuisTableauSQL(produitFormatTableau: Array): Produit
+    +recupererProduitParDesignation(designation: String): Produit
+    +recupererProduitParReference_article(reference_article: int): Produit
+    +ajouterProd(produit: Produit): void
+    +modifierProduit(produit: Produit): void
+    +supprimerProduit(reference_article: int): void
+    +recupererTousLesProduits(): Array
+    +compterTousLesProduits(): int
+    +compterProduitsPermanents(): int
+}
+
+class Session {
+    -instance: ?Session
+    +__construct(): void
+    +getInstance(): Session
+    +contient(nom: String): bool
+    +enregistrer(nom: String, valeur: mixed): void
+    +lire(nom: String): mixed
+    +supprimer(nom: String): void
+    +detruire(): void
+    +regenererID(): void
+    +verifierDerniereActivite(): void
+}
+
+class Cookie {
+    +enregistrer(cle: String, valeur: mixed, dureeExpiration: ?int): void
+    +lire(cle: String): mixed
+    +supprimer(cle: String): void
+    +contient(cle: String): bool
+}
+
+
+UtilisateurRepository --|> Utilisateur
+UtilisateurRepository --> MotDePasse
+UtilisateurRepository --> ConnexionBaseDeDonnees
+UtilisateurRepository --> ConnexionUtilisateur
+UtilisateurRepository --|> AbstractRepository
+AbstractRepository --|> AbstractDataObject
+UtilisateurRepository --> Clients
+
+ClientRepository --|> Clients
+ClientRepository --|> AbstractRepository
+ClientRepository --|> AbstractDataObject
+
+UtilisateurRepository --> ClientRepository
+
+UtilisateurControleur --> UtilisateurRepository
+UtilisateurControleur --> Utilisateur
+UtilisateurControleur --> ConnexionUtilisateur
+UtilisateurControleur --> ConnexionBaseDeDonnees
+
+ClientControleur --> ClientRepository
+ClientControleur --> Client
+ClientControleur --> ConnexionUtilisateur
+ClientControleur --> ConnexionBaseDeDonnees
+
+ConfigurationBaseDeDonnees --> ConnexionBaseDeDonnees
+
+ControleurFichierCSV --> ConnexionBaseDeDonnees
+ControleurFichierCSV --> GestionFichierCSV
+ControleurFichierCSV --> MessageFlash
+
+ControleurGenerique --> MessageFlash
+ControleurGenerique --> ControleurPage
+
+ControleurPage --|> ControleurGenerique
+
+ControleurFichierCSV --|> ControleurGenerique
+UtilisateurControleur --|> ControleurGenerique
+ClientControleur --|> ControleurGenerique
+
+ProduitRepository --> Produit
+ProduitRepository --> ConnexionBaseDeDonnees
+ProduitRepository --|> AbstractRepository
+ProduitRepository --> ConnexionBaseDeDonnees
+
+Session --> Cookie
+
+@enduml
