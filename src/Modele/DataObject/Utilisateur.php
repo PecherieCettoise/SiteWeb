@@ -10,28 +10,28 @@ class Utilisateur extends AbstractDataObject {
     private string $mdp_clair;
     private string $login;
     private string $Role;
-    private ?int $client_id;  // ou int si tu préfères forcer l'ID
+    private ?int $IDClient;  // ou int si tu préfères forcer l'ID
 
-    public function __construct(?string $nom, string $mdp, string $mdp_clair, string $login, string $Role, ?int $client_id = null)
+    public function __construct(?string $nom, string $mdp, string $mdp_clair, string $login, string $Role, ?int $IDClient = null)
     {
         $this->login = $login;
         $this->nom = $nom;
         $this->mdp = $mdp;
         $this->mdp_clair = $mdp_clair;
         $this->Role = $Role;
-        $this->client_id = $client_id;
+        $this->IDClient = $IDClient;
     }
 
-// Ajout d'un getter et setter pour client_id
-    public function getClientId(): ?int
+    public function getIDClient(): ?int
     {
-        return $this->client_id;
+        return $this->IDClient;
     }
 
-    public function setClientId(?int $client_id): void
+    public function setIDClient(?int $IDClient): void
     {
-        $this->client_id = $client_id;
+        $this->IDClient = $IDClient;
     }
+
 
     public function getNom(): ?string
     {

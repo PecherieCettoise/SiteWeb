@@ -120,8 +120,8 @@ class UtilisateurRepository extends AbstractRepository
     }*/
 
     public static function ajouter(Utilisateur $utilisateur){
-        $sql = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, client_id) 
-            VALUES (:login, :nom, :mdp, :mdp_clair, :Role, :client_id)";
+        $sql = "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, IDClient) 
+            VALUES (:login, :nom, :mdp, :mdp_clair, :Role, :IDClient)";
 
         $values = [
             'login'     => $utilisateur->getLogin(),
@@ -129,7 +129,7 @@ class UtilisateurRepository extends AbstractRepository
             'mdp'       => $utilisateur->getMdp(),
             'mdp_clair' => $utilisateur->getMdpClair(),
             'Role'      => $utilisateur->getRole(),
-            'client_id' => $utilisateur->getClientId(),  // Ajout de client_id
+            'IDClient' => $utilisateur->getIDClient(),
         ];
 
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);

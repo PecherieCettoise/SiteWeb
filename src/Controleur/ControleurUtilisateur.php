@@ -444,7 +444,7 @@ class ControleurUtilisateur extends ControleurGenerique
             }
 
             $user_id = $resetRequest['user_id'];
-            $stmt = $pdo->prepare("SELECT login FROM utilisateurs WHERE client_id = ?");
+            $stmt = $pdo->prepare("SELECT login FROM utilisateurs WHERE IDClient = ?");
             $stmt->execute([$user_id]);
             $user = $stmt->fetch();
 

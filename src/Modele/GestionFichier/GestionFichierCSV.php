@@ -27,7 +27,7 @@ class GestionFichierCSV {
             );
 
             $stmtUtilisateur = $this->pdo->prepare(
-                "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, client_id) 
+                "INSERT INTO utilisateurs (login, nom, mdp, mdp_clair, Role, IDClient) 
                 VALUES (?, ?, ?, ?, ?, ?)"
             );
 
@@ -60,7 +60,7 @@ class GestionFichierCSV {
                         $mdp = MotDePasse::genererChaineAleatoire(12);
                         $mdpHache = MotDePasse::hacher($mdp);
 
-                        // Insérer l'utilisateur avec le bon `client_id`
+                        // Insérer l'utilisateur avec le bon `IDClient`
                         $stmtUtilisateur->execute([$numero, $intitule, $mdpHache, $mdp, $role, $clientID]);
                     }
                 }
