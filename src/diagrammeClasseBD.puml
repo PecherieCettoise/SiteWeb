@@ -1,0 +1,93 @@
+@startuml
+' Clients table
+class Client {
+    +int IDClient
+    +string intitule
+    +string categorie_tarifaire
+    +string date_creation
+    +string email
+    +string numero
+}
+
+' Commande table
+class Commande {
+    +int IDCommande
+    +int IDClient
+    +datetime date_commande
+    +decimal total
+}
+
+' DetailsCommande table
+class DetailsCommande {
+    +int IDDetailCommande
+    +int IDCommande
+    +int reference_article
+    +int quantite
+    +decimal prix_unitaire
+}
+
+' Livraison table
+class Livraison {
+    +int IDLivraison
+    +int IDCommande
+    +string adresse_livraison
+    +date date_estimee
+    +string statut
+}
+
+' MethodePaiement table
+class MethodePaiement {
+    +int IDMethode
+    +string nom
+}
+
+' Paiement table
+class Paiement {
+    +int IDPaiement
+    +int IDCommande
+    +int IDMethode
+    +datetime date_paiement
+    +decimal montant
+}
+
+' Produit table
+class Produit {
+    +int reference_article
+    +string designation
+    +decimal prixVente
+    +decimal stock_reel
+    +decimal stock_disponible
+    +decimal stockATerme
+    +double poids_Net
+    +string PERMANENT
+}
+
+' RedefinirMDP table
+class RedefinirMDP {
+    +int id
+    +int user_id
+    +string token
+    +datetime expires_at
+}
+
+' Utilisateurs table
+class Utilisateurs {
+    +string login
+    +string nom
+    +string mdp
+    +string mdp_clair
+    +string Role
+    +int IDClient
+}
+
+' Relationships
+Client "1" -- "0..*" Commande
+Commande "1" -- "0..*" DetailsCommande
+Commande "1" -- "0..1" Livraison
+Commande "1" -- "0..*" Paiement
+MethodePaiement "1" -- "0..*" Paiement
+Produit "1" -- "0..*" DetailsCommande
+Client "1" -- "0..1" RedefinirMDP
+Client "1" -- "0..1" Utilisateurs
+
+@enduml

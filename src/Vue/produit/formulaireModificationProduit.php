@@ -19,7 +19,9 @@
         <th>Stock disponible</th>
         <th>Stock à terme</th>
         <th>Poids net</th>
+        <th>Permanent</th>
         <th>Modifier</th>
+
     </tr>
     </thead>
     <tbody>

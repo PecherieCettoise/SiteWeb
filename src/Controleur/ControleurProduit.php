@@ -132,6 +132,19 @@ class ControleurProduit extends ControleurGenerique {
         ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherFormulaireSuppressionProduit&controleur=produit');
     }
 
+
+    public static function afficherFormulaireSuppressionProduit() {
+        $produitRepository = new ProduitRepository();
+        $produits = $produitRepository->recupererTousLesProduits(); // Vérifie que cette méthode retourne bien des produits
+
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => "Suppression du produit",
+            "cheminCorpsVue" => "produit/formulaireSuppressionProduit.php",
+            "produits" => $produits // S'assurer que cette variable est bien passée
+        ]);
+    }
+
+
     public static function modifierProduit() {
         if (!isset($_POST['reference_article'])) {
             MessageFlash::ajouter("danger", "Aucun produit sélectionné.");
@@ -173,4 +186,17 @@ class ControleurProduit extends ControleurGenerique {
 
         ControleurGenerique::redirectionVersURL('controleurFrontal.php?action=afficherTousLesProduits&controleur=produit');
     }
+
+    public static function afficherTousLesProduits(){
+        $produitRepository = new ProduitRepository();
+        $produits = $produitRepository->recupererTousLesProduits(); // Récupération des produits
+
+        ControleurGenerique::afficherVue("vueGenerale.php", [
+            'titre' => "Tous les produits",
+            "cheminCorpsVue" => "produit/formulaireModificationProduit.php",
+            "produits" => $produits // Envoi des produits à la vue
+        ]);
+    }
+
+
 }
