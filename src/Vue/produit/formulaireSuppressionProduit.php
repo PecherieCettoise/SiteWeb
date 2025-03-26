@@ -53,7 +53,9 @@
                         <th>Sélectionner</th>
                         <th>Référence</th>
                         <th>Nom du produit</th>
-                        <th>Prix</th>
+                        <th>Prix Poisson</th>
+                        <th>Prix Resto</th>
+                        <th>Prix GD</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,11 +65,13 @@
                                 <td><input type="checkbox" name="produit[]" value="<?php echo htmlspecialchars($produit->getReferenceArticle()); ?>"></td>
                                 <td><?php echo htmlspecialchars($produit->getReferenceArticle()); ?></td>
                                 <td><?php echo htmlspecialchars($produit->getDesignation()); ?></td>
-                                <td><?php echo htmlspecialchars($produit->getPrixVente()); ?> €</td>
+                                <td><?php echo htmlspecialchars($produit->getPVPoiss()); ?> €</td>
+                                <td><?php echo htmlspecialchars($produit->getPVResto()); ?> €</td>
+                                <td><?php echo htmlspecialchars($produit->getPVGD()); ?> €</td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr><td colspan="4">Aucun produit à afficher.</td></tr>
+                        <tr><td colspan="6">Aucun produit à afficher.</td></tr>
                     <?php endif; ?>
                     </tbody>
                 </table>
@@ -79,7 +83,6 @@
 
                 <button type="submit" class="btn-delete">Supprimer les produits sélectionnés</button>
             </form>
-
         </div>
     </div>
 </main>

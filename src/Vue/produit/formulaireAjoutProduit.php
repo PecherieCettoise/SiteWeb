@@ -10,23 +10,38 @@
     </div>
 
     <div class="mb-3">
-        <label for="prixVente" class="form-label">Prix de vente</label>
-        <input type="number" class="form-control" id="prixVente" name="prixVente" required step="0.01">
+        <label for="parenthese" class="form-label">Parenthèse</label>
+        <input type="text" class="form-control" id="parenthese" name="parenthese">
     </div>
 
     <div class="mb-3">
-        <label for="stock_reel" class="form-label">Stock réel</label>
-        <input type="number" class="form-control" id="stock_reel" name="stock_reel" required step="0.01">
+        <label for="PV_POISS" class="form-label">Prix de vente Poisson</label>
+        <input type="number" class="form-control" id="PV_POISS" name="PV_POISS" required step="0.01">
     </div>
 
     <div class="mb-3">
-        <label for="stock_disponible" class="form-label">Stock disponible</label>
-        <input type="number" class="form-control" id="stock_disponible" name="stock_disponible" required step="0.01">
+        <label for="MB_POISS" class="form-label">Marge Poisson</label>
+        <input type="number" class="form-control" id="MB_POISS" name="MB_POISS" step="0.01">
     </div>
 
     <div class="mb-3">
-        <label for="stockATerme" class="form-label">Stock à terme</label>
-        <input type="number" class="form-control" id="stockATerme" name="stockATerme" step="0.01">
+        <label for="PV_RESTO" class="form-label">Prix de vente Resto</label>
+        <input type="number" class="form-control" id="PV_RESTO" name="PV_RESTO" required step="0.01">
+    </div>
+
+    <div class="mb-3">
+        <label for="MB_RESTO" class="form-label">Marge Resto</label>
+        <input type="number" class="form-control" id="MB_RESTO" name="MB_RESTO" step="0.01">
+    </div>
+
+    <div class="mb-3">
+        <label for="PV_GD" class="form-label">Prix de vente Grande Distribution</label>
+        <input type="number" class="form-control" id="PV_GD" name="PV_GD" required step="0.01">
+    </div>
+
+    <div class="mb-3">
+        <label for="MB_GD" class="form-label">Marge Grande Distribution</label>
+        <input type="number" class="form-control" id="MB_GD" name="MB_GD" step="0.01">
     </div>
 
     <div class="mb-3">

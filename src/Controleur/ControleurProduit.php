@@ -14,17 +14,26 @@ use Exception;
 class ControleurProduit extends ControleurGenerique {
 
     public static function ajouterProduit() {
-        if (isset($_POST['reference_article'], $_POST['designation'], $_POST['prixVente'], $_POST['stock_reel'], $_POST['stock_disponible'], $_POST['poids_Net'])) {
+        if (isset(
+            $_POST['reference_article'], $_POST['designation'], $_POST['parenthese'],
+            $_POST['PV_POISS'], $_POST['MB_POISS'], $_POST['PV_RESTO'], $_POST['MB_RESTO'],
+            $_POST['PV_GD'], $_POST['MB_GD']
+        )) {
             $reference_article = intval($_POST['reference_article']);
             $designation = htmlspecialchars($_POST['designation']);
-            $prixVente = floatval($_POST['prixVente']);
-            $stock_reel = floatval($_POST['stock_reel']);
-            $stock_disponible = floatval($_POST['stock_disponible']);
-            $stockATerme = isset($_POST['stockATerme']) ? floatval($_POST['stockATerme']) : null;
-            $poids_Net = floatval($_POST['poids_Net']);
-            $PERMANENT = htmlspecialchars($_POST['PERMANENT']);
+            $parenthese = htmlspecialchars($_POST['parenthese']);
+            $PV_POISS = floatval($_POST['PV_POISS']);
+            $MB_POISS = isset($_POST['MB_POISS']) ? floatval($_POST['MB_POISS']) : null;
+            $PV_RESTO = floatval($_POST['PV_RESTO']);
+            $MB_RESTO = isset($_POST['MB_RESTO']) ? floatval($_POST['MB_RESTO']) : null;
+            $PV_GD = floatval($_POST['PV_GD']);
+            $MB_GD = isset($_POST['MB_GD']) ? floatval($_POST['MB_GD']) : null;
 
-            $produit = new Produit($reference_article, $designation, $prixVente, $stock_reel, $stock_disponible, $stockATerme, $poids_Net, $PERMANENT);
+            $produit = new Produit(
+                $reference_article, $designation, $parenthese,
+                $PV_POISS, $MB_POISS, $PV_RESTO, $MB_RESTO,
+                $PV_GD, $MB_GD
+            );
 
             try {
                 ProduitRepository::ajouterProd($produit);
@@ -45,35 +54,35 @@ class ControleurProduit extends ControleurGenerique {
         ]);
     }
 
-    public static function afficherBoutique() {
+    public function afficherBoutique($page = 1) {
+        // Nombre de produits par page
         $produitsParPage = 30;
-        $produitRepository = new ProduitRepository();
-        $produits = $produitRepository->recupererTousLesProduits();
 
-        $produitsPermanents = array_filter($produits, function($produit) {
-            return in_array($produit->getPERMANENT(), [0, 1, 'OUI']);
-        });
+        // Calcul du début de la page
+        $offset = ($page - 1) * $produitsParPage;
 
-        if (isset($_GET['search']) && !empty($_GET['search'])) {
-            $searchTerm = $_GET['search'];
-            $produitsPermanents = array_filter($produitsPermanents, function($produit) use ($searchTerm) {
-                return stripos($produit->getDesignation(), $searchTerm) !== false;
-            });
+        // Récupérer les produits avec la pagination
+        $produits = (new ProduitRepository())->getProduitsParPage($offset, $produitsParPage);
+
+        // Récupérer le nombre total de produits pour calculer le nombre de pages
+        $totalProduits = (new ProduitRepository())->getTotalProduits();
+        $totalPages = ceil($totalProduits / $produitsParPage);
+
+        // Assurer que la page est dans les limites
+        if ($page > $totalPages) {
+            $page = $totalPages;
+        }
+        if ($page < 1) {
+            $page = 1;
         }
 
-        $totalProduits = count($produitsPermanents);
-        $totalPages = ceil($totalProduits / $produitsParPage);
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $page = max(1, min($totalPages, $page));
-
-        $produitsAffiches = array_slice($produitsPermanents, ($page - 1) * $produitsParPage, $produitsParPage);
-
-        ControleurGenerique::afficherVue("vueGenerale.php", [
+        // Afficher la vue avec les produits et la pagination
+        ControleurGenerique::afficherVue('vueGenerale.php', [
             'titre' => "Boutique",
-            "cheminCorpsVue" => "boutique/pageBoutique.php",
-            'produits' => $produitsAffiches,
+            'cheminCorpsVue' => 'boutique/pageBoutique.php',
+            'produits' => $produits,
             'page' => $page,
-            'totalPages' => $totalPages,
+            'totalPages' => $totalPages
         ]);
     }
 
@@ -154,12 +163,13 @@ class ControleurProduit extends ControleurGenerique {
 
         $reference_article = intval($_POST['reference_article']);
         $designation = htmlspecialchars($_POST['designation']);
-        $prixVente = floatval($_POST['prixVente']);
-        $stock_reel = intval($_POST['stock_reel']);
-        $stock_disponible = intval($_POST['stock_disponible']);
-        $stockATerme = intval($_POST['stockATerme']);
-        $poidsNet = floatval($_POST['poids_Net']);
-        $PERMANENT = htmlspecialchars($_POST['PERMANENT']);
+        $parenthese = htmlspecialchars($_POST['parenthese']);
+        $PV_POISS = floatval($_POST['PV_POISS']);
+        $MB_POISS = isset($_POST['MB_POISS']) ? floatval($_POST['MB_POISS']) : null;
+        $PV_RESTO = floatval($_POST['PV_RESTO']);
+        $MB_RESTO = isset($_POST['MB_RESTO']) ? floatval($_POST['MB_RESTO']) : null;
+        $PV_GD = floatval($_POST['PV_GD']);
+        $MB_GD = isset($_POST['MB_GD']) ? floatval($_POST['MB_GD']) : null;
 
         $produitRepository = new ProduitRepository();
         $produit = $produitRepository->recupererProduitParReference_article($reference_article);
@@ -170,12 +180,13 @@ class ControleurProduit extends ControleurGenerique {
         }
 
         $produit->setDesignation($designation);
-        $produit->setPrixVente($prixVente);
-        $produit->setStockReel($stock_reel);
-        $produit->setStockDisponible($stock_disponible);
-        $produit->setStockATerme($stockATerme);
-        $produit->setPoidsNet($poidsNet);
-        $produit->setPermanent($PERMANENT);
+        $produit->setParenthese($parenthese);
+        $produit->setPVPoiss($PV_POISS);
+        $produit->setMBPoiss($MB_POISS);
+        $produit->setPVResto($PV_RESTO);
+        $produit->setMBResto($MB_RESTO);
+        $produit->setPVGD($PV_GD);
+        $produit->setMBGD($MB_GD);
 
         try {
             $produitRepository->modifierProduit($produit);

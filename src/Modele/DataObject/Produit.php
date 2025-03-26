@@ -3,109 +3,112 @@
 namespace App\Pecherie\Modele\DataObject;
 
 class Produit extends AbstractDataObject {
-
     private int $reference_article;
     private string $designation;
-    private float $prixVente;
-    private float $stock_reel;
-    private float $stock_disponible;
-    private ?float $stockATerme;
-    private float $poids_Net;
-    private ?string $PERMANENT;
-
-
+    private string $parenthese;
+    private float $PV_POISS;
+    private ?float $MB_POISS;
+    private float $PV_RESTO;
+    private ?float $MB_RESTO;
+    private float $PV_GD;
+    private ?float $MB_GD;
 
     /**
      * Constructeur de la classe Produit
-     *
-     * @param int $reference_article
-     * @param string $designation
-     * @param float $prixVente
-     * @param float $stock_reel
-     * @param float $stock_disponible
-     * @param float|null $stockATerme
-     * @param float $poids_Net
-     * @param string $PERMANENT
- */
-    public function __construct(int $reference_article, string $designation, float $prixVente, float $stock_reel, float $stock_disponible, float $stockATerme , float $poids_Net, string $PERMANENT) {
-        $this->reference_article =  $reference_article;
+     */
+    public function __construct(
+        int $reference_article,
+        string $designation,
+        string $parenthese,
+        float $PV_POISS,
+        ?float $MB_POISS,
+        float $PV_RESTO,
+        ?float $MB_RESTO,
+        float $PV_GD,
+        ?float $MB_GD
+    ) {
+        $this->reference_article = $reference_article;
         $this->designation = $designation;
-        $this->prixVente =  $prixVente;
-        $this->stock_reel = $stock_reel;
-        $this->stock_disponible =  $stock_disponible;
-        $this->stockATerme = $stockATerme;
-        $this->poids_Net =  $poids_Net;
-        $this->PERMANENT =  $PERMANENT;
-
+        $this->parenthese = $parenthese;
+        $this->PV_POISS = $PV_POISS;
+        $this->MB_POISS = $MB_POISS;
+        $this->PV_RESTO = $PV_RESTO;
+        $this->MB_RESTO = $MB_RESTO;
+        $this->PV_GD = $PV_GD;
+        $this->MB_GD = $MB_GD;
     }
-
-    public function getPERMANENT(): ?string
-    {
-        return $this->PERMANENT;
-    }
-
-    public function setPERMANENT(?string $PERMANENT): void
-    {
-        $this->PERMANENT = $PERMANENT;
-    }
-
 
     // GETTERS ET SETTERS
-
     public function getReferenceArticle(): int {
         return $this->reference_article;
-    }
-
-    public function setReferenceArticle(int $reference_article): void {
-        $this->reference_article = (int) $reference_article;
     }
 
     public function getDesignation(): string {
         return $this->designation;
     }
 
+    public function getParenthese(): string {
+        return $this->parenthese;
+    }
+
+    public function getPVPoiss(): float {
+        return $this->PV_POISS;
+    }
+
+    public function getMBPoiss(): ?float {
+        return $this->MB_POISS;
+    }
+
+    public function getPVResto(): float {
+        return $this->PV_RESTO;
+    }
+
+    public function getMBResto(): ?float {
+        return $this->MB_RESTO;
+    }
+
+    public function getPVGD(): float {
+        return $this->PV_GD;
+    }
+
+    public function getMBGD(): ?float {
+        return $this->MB_GD;
+    }
+
+    public function setReferenceArticle(int $reference_article): void {
+        $this->reference_article = $reference_article;
+    }
+
     public function setDesignation(string $designation): void {
-        $this->designation = trim($designation);
+        $this->designation = $designation;
     }
 
-    public function getPrixVente(): float {
-        return $this->prixVente;
+    public function setParenthese(string $parenthese): void {
+        $this->parenthese = $parenthese;
     }
 
-    public function setPrixVente(float $prixVente): void {
-        $this->prixVente = (float) $prixVente;
+    public function setPVPoiss(float $PV_POISS): void {
+        $this->PV_POISS = $PV_POISS;
     }
 
-    public function getStockReel(): float {
-        return $this->stock_reel;
+    public function setMBPoiss(?float $MB_POISS): void {
+        $this->MB_POISS = $MB_POISS;
     }
 
-    public function setStockReel(float $stock_reel): void {
-        $this->stock_reel = (float) $stock_reel;
+    public function setPVResto(float $PV_RESTO): void {
+        $this->PV_RESTO = $PV_RESTO;
     }
 
-    public function getStockDisponible(): float {
-        return $this->stock_disponible;
+    public function setMBResto(?float $MB_RESTO): void {
+        $this->MB_RESTO = $MB_RESTO;
     }
 
-    public function setStockDisponible(float $stock_disponible): void {
-        $this->stock_disponible = (float) $stock_disponible;
+    public function setPVGD(float $PV_GD): void {
+        $this->PV_GD = $PV_GD;
     }
 
-    public function getPoidsNet(): float {
-        return $this->poids_Net;
+    public function setMBGD(?float $MB_GD): void {
+        $this->MB_GD = $MB_GD;
     }
 
-    public function setPoidsNet(float $poids_Net): void {
-        $this->poids_Net = (float) $poids_Net;
-    }
-
-    public function getStockATerme(): ?float {
-        return $this->stockATerme;
-    }
-
-    public function setStockATerme(?float $stockATerme): void {
-        $this->stockATerme = (int) $stockATerme;
-    }
 }
-?>

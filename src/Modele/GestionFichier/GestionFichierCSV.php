@@ -82,80 +82,80 @@ class GestionFichierCSV {
         }
 
         // Passer la première ligne (les en-têtes)
-        fgetcsv($handle);
+        fgetcsv($handle, 0, ';');  // Spécifie le point-virgule comme délimiteur
 
         try {
+            // Préparation de la requête d'insertion avec les nouvelles colonnes
             $stmtProduit = $this->pdo->prepare(
-                "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net, PERMANENT) 
-              VALUES (?, ?, ?, ?, ?, ?, ?,?)"
+                "INSERT INTO produit 
+            (reference_article, designation, parenthese, PV_POISS, MB_POISS, PV_RESTO, MB_RESTO, PV_GD, MB_GD) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
 
             // Tableau pour les lignes uniques
             $uniqueRows = [];
 
-            while (($row = fgetcsv($handle)) !== FALSE) {
-                // Nettoyer les valeurs pour éviter les erreurs SQL
+            $rowNumber = 1;  // Initialiser le compteur de lignes
+            while (($row = fgetcsv($handle, 0, ';')) !== FALSE) {  // Spécifie le point-virgule comme délimiteur
+                $rowNumber++;  // Incrémenter le numéro de ligne
+
+                // Nettoyer et valider reference_article
                 $reference_article = trim($row[0] ?? '');
+
+                // Vérifier si reference_article est un nombre valide
+                if (!is_numeric($reference_article)) {
+                    return ["error" => "La référence de l'article doit être un nombre valide. Erreur à la ligne " . $rowNumber . " avec la valeur : " . $row[0]];
+                }
+
+                // Convertir la valeur en entier
+                $reference_article = (int)$reference_article;
+
+                // Nettoyer les autres valeurs
                 $designation = trim($row[1] ?? '');
-                $prixVente = trim($row[2] ?? '');
-                $stockReel = trim($row[3] ?? 0);
-                $stockDisponible = trim($row[4] ?? 0);
-                $stockATerme = trim($row[5] ?? NULL);
-                $poidsNet = trim($row[6] ?? 0);
-                $PERMANENT = trim($row[7] ?? NULL);
+                $parenthese = trim($row[2] ?? '');
 
-                // Convertir la designation en UTF-8
-                $designation = mb_convert_encoding($designation, 'UTF-8', 'auto');
+                // Convertir les valeurs avec des virgules en points
+                $PV_POISS = str_replace(',', '.', trim($row[3] ?? 0));
+                $MB_POISS = str_replace(',', '.', trim($row[4] ?? NULL));
+                $PV_RESTO = str_replace(',', '.', trim($row[5] ?? 0));
+                $MB_RESTO = str_replace(',', '.', trim($row[6] ?? NULL));
+                $PV_GD = str_replace(',', '.', trim($row[7] ?? 0));
+                $MB_GD = str_replace(',', '.', trim($row[8] ?? NULL));
 
-                // Supprimer les caractères non valides de designation
-                $designation = preg_replace('/[^\x20-\x7E\xA0-\xFF]/', '', $designation);
+                // Convertir parenthese en UTF-8 pour éviter des problèmes d'encodage
+                $parenthese = mb_convert_encoding($parenthese, 'UTF-8', 'auto');
+                $designation = mb_convert_encoding(trim($row[1] ?? ''), 'UTF-8', 'auto');
 
-                // Nettoyer la valeur de Poids_Net pour enlever " kg"
-                if (strpos($poidsNet, ' kg') !== false) {
-                    $poidsNet = str_replace(' kg', '', $poidsNet);
-                }
 
-                // Vérifier si Poids_Net est numérique
-                if (!is_numeric($poidsNet)) {
-                    $poidsNet = 0; // ou NULL si tu préfères
-                } else {
-                    $poidsNet = (float)$poidsNet;
-                }
+                // Vérifier que les valeurs sont numériques après remplacement
+                $PV_POISS = is_numeric($PV_POISS) ? (float)$PV_POISS : 0;
+                $MB_POISS = is_numeric($MB_POISS) ? (float)$MB_POISS : NULL;
+                $PV_RESTO = is_numeric($PV_RESTO) ? (float)$PV_RESTO : 0;
+                $MB_RESTO = is_numeric($MB_RESTO) ? (float)$MB_RESTO : NULL;
+                $PV_GD = is_numeric($PV_GD) ? (float)$PV_GD : 0;
+                $MB_GD = is_numeric($MB_GD) ? (float)$MB_GD : NULL;
 
-                // Vérifier et nettoyer stockReel
-                if (!is_numeric($stockReel)) {
-                    $stockReel = 0;
-                } else {
-                    $stockReel = (float)$stockReel;
-                }
+                // Vérifier si la référence de l'article existe déjà dans la base de données
+                $stmtCheck = $this->pdo->prepare("SELECT COUNT(*) FROM produit WHERE reference_article = ?");
+                $stmtCheck->execute([$reference_article]);
+                $exists = $stmtCheck->fetchColumn();
 
-                // Vérifier et nettoyer stockDisponible
-                if (!is_numeric($stockDisponible)) {
-                    $stockDisponible = 0;
-                } else {
-                    $stockDisponible = (float)$stockDisponible;
-                }
+                // Si la référence existe déjà, ignorer l'insertion ou mettre à jour (selon ce que tu veux faire)
+                if ($exists == 0) {
+                    // Créer une clé unique pour chaque produit
+                    $rowKey = $reference_article . '|' . $designation;
 
-                // Vérifier et nettoyer stockATerme, le rendre NULL si vide
-                if (empty($stockATerme) || !is_numeric($stockATerme)) {
-                    $stockATerme = NULL; // ou 0 si tu préfères
-                } else {
-                    $stockATerme = (float)$stockATerme;
-                }
+                    // Vérifier si la ligne existe déjà dans les lignes uniques
+                    if (!in_array($rowKey, $uniqueRows)) {
+                        // Ajouter la ligne unique et insérer les données dans la table produit
+                        $uniqueRows[] = $rowKey;
 
-                // Créer une clé unique pour chaque produit
-                $rowKey = $reference_article . '|' . $designation;
-
-                // Vérifier si la ligne existe déjà dans les lignes uniques
-                if (!in_array($rowKey, $uniqueRows)) {
-                    // Ajouter la ligne unique et insérer les données dans la table produit
-                    $uniqueRows[] = $rowKey;
-
-                    // Exécution de la requête d'insertion
-                    if (!$stmtProduit->execute([$reference_article, $designation, $prixVente, $stockReel, $stockDisponible, $stockATerme, $poidsNet, $PERMANENT])) {
-                        // Si la requête échoue, afficher l'erreur
-                        $errorInfo = $stmtProduit->errorInfo();
-                        return ["error" => "Erreur lors de l'insertion dans la table produit : " . $errorInfo[2]];
+                        // Exécution de la requête d'insertion
+                        if (!$stmtProduit->execute([$reference_article, $designation, $parenthese, $PV_POISS, $MB_POISS, $PV_RESTO, $MB_RESTO, $PV_GD, $MB_GD])) {
+                            // Si la requête échoue, afficher l'erreur
+                            $errorInfo = $stmtProduit->errorInfo();
+                            return ["error" => "Erreur lors de l'insertion dans la table produit : " . $errorInfo[2]];
+                        }
                     }
                 }
             }
@@ -167,6 +167,8 @@ class GestionFichierCSV {
             return ["error" => "Erreur de base de données : " . $e->getMessage()];
         }
     }
+
+
 
 
 

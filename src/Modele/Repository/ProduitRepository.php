@@ -31,7 +31,7 @@ class ProduitRepository extends AbstractRepository
      * Action : retourne le nom des colonnes de la table produits
      */
     protected function getNomColonnes(): array {
-        return ["reference_article", "designation", "prixVente", "stock_reel", "stock_disponible", "stockATerme", "poids_Net", "PERMANENT"];
+        return ["reference_article", "designation", "parenthese", "PV_POISS", "MB_POISS", "PV_RESTO", "MB_RESTO", "PV_GD", "MB_GD"];
     }
 
     /**
@@ -45,12 +45,13 @@ class ProduitRepository extends AbstractRepository
         return [
             'reference_article' . $i => $produit->getReferenceArticle(),
             'designation' . $i => $produit->getDesignation(),
-            'prixVente' . $i => $produit->getPrixVente(),
-            'stock_reel' . $i => $produit->getStockReel(),
-            'stock_disponible' . $i => $produit->getStockDisponible(),
-            'stockATerme' . $i => $produit->getStockATerme(),
-            'poids_Net' . $i => $produit->getPoidsNet(),
-            'PERMANENT' . $i => $produit->getPermanent(),
+            'parenthese' . $i => $produit->getParenthese(),
+            'PV_POISS' . $i => $produit->getPVPoiss(),
+            'MB_POISS' . $i => $produit->getMBPoiss(),
+            'PV_RESTO' . $i => $produit->getPVResto(),
+            'MB_RESTO' . $i => $produit->getMBResto(),
+            'PV_GD' . $i => $produit->getPVGD(),
+            'MB_GD' . $i => $produit->getMBGD(),
         ];
 
     }
@@ -64,12 +65,13 @@ class ProduitRepository extends AbstractRepository
         return new Produit(
             $objetFormatTableau['reference_article'],
             $objetFormatTableau['designation'],
-            $objetFormatTableau['prixVente'],
-            $objetFormatTableau['stock_reel'] ?? 0.0,         // ✅ Remplace NULL par 0.0
-            $objetFormatTableau['stock_disponible'] ?? 0.0,      // ✅ Remplace NULL par 0.0
-            $objetFormatTableau['stockATerme'] ?? 0.0,
-            $objetFormatTableau['poids_Net'] ?? 0.0,  // ✅ Remplace NULL par 0.0
-        $objetFormatTableau['PERMANENT'] ?? 0.0,
+            $objetFormatTableau['parenthese'],
+            $objetFormatTableau['PV_POISS'],
+            $objetFormatTableau['MB_POISS'] ?? null,
+            $objetFormatTableau['PV_RESTO'],
+            $objetFormatTableau['MB_RESTO'] ?? null,
+            $objetFormatTableau['PV_GD'],
+            $objetFormatTableau['MB_GD'] ?? null
         );
     }
 
@@ -113,18 +115,19 @@ class ProduitRepository extends AbstractRepository
 
     public static function ajouterProd(Produit $produit): void {
         try {
-            $sql = "INSERT INTO produit (reference_article, designation, prixVente, stock_reel, stock_disponible, stockATerme, poids_Net, PERMANENT) 
-                VALUES (:reference_article, :designation, :prixVente, :stock_reel, :stock_disponible, :stockATerme, :poids_Net, :PERMANENT)";
+            $sql = "INSERT INTO produit (reference_article, designation, parenthese, PV_POISS, MB_POISS, PV_RESTO, MB_RESTO, PV_GD, MB_GD) 
+                    VALUES (:reference_article, :designation, :parenthese, :PV_POISS, :MB_POISS, :PV_RESTO, :MB_RESTO, :PV_GD, :MB_GD)";
 
-            $values = [
+            $values= [
                 "reference_article" => $produit->getReferenceArticle(),
                 "designation" => $produit->getDesignation(),
-                "prixVente" => $produit->getPrixVente(),
-                "stock_reel" => $produit->getStockReel(),
-                "stock_disponible" => $produit->getStockDisponible(),
-                "stockATerme" => $produit->getStockATerme(),
-                "poids_Net" => $produit->getPoidsNet(),
-                "PERMANENT" => $produit->getPermanent(),
+                "parenthese" => $produit->getParenthese(),
+                "PV_POISS" => $produit->getPVPoiss(),
+                "MB_POISS" => $produit->getMBPoiss(),
+                "PV_RESTO" => $produit->getPVResto(),
+                "MB_RESTO" => $produit->getMBResto(),
+                "PV_GD" => $produit->getPVGD(),
+                "MB_GD" => $produit->getMBGD(),
             ];
 
             $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
@@ -141,24 +144,26 @@ class ProduitRepository extends AbstractRepository
     public static function modifierProduit(Produit $produit): void {
         $sql = "UPDATE produit SET 
                 designation = :designation, 
-                prixVente = :prixVente, 
-                stock_reel = :stock_reel, 
-                stock_disponible = :stock_disponible, 
-                stockATerme = :stockATerme, 
-                poids_Net = :poids_Net,
-                PERMANENT = :PERMANENT
+                parenthese = :parenthese, 
+                PV_POISS = :PV_POISS, 
+                MB_POISS = :MB_POISS, 
+                PV_RESTO = :PV_RESTO, 
+                MB_RESTO = :MB_RESTO, 
+                PV_GD = :PV_GD, 
+                MB_GD = :MB_GD
             WHERE reference_article = :reference_article";
 
         $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
         $pdoStatement->execute([
             "reference_article" => $produit->getReferenceArticle(),
             "designation" => $produit->getDesignation(),
-            "prixVente" => $produit->getPrixVente(),
-            "stock_reel" => $produit->getStockReel(),
-            "stock_disponible" => $produit->getStockDisponible(),
-            "stockATerme" => $produit->getStockATerme(),
-            "poids_Net" => $produit->getPoidsNet(),
-            "PERMANENT" => $produit->getPermanent(),
+            "parenthese" => $produit->getParenthese(),
+            "PV_POISS" => $produit->getPVPoiss(),
+            "MB_POISS" => $produit->getMBPoiss(),
+            "PV_RESTO" => $produit->getPVResto(),
+            "MB_RESTO" => $produit->getMBResto(),
+            "PV_GD" => $produit->getPVGD(),
+            "MB_GD" => $produit->getMBGD(),
         ]);
     }
 

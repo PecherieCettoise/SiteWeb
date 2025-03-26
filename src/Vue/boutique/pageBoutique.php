@@ -109,14 +109,13 @@
     <?php else: ?>
         <?php foreach ($produits as $produit): ?>
             <tr>
-                <?php if ($produit->getPERMANENT() == 0 || $produit->getPERMANENT() == 1 || $produit->getPERMANENT() == 'OUI'): ?>
                 <td><?= htmlspecialchars($produit->getReferenceArticle()) ?></td>
                 <td><a href="controleurFrontal.php?controleur=produit&action=afficherProduit&id=<?= urlencode($produit->getReferenceArticle()) ?>">
                         <?= htmlspecialchars($produit->getDesignation()) ?>
                     </a></td>
-                <td><?= htmlspecialchars($produit->getPoidsNet()) ?> kg</td>
-                <td><?= number_format($produit->getPrixVente(), 2, ',', ' ') ?> €</td>
-                <?php endif; ?>
+                <td><?= htmlspecialchars($produit->getParenthese()) ?></td>
+                <td><?= number_format($produit->getPVPOISS(), 2, ',', ' ') ?> €</td>
+
             </tr>
         <?php endforeach; ?>
     <?php endif; ?>

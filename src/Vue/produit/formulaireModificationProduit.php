@@ -14,20 +14,17 @@
     <tr>
         <th>Référence</th>
         <th>Désignation</th>
-        <th>Prix de vente</th>
-        <th>Stock réel</th>
-        <th>Stock disponible</th>
-        <th>Stock à terme</th>
-        <th>Poids net</th>
-        <th>Permanent</th>
+        <th>Parenthèse</th>
+        <th>Prix de vente Poisson</th>
+        <th>Prix de vente Resto</th>
+        <th>Prix de vente GD</th>
         <th>Modifier</th>
-
     </tr>
     </thead>
     <tbody>
     <?php if (empty($produits)): ?>
         <tr>
-            <td colspan="8">Aucun produit disponible</td>
+            <td colspan="7">Aucun produit disponible</td>
         </tr>
     <?php else: ?>
         <?php foreach ($produits as $produit): ?>
@@ -40,23 +37,26 @@
                     <!-- Désignation produit -->
                     <td><input type="text" name="designation" value="<?= htmlspecialchars($produit->getDesignation()) ?>" required></td>
 
-                    <!-- Prix de vente -->
-                    <td><input type="number" step="0.01" name="prixVente" value="<?= htmlspecialchars($produit->getPrixVente()) ?>" required></td>
+                    <!-- Parenthèse produit -->
+                    <td><input type="text" name="parenthese" value="<?= htmlspecialchars($produit->getParenthese()) ?>" required></td>
 
-                    <!-- Stock réel -->
-                    <td><input type="number" name="stock_reel" value="<?= htmlspecialchars($produit->getStockReel()) ?>" required></td>
+                    <!-- Prix de vente Poisson -->
+                    <td><input type="number" step="0.01" name="prixVentePoisson" value="<?= htmlspecialchars($produit->getPVPoiss()) ?>" required></td>
 
-                    <!-- Stock disponible -->
-                    <td><input type="number" name="stock_disponible" value="<?= htmlspecialchars($produit->getStockDisponible()) ?>" required></td>
+                    <!-- Prix de vente Resto -->
+                    <td><input type="number" step="0.01" name="prixVenteResto" value="<?= htmlspecialchars($produit->getPVResto()) ?>" required></td>
 
-                    <!-- Stock à terme -->
-                    <td><input type="number" name="stockATerme" value="<?= htmlspecialchars($produit->getStockATerme()) ?>" required></td>
+                    <!-- Prix de vente GD -->
+                    <td><input type="number" step="0.01" name="prixVenteGD" value="<?= htmlspecialchars($produit->getPVGD()) ?>" required></td>
 
-                    <!-- Poids net -->
-                    <td><input type="number" step="0.01" name="poids_Net" value="<?= htmlspecialchars($produit->getPoidsNet()) ?>" required></td>
+                    <!-- Prix de vente Poisson -->
+                    <td><input type="number" step="0.01" name="PV_POISS" value="<?= htmlspecialchars($produit->getPVPoiss()) ?>" required></td>
 
-                    <td><input type="text" name="PERMANENT" value="<?= htmlspecialchars($produit->getPermanent()) ?>" required></td>
+                    <!-- Prix de vente Resto -->
+                    <td><input type="number" step="0.01" name="PV_RESTO" value="<?= htmlspecialchars($produit->getPVResto()) ?>" required></td>
 
+                    <!-- Prix de vente GD -->
+                    <td><input type="number" step="0.01" name="PV_GD" value="<?= htmlspecialchars($produit->getPVGD()) ?>" required></td>
 
 
                     <!-- Champ caché pour la référence article (pour l'identifier lors de la modification) -->
