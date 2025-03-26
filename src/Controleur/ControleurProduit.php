@@ -58,6 +58,11 @@ class ControleurProduit extends ControleurGenerique {
         // Nombre de produits par page
         $produitsParPage = 30;
 
+        // Vérifier si le paramètre 'page' est dans l'URL, sinon utiliser la valeur par défaut
+        if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $page = (int) $_GET['page'];
+        }
+
         // Calcul du début de la page
         $offset = ($page - 1) * $produitsParPage;
 
@@ -65,7 +70,7 @@ class ControleurProduit extends ControleurGenerique {
         $produits = (new ProduitRepository())->getProduitsParPage($offset, $produitsParPage);
 
         // Récupérer le nombre total de produits pour calculer le nombre de pages
-        $totalProduits = (new ProduitRepository())->getTotalProduits();
+        $totalProduits = (new ProduitRepository())->compterTousLesProduits();
         $totalPages = ceil($totalProduits / $produitsParPage);
 
         // Assurer que la page est dans les limites
@@ -85,6 +90,8 @@ class ControleurProduit extends ControleurGenerique {
             'totalPages' => $totalPages
         ]);
     }
+
+
 
     public static function afficherProduit() {
         $idProduit = $_GET['id'] ?? null;

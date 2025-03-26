@@ -82,6 +82,14 @@ class Utilisateur extends AbstractDataObject {
         $this->Role = $Role;
     }
 
+    public static function estRestaurant($Role) : bool{
+        return $Role === "restaurant";
+    }
+
+    public static function estGrandeDistribution($Role) : bool{
+        return $Role === "grande distribution";
+    }
+
     public static function estProfessionnel($Role) : bool{
         return $Role === "professionnel";
     }

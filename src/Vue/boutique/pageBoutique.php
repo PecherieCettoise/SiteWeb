@@ -97,8 +97,20 @@
     <tr>
         <th>Référence</th>
         <th>Désignation</th>
-        <th>Poids net</th>
-        <th>Prix Vente</th>
+        <th>Parenthèse</th>
+        <?php use App\Pecherie\Modele\DataObject\Utilisateur;
+        if (Utilisateur::estAdministrateur("administrateur")) : ?>
+            <th>Prix Vente Professionnel</th>
+            <th>Prix Vente Restaurant</th>
+            <th>Prix Vente Grande Distribution</th>
+        <?php elseif (Utilisateur::estProfessionnel("professionnel")) : ?>
+            <th>Prix Vente Professionnel</th>
+        <?php elseif (Utilisateur::estRestaurant("restaurant")) : ?>
+            <th>Prix Vente Restaurant</th>
+        <?php else: ?>
+            <th>Prix Vente Grande Distribution</th>
+        <?php endif; ?>
+
     </tr>
     </thead>
     <tbody>
@@ -109,16 +121,26 @@
     <?php else: ?>
         <?php foreach ($produits as $produit): ?>
             <tr>
-                <td><?= htmlspecialchars($produit->getReferenceArticle()) ?></td>
-                <td><a href="controleurFrontal.php?controleur=produit&action=afficherProduit&id=<?= urlencode($produit->getReferenceArticle()) ?>">
-                        <?= htmlspecialchars($produit->getDesignation()) ?>
-                    </a></td>
-                <td><?= htmlspecialchars($produit->getParenthese()) ?></td>
+        <td><?= htmlspecialchars($produit->getReferenceArticle()) ?></td>
+        <td><a href="controleurFrontal.php?controleur=produit&action=afficherProduit&id=<?= urlencode($produit->getReferenceArticle()) ?>">
+                <?= htmlspecialchars($produit->getDesignation()) ?>
+            </a>
+        </td>
+        <td><?= htmlspecialchars($produit->getParenthese()) ?></td>
+        <?php if (Utilisateur::estAdministrateur("administrateur")) : ?>
                 <td><?= number_format($produit->getPVPOISS(), 2, ',', ' ') ?> €</td>
-
-            </tr>
-        <?php endforeach; ?>
+                <td><?= number_format($produit->getPVRESTO(), 2, ',', ' ') ?> €</td>
+                <td><?= number_format($produit->getPVGD(), 2, ',', ' ') ?> €</td>
+        <?php elseif (Utilisateur::estProfessionnel("professionnel")) : ?>
+                <td><?= number_format($produit->getPVPOISS(), 2, ',', ' ') ?> €</td>
+        <?php elseif (Utilisateur::estGrandeDistribution("grande distribution")) : ?>
+                <td><?= number_format($produit->getPVGD(), 2, ',', ' ') ?> €</td>
+        <?php else : ?>
+                <td><?= number_format($produit->getPVPOISS(), 2, ',', ' ') ?> €</td>
+        <?php endif; ?>
+            </tr><?php endforeach; ?>
     <?php endif; ?>
+
     </tbody>
 </table>
 

@@ -204,6 +204,27 @@ class ProduitRepository extends AbstractRepository
     }
 
 
+    public function getProduitsParPage(int $offset, int $limit): array {
+        $sql = "SELECT * FROM produit LIMIT :offset, :limit";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+        $pdoStatement->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $pdoStatement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $pdoStatement->execute();
+
+        $produits = [];
+        $produitsFormatTableau = $pdoStatement->fetchAll();
+
+        foreach ($produitsFormatTableau as $produitFormat) {
+            $produits[] = ProduitRepository::construireDepuisTableauSQL($produitFormat);
+        }
+
+        return $produits;
+    }
+
+
+
+
+
 
 
 

@@ -81,6 +81,16 @@ class GestionFichierCSV {
             return ["error" => "Erreur lors de l'ouverture du fichier CSV."];
         }
 
+        // Lire tout le fichier et forcer l'encodage en UTF-8 (si nécessaire)
+        $fileContents = file_get_contents($fileTmpPath);
+        $fileContents = mb_convert_encoding($fileContents, 'UTF-8', 'auto');  // Convertir en UTF-8
+        $tempFile = tmpfile();
+        fwrite($tempFile, $fileContents);
+        rewind($tempFile);
+
+        // Ouvrir le fichier corrigé
+        $handle = $tempFile;
+
         // Passer la première ligne (les en-têtes)
         fgetcsv($handle, 0, ';');  // Spécifie le point-virgule comme délimiteur
 
@@ -101,18 +111,17 @@ class GestionFichierCSV {
 
                 // Nettoyer et valider reference_article
                 $reference_article = trim($row[0] ?? '');
-
-                // Vérifier si reference_article est un nombre valide
                 if (!is_numeric($reference_article)) {
                     return ["error" => "La référence de l'article doit être un nombre valide. Erreur à la ligne " . $rowNumber . " avec la valeur : " . $row[0]];
                 }
-
-                // Convertir la valeur en entier
                 $reference_article = (int)$reference_article;
 
-                // Nettoyer les autres valeurs
-                $designation = trim($row[1] ?? '');
-                $parenthese = trim($row[2] ?? '');
+                // Convertir les valeurs en UTF-8, tout en nettoyant les espaces et les caractères spéciaux
+                $designation = mb_convert_encoding(trim($row[1] ?? ''), 'UTF-8', 'auto');
+                $parenthese = mb_convert_encoding(trim($row[2] ?? ''), 'UTF-8', 'auto');
+                if ($parenthese === "0") {
+                    $parenthese = '';
+                }
 
                 // Convertir les valeurs avec des virgules en points
                 $PV_POISS = str_replace(',', '.', trim($row[3] ?? 0));
@@ -122,12 +131,7 @@ class GestionFichierCSV {
                 $PV_GD = str_replace(',', '.', trim($row[7] ?? 0));
                 $MB_GD = str_replace(',', '.', trim($row[8] ?? NULL));
 
-                // Convertir parenthese en UTF-8 pour éviter des problèmes d'encodage
-                $parenthese = mb_convert_encoding($parenthese, 'UTF-8', 'auto');
-                $designation = mb_convert_encoding(trim($row[1] ?? ''), 'UTF-8', 'auto');
-
-
-                // Vérifier que les valeurs sont numériques après remplacement
+                // Vérifier que les valeurs sont numériques
                 $PV_POISS = is_numeric($PV_POISS) ? (float)$PV_POISS : 0;
                 $MB_POISS = is_numeric($MB_POISS) ? (float)$MB_POISS : NULL;
                 $PV_RESTO = is_numeric($PV_RESTO) ? (float)$PV_RESTO : 0;
@@ -140,19 +144,17 @@ class GestionFichierCSV {
                 $stmtCheck->execute([$reference_article]);
                 $exists = $stmtCheck->fetchColumn();
 
-                // Si la référence existe déjà, ignorer l'insertion ou mettre à jour (selon ce que tu veux faire)
+                // Si la référence existe déjà, ignorer l'insertion ou mettre à jour
                 if ($exists == 0) {
                     // Créer une clé unique pour chaque produit
                     $rowKey = $reference_article . '|' . $designation;
 
                     // Vérifier si la ligne existe déjà dans les lignes uniques
                     if (!in_array($rowKey, $uniqueRows)) {
-                        // Ajouter la ligne unique et insérer les données dans la table produit
                         $uniqueRows[] = $rowKey;
 
                         // Exécution de la requête d'insertion
                         if (!$stmtProduit->execute([$reference_article, $designation, $parenthese, $PV_POISS, $MB_POISS, $PV_RESTO, $MB_RESTO, $PV_GD, $MB_GD])) {
-                            // Si la requête échoue, afficher l'erreur
                             $errorInfo = $stmtProduit->errorInfo();
                             return ["error" => "Erreur lors de l'insertion dans la table produit : " . $errorInfo[2]];
                         }
@@ -161,7 +163,6 @@ class GestionFichierCSV {
             }
 
             fclose($handle);
-
             return ["success" => "Importation réussie."];
         } catch (PDOException $e) {
             return ["error" => "Erreur de base de données : " . $e->getMessage()];
@@ -172,11 +173,16 @@ class GestionFichierCSV {
 
 
 
+
     // Fonction pour déterminer le rôle
     private function determinerRole(string $categorie_tarifaire): string {
         // Vérifie les différents types de catégories et renvoie le rôle approprié
-        if (in_array($categorie_tarifaire, ['PROFESSIONNELS', 'GD', 'RESTAURANT'])) {
+        if (in_array($categorie_tarifaire, ['PROFESSIONNELS'])) {
             return 'professionnel';
+        } elseif (in_array($categorie_tarifaire, ['GD'])) {
+            return 'grande distribution';
+        } elseif (in_array($categorie_tarifaire, ['RESTAURANT'])) {
+            return 'restaurant';
         }
         return 'particulier';
     }

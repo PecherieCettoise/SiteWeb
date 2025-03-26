@@ -26,6 +26,8 @@
             <option value="particulier">Particulier</option>
             <option value="professionnel">Professionnel</option>
             <option value="administrateur">Administrateur</option>
+            <option value="grande distribution">Grande distribution</option>
+            <option value="restaurant">Restaurant</option>
         </select>
     </div>
 

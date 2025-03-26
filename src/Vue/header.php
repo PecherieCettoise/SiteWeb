@@ -11,39 +11,42 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
     <!-- Icône du menu déroulant pour les petits écrans -->
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
-    <!-- Menu principal -->
-    <div class="header-bouton">
-        <strong>
-            <?php
-            // Vérifie si on est sur la page de la boutique
-            if (isset($_GET['action']) && $_GET['action'] === 'afficherBoutique' && isset($_GET['controleur']) && $_GET['controleur'] === 'produit' && ConnexionUtilisateur::estConnecte()) {
-                // Si on est sur la page boutique, afficher la barre de recherche
-                echo '
-                <form action="controleurFrontal.php" method="get" class="search-form>
-                    <input type="hidden" name="action" value="afficherBoutique">
-                    <input type="hidden" name="controleur" value="produit">
-                    <input type="text" name="search" class="search-input" placeholder="Rechercher un produit..." value="' . (isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '') . '">
-                    <button type="submit">Rechercher</button>
-                </form>';
-            }
-            ?>
+    <!-- Si on est sur la boutique, on affiche uniquement la barre de recherche -->
+    <?php if (isset($_GET['action']) && $_GET['action'] === 'afficherBoutique' && isset($_GET['controleur']) && $_GET['controleur'] === 'produit') : ?>
+        <?php if (ConnexionUtilisateur::estConnecte()) : ?>
+            <form action="controleurFrontal.php" method="get" class="search-form">
+                <input type="hidden" name="action" value="afficherBoutique">
+                <input type="hidden" name="controleur" value="produit">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher un produit..."
+                       value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                <button type="submit">Rechercher</button>
+            </form>
+        <?php endif; ?>
 
-            <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">ACCUEIL</a>
-            <a href="controleurFrontal.php?action=afficherPecherieCettoise&controleur=page">LA PÊCHERIE CETTOISE</a>
-            <a href="controleurFrontal.php?action=afficherProduits&controleur=page">NOS PRODUITS</a>
-            <a href="controleurFrontal.php?action=afficherEngagements&controleur=page">NOS ENGAGEMENTS</a>
-            <a href="controleurFrontal.php?action=afficherActualites&controleur=page">ACTUALITÉS</a>
-            <a href="controleurFrontal.php?action=afficherCandidatures&controleur=page">CANDIDATURE</a>
-            <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
-            <?php if (ConnexionUtilisateur::estConnecte()) : ?>
-                <a href="controleurFrontal.php?action=afficherBoutique&controleur=produit">BOUTIQUE</a>
-            <?php endif; ?>
-            <?php if (ConnexionUtilisateur::estConnecte() && Utilisateur::estAdministrateur("administrateur")) : ?>
-            <a href="controleurFrontal.php?action=afficherPageAdmin&controleur=utilisateur">ADMINISTRATEUR</a>
-            <?php endif; ?>
-        </strong>
-    </div>
+    <?php else : ?>
+        <!-- Menu principal (affiché seulement si on n'est PAS sur la boutique) -->
+        <div class="header-bouton">
+            <strong>
+                <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">ACCUEIL</a>
+                <a href="controleurFrontal.php?action=afficherPecherieCettoise&controleur=page">LA PÊCHERIE CETTOISE</a>
+                <a href="controleurFrontal.php?action=afficherProduits&controleur=page">NOS PRODUITS</a>
+                <a href="controleurFrontal.php?action=afficherEngagements&controleur=page">NOS ENGAGEMENTS</a>
+                <a href="controleurFrontal.php?action=afficherActualites&controleur=page">ACTUALITÉS</a>
+                <a href="controleurFrontal.php?action=afficherCandidatures&controleur=page">CANDIDATURE</a>
+                <a href="controleurFrontal.php?action=afficherContact&controleur=page">CONTACT</a>
 
+                <?php if (ConnexionUtilisateur::estConnecte()) : ?>
+                    <a href="controleurFrontal.php?action=afficherBoutique&controleur=produit">BOUTIQUE</a>
+                <?php endif; ?>
+
+                <?php if (ConnexionUtilisateur::estConnecte() && Utilisateur::estAdministrateur("administrateur")) : ?>
+                    <a href="controleurFrontal.php?action=afficherPageAdmin&controleur=utilisateur">ADMINISTRATEUR</a>
+                <?php endif; ?>
+            </strong>
+        </div>
+    <?php endif; ?>
+
+    <!-- Icônes de connexion/déconnexion -->
     <?php if (ConnexionUtilisateur::estConnecte()) : ?>
         <a href="controleurFrontal.php?action=afficherProfil&controleur=utilisateur">
             <img src="../../ressources/images/connexion/iconeConnecter.png" class="header-recherche">
@@ -59,6 +62,7 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
     <?php endif; ?>
 </header>
 
+
 <!-- Menu déroulant pour les petits écrans -->
 <div class="menu-dropdown" id="menuDropdown">
     <a href="controleurFrontal.php?action=afficherAccueil&controleur=page">ACCUEIL</a>
@@ -73,31 +77,31 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
         <a href="controleurFrontal.php?action=afficherBoutique&controleur=produit">BOUTIQUE</a>
     <?php endif; ?>
 </div>
+
 <div>
     <?php
     /** @var string[][] $messagesFlash */
-    foreach($messagesFlash as $type => $messagesFlashPourUnType) {
-        // $type est l'une des valeurs suivantes : "success", "info", "warning", "danger"
-        // $messagesFlashPourUnType est la liste des messages flash d'un type
-        foreach ($messagesFlashPourUnType as $messageFlash) {
-            echo "
-            <div class=\"alert alert-$type\">
-               $messageFlash
-            </div>";
+    if (isset($messagesFlash)) {
+        foreach ($messagesFlash as $type => $messagesFlashPourUnType) {
+            foreach ($messagesFlashPourUnType as $messageFlash) {
+                echo "
+                <div class=\"alert alert-$type\">
+                   $messageFlash
+                </div>";
+            }
         }
     }
     ?>
 </div>
 
 <style>
-
     .search-form {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        width: 600px;
-        max-width: 500px;
+        width: 100%;
+        max-width: 600px;
         margin: 0 auto;
         padding: 10px;
         background-color: #333;
@@ -107,6 +111,7 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
         display: flex;
         flex-direction: row;
     }
+
     /* Styles du menu déroulant */
     .menu-dropdown {
         display: none;
@@ -141,20 +146,17 @@ use App\Pecherie\Modele\HTTP\ConnexionUtilisateur; ?>
 
     /* Afficher le menu déroulant et l'icône sur petits écrans */
     @media (max-width: 768px) {
-
-
         .menu-icon {
-            display: block; /* Affiche l'icône */
+            display: block;
         }
 
         .menu-dropdown.active {
-            display: block; /* Affiche le menu déroulant lorsque l'icône est cliquée */
+            display: block;
         }
     }
 </style>
 
 <script>
-    // Fonction pour afficher/masquer le menu déroulant
     function toggleMenu() {
         var menu = document.getElementById("menuDropdown");
         menu.classList.toggle("active");
